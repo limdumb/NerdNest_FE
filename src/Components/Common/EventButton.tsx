@@ -30,7 +30,7 @@ const CommonButton = styled.button<ButtonProps>`
       : props.usage === "write"
       ? "#499FEF"
       : "#4489F1"};
-  box-shadow: 1px 1px 1px 1px rgba(0, 17, 255, 0.4);
+  box-shadow: 1px 1px 1px 1px #7695c34a;
   &:hover {
     background-color: ${(props) =>
       props.usage === "login"
