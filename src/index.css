@@ -43,23 +43,4 @@ code {
     monospace;
 }
 
-button {
-  border: none;
-  cursor: pointer;
-}
 
-li {
-  text-decoration: none;
-}
-
-input {
-  padding: 10px;
-}
-
-a {
-  text-decoration: none;
-}
-
-a:visited {
-  color: var(--fc-500);
-}
