@@ -7,13 +7,13 @@ interface InputProps {
   height: string;
   value: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
-  type?: "text" | "password" | "email";
+  type: "text" | "password" | "email";
   placeholder: string;
   radious?: string;
 }
 
 interface Props extends InputProps {
-  label: string;
+  label?: "닉네임" | "H1";
 }
 
 const Input = styled.input<InputProps>`
@@ -30,7 +30,13 @@ const Input = styled.input<InputProps>`
 export default function CommonInput(props: Props) {
   return (
     <div className="Input_Container">
-      <label className="Input_Label">{props.label}</label>
+      <label className="Input_Label">
+        {props.type === "email"
+          ? "이메일"
+          : props.type === "password"
+          ? "비밀번호"
+          : props.label}
+      </label>
       <Input
         radious={props.radious}
         placeholder={props.placeholder}
