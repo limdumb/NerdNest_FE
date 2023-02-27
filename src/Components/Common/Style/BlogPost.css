@@ -1,7 +1,4 @@
 .BlogPost_Wrapper {
-  position: fixed;
-  top: 200px;
-  left: 500px;
   width: 300px;
   height: 400px;
   background-color: var(--blue-500);
@@ -13,7 +10,7 @@
 }
 
 .BlogPost_Wrapper:hover {
-  transform: scale(1.05);
+  transform: scale(1.01);
 }
 
 .BlogPost_Container {
@@ -36,16 +33,11 @@
 }
 
 .BlogPostBody_Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   height: 40%;
   padding: 5px 7px;
-}
-
-.BlogPostBodyTitle_Container {
-  height: 20%;
-}
-
-.BlogPostBodyContent_Container {
-  height: 60%;
 }
 
 .BlogPostInfo_Container {

@@ -5,6 +5,7 @@ import "./Style/BlogPost.css";
 
 interface SpanStyledProps {
   usage: string;
+  mt?: string;
 }
 
 interface IconStyledProps {
@@ -40,9 +41,9 @@ const PostContent = styled.span<SpanStyledProps>`
       : props.usage === "writer"
       ? "var(--fw-bold)"
       : "var(--fw-midium)"};
+  margin-top: ${(props) => props.mt};
   cursor: pointer;
 `;
-
 const IconContainer = styled.div<IconStyledProps>`
   display: flex;
   align-items: center;
@@ -68,12 +69,9 @@ const BlogPost = () => {
             />
           </div>
           <div className="BlogPostBody_Container">
-            <div className="BlogPostBodyTitle_Container">
-              <PostContent usage="title">title</PostContent>
-            </div>
-            <div className="BlogPostBodyContent_Container">
-              <PostContent usage="content">content</PostContent>
-            </div>
+            <PostContent usage="title" mt="10px">
+              title
+            </PostContent>
             <div className="BlogPostInfo_Container">
               <PostContent usage="info">2022년 02월 28일</PostContent>
               <IconContainer
