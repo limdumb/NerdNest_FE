@@ -34,14 +34,11 @@ body {
   --fw-small: 400;
   --fw-midium: 500;
   --fw-bold: 700;
-  --br-s: 5px;
   --br-m: 10px;
-  --br-l: 22px;
+  --br-l: 15px;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-
