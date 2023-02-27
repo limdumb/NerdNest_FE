@@ -13,7 +13,7 @@ interface InputProps {
     | "비밀번호를 입력하세요"
     | "닉네임을 입력하세요"
     | "제목을 입력하세요";
-  radious?: string;
+  radius?: string;
 }
 
 interface Props extends InputProps {
@@ -24,7 +24,7 @@ const Input = styled.input<InputProps>`
   width: ${(props) => (props.width ? props.width : {})};
   height: ${(props) => (props.height ? props.height : {})};
   border: 1px solid gray;
-  border-radius: ${(props) => (props.radious ? props.radious : "none")};
+  border-radius: ${(props) => (props.radius ? props.radius : "none")};
   padding-left: 5px;
   ::placeholder {
     color: #999;
@@ -42,7 +42,7 @@ export default function CommonInput(props: Props) {
           : props.label}
       </label>
       <Input
-        radious={props.radious}
+        radius={props.radius}
         placeholder={props.placeholder}
         type={props.type}
         value={props.value}
