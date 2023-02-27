@@ -39,6 +39,7 @@
 
 .Header_Login_SignUp_Container {
   display: flex;
+  align-items: center;
 }
 
 .btn {
@@ -47,4 +48,11 @@
 
 .btn:hover {
   color: var(--fc-hv-500);
+}
+
+.Header_Member_Image {
+  width: 35px;
+  height: 35px;
+  border-radius: 25px;
+  cursor: pointer;
 }
