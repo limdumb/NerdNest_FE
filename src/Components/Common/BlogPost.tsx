@@ -59,7 +59,7 @@ const IconContainer = styled.div<IconStyledProps>`
 const BlogPost = () => {
   return (
     <>
-      <div className="BlogPost_Wrapper">
+      <header className="BlogPost_Wrapper">
         <div className="BlogPost_Container">
           <div className="BlogPostImage_Container">
             <img
@@ -96,7 +96,7 @@ const BlogPost = () => {
             </IconContainer>
           </div>
         </div>
-      </div>
+      </header>
     </>
   );
 };
