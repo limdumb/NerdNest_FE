@@ -13,10 +13,7 @@ interface InputProps {
 }
 
 interface Props extends InputProps {
-  width: string;
-  height: string;
   label: string;
-  radious: string;
 }
 
 const Input = styled.input<InputProps>`
