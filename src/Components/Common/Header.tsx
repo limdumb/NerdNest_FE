@@ -38,7 +38,7 @@ export default function Header() {
                 &nbsp;/&nbsp;
                 <Link to="/signup">
                   <div className="Header_SignUp btn">회원가입</div>
-                </Link>{" "}
+                </Link>
               </>
             )}
           </div>
