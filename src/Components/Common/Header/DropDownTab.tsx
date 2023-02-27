@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { RxTriangleDown } from "react-icons/rx";
-import "./Style/DropDownTab.css";
+import "../Style/DropDownTab.css";
 
 const DropDownTab = () => {
   const [isTab, setIsTab] = useState(false);

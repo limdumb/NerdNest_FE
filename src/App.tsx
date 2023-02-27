@@ -8,7 +8,7 @@ import Login from "./Pages/Login";
 import Search from "./Pages/Search";
 import SignUp from "./Pages/SignUp";
 import "./App.css";
-import Header from "./Components/Common/Header";
+import Header from "./Components/Common/Header/Header";
 
 function App() {
   return (

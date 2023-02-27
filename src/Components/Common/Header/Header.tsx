@@ -1,9 +1,9 @@
 import { TiPencil } from "react-icons/ti";
 import { RiSearchLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import "./Style/Header.css";
 import { useState } from "react";
-import DropDownTab from "../DropDownTab";
+import DropDownTab from "./DropDownTab";
+import "../Style/Header.css";
 
 export default function Header() {
   const [isLogin, setIsLogin] = useState(true);
