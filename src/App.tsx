@@ -7,12 +7,14 @@ import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Search from "./Pages/Search";
 import SignUp from "./Pages/SignUp";
+import Header from "./Components/Common/Header/Header";
 import "./App.css";
 
 function App() {
   return (
     <>
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

@@ -1,0 +1,58 @@
+.Header_Wrapper {
+  width: 1440px;
+  height: 60px;
+  border-bottom: 1px solid rgb(206, 206, 206);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09);
+}
+
+.Header_Container {
+  width: 1200px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.Header_LogoContainer {
+  border: 1px solid red;
+  width: 120px;
+  height: 47px;
+}
+
+.Header_ManageContainer {
+  width: 18%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.icon {
+  color: var(--fc-500);
+  font-size: var(--font-xxl);
+  cursor: pointer;
+}
+
+.icon:hover {
+  color: var(--fc-hv-500);
+}
+
+.Header_Login_SignUp_Container {
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  background-color: transparent;
+}
+
+.btn:hover {
+  color: var(--fc-hv-500);
+}
+
+.Header_Member_Image {
+  width: 35px;
+  height: 35px;
+  border-radius: 25px;
+  cursor: pointer;
+}
