@@ -42,3 +42,37 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 1200px;
+  background-color: var(--bc-300);
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+ul,
+ol,
+li {
+  list-style-type: none;
+}
+
+input {
+  padding: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: var(--fc-500);
+}
