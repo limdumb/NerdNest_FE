@@ -1,12 +1,11 @@
-import React from "react";
-import CustomButton from "../Components/Common/EventButton";
+import React from 'react';
 
 const Home = () => {
-  return (
-    <div style={{margin:"50px"}}>
-      <CustomButton usage="signUp" />
-    </div>
-  );
+    return (
+        <div>
+            
+        </div>
+    );
 };
 
 export default Home;
