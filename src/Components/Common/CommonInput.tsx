@@ -8,7 +8,11 @@ interface InputProps {
   value: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   type: "text" | "password" | "email";
-  placeholder: string;
+  placeholder:
+    | "이메일을 입력하세요"
+    | "비밀번호를 입력하세요"
+    | "닉네임을 입력하세요"
+    | "제목을 입력하세요";
   radious?: string;
 }
 
