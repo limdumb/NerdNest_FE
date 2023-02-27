@@ -8,11 +8,13 @@ import Login from "./Pages/Login";
 import Search from "./Pages/Search";
 import SignUp from "./Pages/SignUp";
 import "./App.css";
+import Header from "./Components/Common/Header";
 
 function App() {
   return (
     <>
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
