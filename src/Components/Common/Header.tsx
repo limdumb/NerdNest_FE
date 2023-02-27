@@ -1,16 +1,7 @@
 import { TiPencil } from "react-icons/ti";
 import { RiSearchLine } from "react-icons/ri";
-import "./Header.css";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
-
-const LoginSignUpBtn = styled.button`
-  background-color: transparent;
-
-  &:hover {
-    color: var(--fc-hv-500);
-  }
-`;
+import "./Style/Header.css";
 
 export default function Header() {
   return (
@@ -28,11 +19,11 @@ export default function Header() {
           </Link>
           <div className="Header_Login_SignUp_Container">
             <Link to="/login">
-              <LoginSignUpBtn>로그인</LoginSignUpBtn>
+              <div className="Header_Login btn">로그인</div>
             </Link>
-            /
+            &nbsp;/&nbsp; 
             <Link to="/signup">
-              <LoginSignUpBtn>회원가입</LoginSignUpBtn>
+              <div className="Header_SignUp btn">회원가입</div>
             </Link>
           </div>
         </div>
