@@ -13,8 +13,9 @@ interface IconStyledProps {
   iconColor: string;
   iconSize: string;
 }
+
 //PostData Type 미리 지정
-interface PostProps {
+export interface PostProps {
   memberId: number;
   blogId: number;
   titleImageUrl: string;
@@ -59,7 +60,7 @@ const IconContainer = styled.div<IconStyledProps>`
 const BlogPost = ({ post }: { post: PostProps }) => {
   return (
     <>
-      <header className="BlogPost_Wrapper">
+      <div className="BlogPost_Wrapper">
         <div className="BlogPost_Container">
           <div className="BlogPostImage_Container">
             <img
@@ -96,7 +97,7 @@ const BlogPost = ({ post }: { post: PostProps }) => {
             </IconContainer>
           </div>
         </div>
-      </header>
+      </div>
     </>
   );
 };

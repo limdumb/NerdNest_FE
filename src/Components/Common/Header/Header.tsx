@@ -8,7 +8,7 @@ import "../Style/Header.css";
 export default function Header() {
   const [isLogin, setIsLogin] = useState(true);
   return (
-    <div className="Header_Wrapper">
+    <header className="Header_Wrapper">
       <div className="Header_Container">
         <Link to="/">
           <div className="Header_LogoContainer" />
@@ -50,6 +50,6 @@ export default function Header() {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 }
