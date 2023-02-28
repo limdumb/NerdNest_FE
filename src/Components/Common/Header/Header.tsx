@@ -32,11 +32,11 @@ export default function Header() {
               </>
             ) : (
               <>
-                <Link to="/login">
+                <Link to="/auth/login">
                   <div className="Header_Login btn">로그인</div>
                 </Link>
                 &nbsp;/&nbsp;
-                <Link to="/signup">
+                <Link to="/auth/signup">
                   <div className="Header_SignUp btn">회원가입</div>
                 </Link>
               </>
