@@ -13,7 +13,13 @@ export default function Header() {
         <Link to="/">
           <div className="Header_LogoContainer" />
         </Link>
-        <div className="Header_ManageContainer">
+        <div
+          className={
+            isLogin
+              ? "Header_ManageContainer isLogin"
+              : "Header_ManageContainer"
+          }
+        >
           <Link to="/write">
             <TiPencil className="Pencil icon" />
           </Link>
