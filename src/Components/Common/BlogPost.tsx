@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { IoHeartCircle } from "react-icons/io5";
 import { MdOutlineInsertComment } from "react-icons/md";
-import "./Style/BlogPost.css";
 import { PostProps } from "../../Pages/Home";
+import "./Style/BlogPost.css";
 
 interface SpanStyledProps {
   usage: string;
