@@ -9,25 +9,33 @@ import Search from "./Pages/Search";
 import SignUp from "./Pages/SignUp";
 import Header from "./Components/Common/Header/Header";
 import "./App.css";
+import styled from "styled-components";
+
+const RootContainer = styled.div`
+  width: 1200px;
+  margin: 0 auto;
+`;
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signUp" element={<SignUp />} />
-          <Route path="/:writer/:memberId" element={<Blogs />} />
-          <Route path="/write" element={<BlogWrite />} />
-          <Route path="/edit/:blogId" element={<BlogEdit />} />
-          <Route
-            path="/:writer/:memberId/:title/:blogId"
-            element={<BlogDetail />}
-          />
-          <Route path="/search" element={<Search />} />
-        </Routes>
+        <RootContainer>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signUp" element={<SignUp />} />
+            <Route path="/:writer/:memberId" element={<Blogs />} />
+            <Route path="/write" element={<BlogWrite />} />
+            <Route path="/edit/:blogId" element={<BlogEdit />} />
+            <Route
+              path="/:writer/:memberId/:title/:blogId"
+              element={<BlogDetail />}
+            />
+            <Route path="/search" element={<Search />} />
+          </Routes>
+        </RootContainer>
       </BrowserRouter>
     </>
   );

@@ -1,7 +1,11 @@
-body {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bc-300);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -34,9 +38,8 @@ body {
   --fw-small: 400;
   --fw-midium: 500;
   --fw-bold: 700;
-  --br-s: 5px;
   --br-m: 10px;
-  --br-l: 22px;
+  --br-l: 15px;
 }
 
 code {
@@ -44,4 +47,25 @@ code {
     monospace;
 }
 
+button {
+  border: none;
+  cursor: pointer;
+}
 
+ul,
+ol,
+li {
+  list-style-type: none;
+}
+
+input {
+  padding: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: var(--fc-500);
+}

@@ -1,9 +1,9 @@
 .DropDownTab_Container {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 3.7em;
-  right: 9em;
+  position: relative;
+  top: 3.8em;
+  right: 5.5em;
   border: 1px solid var(--hr-500);
   width: 80px;
 }
