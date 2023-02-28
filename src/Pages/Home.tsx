@@ -27,6 +27,12 @@ const Sort = styled.li<{ borderBtm: boolean }>`
   cursor: pointer;
 `;
 
+export const BlogListContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-top: 3em;
+`;
 const Home = () => {
   const sortArr: string[] = ["추천순", "최신순", "내 추천"];
   const [blogList, setBlogList] = useState<ArrPostProps>();
@@ -51,10 +57,10 @@ const Home = () => {
             </Sort>
           ))}
         </ul>
-        <div className="Home_BlogList_Container">
+        <BlogListContainer>
           {blogList &&
             blogList.map((post) => <BlogPost key={post.blogId} post={post} />)}
-        </div>
+        </BlogListContainer>
       </div>
     </div>
   );
