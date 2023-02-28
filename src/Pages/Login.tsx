@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import CommonInput from "../Components/Common/CommonInput";
 import styled from "styled-components";
-import "./Style/login.css";
 import EventButton from "../Components/Common/EventButton";
+import "./Style/login.css";
 
 const AuthContent = styled.div`
   display: flex;
@@ -71,21 +71,25 @@ const Login = () => {
         </li>
         <li>
           <CommonInput
-            radius={"10px"}
+            radius="10px"
             name="password"
             value={loginValue.password}
             onChange={(e) => handleInputChange(e)}
-            type={"password"}
+            type="password"
             placeholder={"비밀번호를 입력하세요"}
           />
         </li>
       </AuthWriteList>
+      {/* oauth 들어올 예정 */}
       <OauthList>
         <div></div>
         <div></div>
       </OauthList>
       <div>
-        <EventButton usage="login" />
+        <EventButton
+          usage="login"
+          onClick={() => console.log("로그인 로직 예정")}
+        />
       </div>
     </AuthContent>
   );
