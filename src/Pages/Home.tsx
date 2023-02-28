@@ -42,7 +42,6 @@ const Home = () => {
     setBlogList(blogListDummy.data);
   }, []);
 
-  console.log(blogList);
   return (
     <div className="Home_Wrapper">
       <div className="Home_Container">
