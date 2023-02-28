@@ -9,18 +9,21 @@ const AuthContent = styled.div`
   flex-direction: column;
   align-items: center;
   width: 625px;
-  height: 100%;
+  height: 70%;
   padding: 20px 10px 20px 10px;
   background-color: var(--fc-300);
   margin-bottom: 40px;
+  border-radius: var(--br-l);
+  border: 1px solid black;
 `;
 
 const AuthWriteList = styled.ul<{ height: string }>`
-  background-color: var(--fc-hv-500);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   width: 100%;
   height: ${(props) => (props.height ? props.height : {})};
-  margin-top: 30px;
-  margin-bottom: 40px;
+  padding-bottom: 100px;
 `;
 
 const OauthList = styled.ul`
@@ -28,7 +31,7 @@ const OauthList = styled.ul`
   width: 40%;
   height: 60px;
   gap: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 70px;
 `;
 
 interface LoginType {
@@ -55,9 +58,10 @@ const Login = () => {
       <div>
         <h2>로그인</h2>
       </div>
-      <AuthWriteList height="70%">
-        <li>
+      <AuthWriteList height="60%">
+        <li className="Email_Input">
           <CommonInput
+            radius="10px"
             name="email"
             value={loginValue.email}
             onChange={(e) => handleInputChange(e)}
@@ -67,6 +71,7 @@ const Login = () => {
         </li>
         <li>
           <CommonInput
+            radius={"10px"}
             name="password"
             value={loginValue.password}
             onChange={(e) => handleInputChange(e)}
@@ -80,7 +85,7 @@ const Login = () => {
         <div></div>
       </OauthList>
       <div>
-        <EventButton usage="signUp" />
+        <EventButton usage="login" />
       </div>
     </AuthContent>
   );
