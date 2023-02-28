@@ -25,6 +25,7 @@
   height: 50%;
   border-top-left-radius: var(--br-m);
   border-top-right-radius: var(--br-m);
+  cursor: pointer;
 }
 
 .BlogPostImage {
