@@ -29,9 +29,14 @@ const Sort = styled.li<{ borderBtm: boolean }>`
 
 const Home = () => {
   const sortArr: string[] = ["추천순", "최신순", "내 추천"];
+  const [blogList, setBlogList] = useState<ArrPostProps>();
   const [isSortActive, setIsSortActive] = useState(0);
 
- 
+  useEffect(() => {
+    setBlogList(blogListDummy.data);
+  }, []);
+
+  console.log(blogList);
   return (
     <div className="Home_Wrapper">
       <div className="Home_Container">
@@ -46,6 +51,10 @@ const Home = () => {
             </Sort>
           ))}
         </ul>
+        <div className="Home_BlogList_Container">
+          {blogList &&
+            blogList.map((post) => <BlogPost key={post.blogId} post={post} />)}
+        </div>
       </div>
     </div>
   );
