@@ -3,8 +3,8 @@ import styled from "styled-components";
 import "./Style/commonInput.css";
 
 interface InputProps {
-  width: string;
-  height: string;
+  width?: string;
+  height?: string;
   value: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   type: "text" | "password" | "email";
@@ -18,6 +18,7 @@ interface InputProps {
 
 interface Props extends InputProps {
   label?: "닉네임" | "H1";
+  name?: string
 }
 
 const Input = styled.input<InputProps>`
@@ -42,6 +43,7 @@ export default function CommonInput(props: Props) {
           : props.label}
       </label>
       <Input
+        name={props.name}
         radius={props.radius}
         placeholder={props.placeholder}
         type={props.type}
