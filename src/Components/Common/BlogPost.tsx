@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { IoHeartCircle } from "react-icons/io5";
 import { MdOutlineInsertComment } from "react-icons/md";
 import "./Style/BlogPost.css";
+import { PostProps } from "../../Pages/Home";
 
 interface SpanStyledProps {
   usage: string;
@@ -12,19 +13,6 @@ interface IconStyledProps {
   fontColor: string;
   iconColor: string;
   iconSize: string;
-}
-
-//PostData Type 미리 지정
-export interface PostProps {
-  memberId: number;
-  blogId: number;
-  titleImageUrl: string;
-  blogTitle: string;
-  blogPreview: string;
-  createdAt: string;
-  writer: string;
-  commentCount: number;
-  likeCount: number;
 }
 
 const PostContent = styled.span<SpanStyledProps>`
