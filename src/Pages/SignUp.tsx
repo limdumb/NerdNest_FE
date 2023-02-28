@@ -1,7 +1,93 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
+import CommonInput from "../Components/Common/CommonInput";
+import EventButton from "../Components/Common/EventButton";
+import { AuthContent, AuthWriteList, OauthList } from "./Login";
+
+interface SignUpType {
+  email: string;
+  nickName: string;
+  password: string;
+  passwordCheck: string
+}
 
 const SignUp = () => {
-  return (<div>반가워요</div>);
+  const [signUpValue, setSignUpValue] = useState<SignUpType>({
+    email: "",
+    nickName: "",
+    password: "",
+    passwordCheck: ""
+  });
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.persist();
+    setSignUpValue(() => ({
+      ...signUpValue,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  return (
+    <AuthContent>
+      <h2>회원가입</h2>
+      <AuthWriteList height="60%" paddingBtm="10px">
+        <li>
+          <CommonInput
+            height="44px"
+            radius="10px"
+            name="email"
+            value={signUpValue.email}
+            onChange={(e) => handleInputChange(e)}
+            type={"email"}
+            placeholder={"이메일을 입력하세요"}
+          />
+        </li>
+        <li>
+          <CommonInput
+            label="닉네임"
+            height="44px"
+            radius="10px"
+            name="nickName"
+            value={signUpValue.email}
+            onChange={(e) => handleInputChange(e)}
+            type={"text"}
+            placeholder={"닉네임을 입력하세요"}
+          />
+        </li>
+        <li>
+          <CommonInput
+            height="44px"
+            radius="10px"
+            name="password"
+            value={signUpValue.email}
+            onChange={(e) => handleInputChange(e)}
+            type={"password"}
+            placeholder={"비밀번호를 입력하세요"}
+          />
+        </li>
+        <li>
+          <CommonInput
+            height="44px"
+            radius="10px"
+            name="passwordCheck"
+            value={signUpValue.email}
+            onChange={(e) => handleInputChange(e)}
+            type={"password"}
+            placeholder={"비밀번호를 입력하세요"}
+          />
+        </li>
+      </AuthWriteList>
+      {/* oauth 들어올 예정 */}
+      <OauthList>
+        <div></div>
+        <div></div>
+      </OauthList>
+      <div>
+        <EventButton
+          usage="signUp"
+          onClick={() => console.log("로그인 로직 예정")}
+        />
+      </div>
+    </AuthContent>
+  );
 };
 
 export default SignUp;
