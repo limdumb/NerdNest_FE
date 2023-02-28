@@ -1,11 +1,8 @@
 import React from "react";
-
+import "./Style/Home.css";
 
 const Home = () => {
-  return (
-    <div>
-    </div>
-  );
+  return <div className="Home_Wrapper"></div>;
 };
 
 export default Home;
