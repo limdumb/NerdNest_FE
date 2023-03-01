@@ -61,7 +61,7 @@ const Login = () => {
       <AuthWriteList height="60%">
         <li className="Email_Input">
           <CommonInput
-            radius="10px"
+            radius="var(--br-m)"
             name="email"
             value={loginValue.email}
             onChange={(e) => handleInputChange(e)}
@@ -71,7 +71,7 @@ const Login = () => {
         </li>
         <li>
           <CommonInput
-            radius="10px"
+            radius="var(--br-m)"
             name="password"
             value={loginValue.password}
             onChange={(e) => handleInputChange(e)}
