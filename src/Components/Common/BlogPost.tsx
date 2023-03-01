@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { IoHeartCircle } from "react-icons/io5";
 import { MdOutlineInsertComment } from "react-icons/md";
+import { PostProps } from "../../Pages/Home";
 import "./Style/BlogPost.css";
 
 interface SpanStyledProps {
@@ -12,18 +13,6 @@ interface IconStyledProps {
   fontColor: string;
   iconColor: string;
   iconSize: string;
-}
-//PostData Type 미리 지정
-interface PostProps {
-  memberId: number;
-  blogId: number;
-  titleImageUrl: string;
-  blogTitle: string;
-  blogPreview: string;
-  createdAt: string;
-  writer: string;
-  commentCount: number;
-  likeCount: number;
 }
 
 const PostContent = styled.span<SpanStyledProps>`
@@ -59,7 +48,7 @@ const IconContainer = styled.div<IconStyledProps>`
 const BlogPost = ({ post }: { post: PostProps }) => {
   return (
     <>
-      <header className="BlogPost_Wrapper">
+      <div className="BlogPost_Wrapper">
         <div className="BlogPost_Container">
           <div className="BlogPostImage_Container">
             <img
@@ -96,7 +85,7 @@ const BlogPost = ({ post }: { post: PostProps }) => {
             </IconContainer>
           </div>
         </div>
-      </header>
+      </div>
     </>
   );
 };

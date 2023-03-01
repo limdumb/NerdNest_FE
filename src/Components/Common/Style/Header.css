@@ -21,10 +21,13 @@
 }
 
 .Header_ManageContainer {
-  width: 13%;
+  width: 17%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+}
+
+.isLogin {
+  width: 13%;
 }
 
 .icon {

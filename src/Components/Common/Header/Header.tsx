@@ -6,14 +6,20 @@ import DropDownTab from "./DropDownTab";
 import "../Style/Header.css";
 
 export default function Header() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isMemberId, setIsMemberId] = useState(true);
   return (
-    <div className="Header_Wrapper">
+    <header className="Header_Wrapper">
       <div className="Header_Container">
         <Link to="/">
           <div className="Header_LogoContainer" />
         </Link>
-        <div className="Header_ManageContainer">
+        <div
+          className={
+            isMemberId
+              ? "Header_ManageContainer isLogin"
+              : "Header_ManageContainer"
+          }
+        >
           <Link to="/write">
             <TiPencil className="Pencil icon" />
           </Link>
@@ -21,7 +27,7 @@ export default function Header() {
             <RiSearchLine className="Search icon" />
           </Link>
           <div className="Header_Login_SignUp_Container">
-            {isLogin ? (
+            {isMemberId ? (
               <>
                 <img
                   className="Header_Member_Image"
@@ -44,6 +50,6 @@ export default function Header() {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 }

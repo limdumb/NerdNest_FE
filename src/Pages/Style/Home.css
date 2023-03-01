@@ -1,0 +1,17 @@
+.Home_Wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.Home_Container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 3em 0;
+}
+
+.HomeSort_Container {
+  display: flex;
+  justify-content: space-between;
+  width: 15%;
+}
