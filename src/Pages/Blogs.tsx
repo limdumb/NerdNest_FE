@@ -16,18 +16,27 @@ const BlogWrapper = styled(Wrapper)`
   height: 100%;
 `;
 
+const CategoryWrapper = styled(Wrapper)``;
+
+const BlogPostWrapper = styled(Wrapper)``;
+
+const MemberProfileWrapper = styled(Wrapper)``;
+
 const Blogs = () => {
   return (
     <BlogWrapper>
       <div className="Member_Information_Container">
-        <div className="Member_Profile_Container">
+        <MemberProfileWrapper>
           <MemberProfile />
-        </div>
+        </MemberProfileWrapper>
         <div className="Blog_Record_Container">
           <BlogRecord />
         </div>
       </div>
-      <div className="Blog_Information_Container"></div>
+      <div className="Blog_Information_Container">
+        <CategoryWrapper></CategoryWrapper>
+        <BlogPostWrapper></BlogPostWrapper>
+      </div>
     </BlogWrapper>
   );
 };
