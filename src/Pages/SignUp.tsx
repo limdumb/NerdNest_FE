@@ -32,7 +32,7 @@ const SignUp = () => {
         <li>
           <CommonInput
             height="44px"
-            radius="10px"
+            radius="var(--br-m)"
             name="email"
             value={signUpValue.email}
             onChange={(e) => handleInputChange(e)}
@@ -44,9 +44,9 @@ const SignUp = () => {
           <CommonInput
             label="닉네임"
             height="44px"
-            radius="10px"
+            radius="var(--br-m)"
             name="nickName"
-            value={signUpValue.email}
+            value={signUpValue.nickName}
             onChange={(e) => handleInputChange(e)}
             type={"text"}
             placeholder={"닉네임을 입력하세요"}
@@ -55,9 +55,9 @@ const SignUp = () => {
         <li>
           <CommonInput
             height="44px"
-            radius="10px"
+            radius="var(--br-m)"
             name="password"
-            value={signUpValue.email}
+            value={signUpValue.password}
             onChange={(e) => handleInputChange(e)}
             type={"password"}
             placeholder={"비밀번호를 입력하세요"}
@@ -65,12 +65,13 @@ const SignUp = () => {
         </li>
         <li>
           <CommonInput
+            label="비밀번호 확인"
             height="44px"
-            radius="10px"
+            radius="var(--br-m)"
             name="passwordCheck"
-            value={signUpValue.email}
+            value={signUpValue.passwordCheck}
             onChange={(e) => handleInputChange(e)}
-            type={"password"}
+            type={"text"}
             placeholder={"비밀번호를 입력하세요"}
           />
         </li>

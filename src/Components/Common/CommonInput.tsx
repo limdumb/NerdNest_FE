@@ -17,7 +17,7 @@ interface InputProps {
 }
 
 interface Props extends InputProps {
-  label?: "닉네임" | "H1";
+  label?: "닉네임" | "H1" | "비밀번호 확인";
   name?: string
 }
 

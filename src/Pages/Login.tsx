@@ -8,8 +8,8 @@ export const AuthContent = styled.div`
   flex-direction: column;
   align-items: center;
   width: 625px;
-  height: 70%;
-  padding: 20px;
+  height: 604.094px;
+  padding: 20px 10px;
   background-color: var(--fc-300);
   margin-bottom: 40px;
   border-radius: var(--br-l);
@@ -62,8 +62,7 @@ const Login = () => {
       <AuthWriteList height="60%" paddingBtm="80px">
         <li>
           <CommonInput
-            height="44px"
-            radius="10px"
+            radius="var(--br-m)"
             name="email"
             value={loginValue.email}
             onChange={(e) => handleInputChange(e)}
@@ -73,8 +72,7 @@ const Login = () => {
         </li>
         <li>
           <CommonInput
-            height="44px"
-            radius="10px"
+            radius="var(--br-m)"
             name="password"
             value={loginValue.password}
             onChange={(e) => handleInputChange(e)}

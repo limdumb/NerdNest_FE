@@ -1,5 +1,5 @@
 .Header_Wrapper {
-  width: 100vw;
+  width: 100%;
   height: 60px;
   border-bottom: 1px solid rgb(206, 206, 206);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09);
@@ -21,9 +21,9 @@
 }
 
 .Header_ManageContainer {
-  width: 18%;
+  width: 13%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -31,6 +31,7 @@
   color: var(--fc-500);
   font-size: var(--font-xxl);
   cursor: pointer;
+  margin-right: 15px;
 }
 
 .icon:hover {
@@ -55,4 +56,5 @@
   height: 35px;
   border-radius: 25px;
   cursor: pointer;
+  margin-left: 7px;
 }

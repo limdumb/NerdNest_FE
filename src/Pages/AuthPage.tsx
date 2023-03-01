@@ -1,7 +1,7 @@
 import AuthTab from "../Components/AuthPage/AuthTab";
 import styled from "styled-components";
-import "./Style/authPage.css";
 import { Outlet } from "react-router-dom";
+import "./Style/authPage.css";
 
 const Container = styled.div`
   display: flex;
