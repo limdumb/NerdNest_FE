@@ -7,7 +7,7 @@ interface SignUpType {
   email: string;
   nickName: string;
   password: string;
-  passwordCheck: string
+  passwordCheck: string;
 }
 
 const SignUp = () => {
@@ -15,7 +15,7 @@ const SignUp = () => {
     email: "",
     nickName: "",
     password: "",
-    passwordCheck: ""
+    passwordCheck: "",
   });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

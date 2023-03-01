@@ -5,12 +5,12 @@ import "./Style/authTab.css";
 
 interface TabProps {
   borderBtm: boolean;
-  fontsize: boolean;
+  fontWeight: boolean;
 }
 
 const TabLinkList = styled.li<TabProps>`
   border-bottom: ${(props) => (props.borderBtm ? "2px solid black" : "none")};
-  font-size: ${(props)=> (props.fontsize ? "20px" : "15px")};
+  font-weight: ${(props) => (props.fontWeight ? "var(--fw-bold)" : {})};
 `;
 
 export default function AuthTab() {
@@ -33,7 +33,7 @@ export default function AuthTab() {
           <Link key={index} to={el.tabNavigate}>
             <TabLinkList
               onClick={() => setIsTabActive(index)}
-              fontsize={index === isTabActive}
+              fontWeight={index === isTabActive}
               borderBtm={index === isTabActive}
             >
               {el.tabTitle}
