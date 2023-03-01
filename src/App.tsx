@@ -8,11 +8,13 @@ import Login from "./Pages/Login";
 import Search from "./Pages/Search";
 import SignUp from "./Pages/SignUp";
 import Header from "./Components/Common/Header/Header";
-import "./App.css";
 import styled from "styled-components";
+import "./App.css";
+import AuthPage from "./Pages/AuthPage";
 
 const RootContainer = styled.div`
   width: 1200px;
+  height: 100%;
   margin: 0 auto;
 `;
 
@@ -24,8 +26,10 @@ function App() {
         <RootContainer>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signUp" element={<SignUp />} />
+            <Route path="/auth" element={<AuthPage />}>
+              <Route path="signup" element={<SignUp />} />
+              <Route path="login" element={<Login />} />
+            </Route>
             <Route path="/:writer/:memberId" element={<Blogs />} />
             <Route path="/write" element={<BlogWrite />} />
             <Route path="/edit/:blogId" element={<BlogEdit />} />
