@@ -9,8 +9,8 @@ import Search from "./Pages/Search";
 import SignUp from "./Pages/SignUp";
 import Header from "./Components/Common/Header/Header";
 import styled from "styled-components";
-import "./App.css";
 import AuthPage from "./Pages/AuthPage";
+import "./App.css";
 
 const RootContainer = styled.div`
   width: 1200px;
