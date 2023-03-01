@@ -6,7 +6,7 @@ import DropDownTab from "./DropDownTab";
 import "../Style/Header.css";
 
 export default function Header() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isMemberId, setIsMemberId] = useState(true);
   return (
     <header className="Header_Wrapper">
       <div className="Header_Container">
@@ -15,7 +15,7 @@ export default function Header() {
         </Link>
         <div
           className={
-            isLogin
+            isMemberId
               ? "Header_ManageContainer isLogin"
               : "Header_ManageContainer"
           }
@@ -27,7 +27,7 @@ export default function Header() {
             <RiSearchLine className="Search icon" />
           </Link>
           <div className="Header_Login_SignUp_Container">
-            {isLogin ? (
+            {isMemberId ? (
               <>
                 <img
                   className="Header_Member_Image"
