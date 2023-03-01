@@ -10,7 +10,7 @@ const AuthContent = styled.div`
   align-items: center;
   width: 625px;
   height: 70%;
-  padding: 20px 10px 20px 10px;
+  padding: 20px 10px;
   background-color: var(--fc-300);
   margin-bottom: 40px;
   border-radius: var(--br-l);
