@@ -1,0 +1,17 @@
+.Member_Information_Container{
+  display: flex;
+}
+
+.Blog_Information_Container{
+  display: flex;
+}
+
+.Member_Profile_Container{
+  display: flex;
+  flex-direction: column;
+}
+
+.Blog_Record_Container{
+  display: flex;
+  align-items: center;
+}
