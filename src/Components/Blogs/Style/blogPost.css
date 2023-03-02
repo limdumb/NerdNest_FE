@@ -14,3 +14,7 @@
 .Like_Container{
   display: flex;
 }
+
+.Blog_Post{
+  cursor: pointer;
+}
