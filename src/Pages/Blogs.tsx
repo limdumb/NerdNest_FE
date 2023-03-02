@@ -17,7 +17,9 @@ const BlogWrapper = styled(Wrapper)`
   margin-top: 20px;
 `;
 
-const CategoryWrapper = styled(Wrapper)`
+const CategoryWrapper = styled.aside`
+  display: flex;
+  flex-direction: column;
   width: 30%;
   background-color: pink;
 `;
@@ -43,18 +45,21 @@ const Blogs = () => {
   const test = [
     {
       titleImageUrl: "",
+      blogTitle:"1번",
       createdAt: "2022년 2월 24일",
       commentCount: 2,
       likeCount: 2
     },
     {
       titleImageUrl: "",
+      blogTitle:"2번",
       createdAt: "2022년 2월 24일",
       commentCount: 2,
       likeCount: 2
     },
     {
       titleImageUrl: "",
+      blogTitle:"3번",
       createdAt: "2022년 2월 24일",
       commentCount: 2,
       likeCount: 2
