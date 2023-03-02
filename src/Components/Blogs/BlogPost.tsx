@@ -1,15 +1,6 @@
+import { BlogPostType } from "../../API/Blogs/getBlogPost";
 import styled from "styled-components";
 import "./Style/blogPost.css";
-
-interface Props {
-  blogList: {
-    titleImageUrl: string;
-    blogTitle: string;
-    createdAt: string;
-    commentCount: number;
-    likeCount: number;
-  }[];
-}
 
 const BlogContetnsContainer = styled.div`
   padding-top: 10px;
@@ -29,7 +20,7 @@ const BlogPostImage = styled.img`
   height: 170px;
 `;
 
-export default function BlogPost(props: Props) {
+export default function BlogPost(props: BlogPostType) {
   return (
     <ul>
       {props.blogList.map((blog,index) => {

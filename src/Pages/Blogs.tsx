@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { BlogPostType, getBlogPost } from "../API/Blogs/getBlogPost";
 import MemberProfile from "../Components/Blogs/MemberProfile";
 import BlogRecord from "../Components/Blogs/BlogRecord";
 import BlogPost from "../Components/Blogs/BlogPost";
@@ -42,29 +43,20 @@ const BlogRecordWrapper = styled(Wrapper)`
 `;
 
 const Blogs = () => {
-  const test = [
-    {
-      titleImageUrl: "",
-      blogTitle:"1번",
-      createdAt: "2022년 2월 24일",
-      commentCount: 2,
-      likeCount: 2
-    },
-    {
-      titleImageUrl: "",
-      blogTitle:"2번",
-      createdAt: "2022년 2월 24일",
-      commentCount: 2,
-      likeCount: 2
-    },
-    {
-      titleImageUrl: "",
-      blogTitle:"3번",
-      createdAt: "2022년 2월 24일",
-      commentCount: 2,
-      likeCount: 2
-    },
-  ];
+  const [blogPosts, setBlogPosts] = useState<BlogPostType["blogList"]>([]);
+
+  useEffect(() => {
+    const fetchBlogPosts = async () => {
+      //추후 멤버아이디 받을 예정
+      const response = await getBlogPost(1);
+      setBlogPosts(response);
+    };
+
+    fetchBlogPosts();
+  }, []);
+
+  console.log(blogPosts && blogPosts);
+
   return (
     <BlogWrapper>
       <div className="Member_Information_Container">
@@ -88,7 +80,7 @@ const Blogs = () => {
           <BlogCategory />
         </CategoryWrapper>
         <BlogPostWrapper>
-          <BlogPost blogList={test}/>
+          <BlogPost blogList={blogPosts} />
         </BlogPostWrapper>
       </div>
     </BlogWrapper>
