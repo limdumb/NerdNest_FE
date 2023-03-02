@@ -14,28 +14,50 @@ export const Wrapper = styled.div`
 
 const BlogWrapper = styled(Wrapper)`
   height: 100%;
+  margin-top: 20px;
 `;
 
-const CategoryWrapper = styled(Wrapper)``;
+const CategoryWrapper = styled(Wrapper)`
+  width: 30%;
+  background-color: pink;
+`;
 
-const BlogPostWrapper = styled(Wrapper)``;
+const BlogPostWrapper = styled(Wrapper)`
+  background-color: orange;
+  width: 70%;
+`;
 
-const MemberProfileWrapper = styled(Wrapper)``;
+const MemberProfileWrapper = styled(Wrapper)`
+  width: 30%;
+  background-color: aqua;
+  align-items: center;
+`;
 
 const Blogs = () => {
   return (
     <BlogWrapper>
       <div className="Member_Information_Container">
         <MemberProfileWrapper>
-          <MemberProfile />
+          <MemberProfile
+            profileImageUrl={
+              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+            }
+            nickName={"경인"}
+            about={"안녕하세요 개발자 임경인 입니다"}
+          />
         </MemberProfileWrapper>
         <div className="Blog_Record_Container">
           <BlogRecord />
         </div>
       </div>
       <div className="Blog_Information_Container">
-        <CategoryWrapper></CategoryWrapper>
-        <BlogPostWrapper></BlogPostWrapper>
+        <CategoryWrapper>
+          <h4>카테고리</h4>
+          <BlogCategory />
+        </CategoryWrapper>
+        <BlogPostWrapper>
+          <BlogPost />
+        </BlogPostWrapper>
       </div>
     </BlogWrapper>
   );

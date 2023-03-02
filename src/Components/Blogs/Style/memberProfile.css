@@ -1,0 +1,20 @@
+.Member_Profile_Image{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-top: 20px;
+}
+
+.Member_Profile_Content{
+  margin-top: 20px;
+}
+
+.Member_Profile_NickName{
+  margin-top: 20px;
+}
+
+.Member_Profile_Edit{
+  font-size:25px;
+  position: absolute;
+  left: 250px;
+}

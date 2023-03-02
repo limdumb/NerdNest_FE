@@ -1,17 +1,16 @@
 .Member_Information_Container{
   display: flex;
+  height: 308px;
 }
 
 .Blog_Information_Container{
   display: flex;
-}
-
-.Member_Profile_Container{
-  display: flex;
-  flex-direction: column;
+  margin-top: 40px;
 }
 
 .Blog_Record_Container{
   display: flex;
   align-items: center;
+  width: 70%;
+  background-color: blue;
 }
