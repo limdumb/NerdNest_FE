@@ -1,5 +1,5 @@
 interface BlogListType {
-  blogId:number;
+  blogId: number;
   titleImageUrl: string;
   blogTitle: string;
   createdAt: string;

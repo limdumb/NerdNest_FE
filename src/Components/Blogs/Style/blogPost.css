@@ -1,20 +1,20 @@
-.Comment_Like_Container{
+.Comment_Like_Container {
   display: flex;
 }
 
-.Blog_Title{
+.Blog_Title {
   height: 95px;
 }
 
-.Comment_Container{
+.Comment_Container {
   display: flex;
   margin-left: 10px;
 }
 
-.Like_Container{
+.Like_Container {
   display: flex;
 }
 
-.Blog_Post{
+.Blog_Post {
   cursor: pointer;
 }

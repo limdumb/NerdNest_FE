@@ -33,7 +33,8 @@ export default function BlogPost(props: BlogPostType) {
     <ul>
       {props.blogList.map((post, index) => {
         return (
-          <li className="Blog_Post"
+          <li
+            className="Blog_Post"
             key={index}
             onClick={() =>
               navigate(

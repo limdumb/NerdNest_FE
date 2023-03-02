@@ -1,14 +1,14 @@
-.Member_Information_Container{
+.Member_Information_Container {
   display: flex;
   height: 308px;
 }
 
-.Blog_Information_Container{
+.Blog_Information_Container {
   display: flex;
   margin-top: 40px;
 }
 
-.Blog_Record_Container{
+.Blog_Record_Container {
   display: flex;
   align-items: center;
   width: 70%;
