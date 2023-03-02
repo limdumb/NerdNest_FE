@@ -9,14 +9,14 @@
   width: 100%;
 }
 
-.SearchInput_Container {
+.Search_Input_Container {
   display: flex;
   justify-content: center;
   width: 100%;
   margin-top: 3em;
 }
 
-.SearchInput {
+.Search_Input {
   width: 50%;
   min-height: 50px;
   border: none;
@@ -39,7 +39,7 @@ input::-webkit-input-placeholder {
   color: var(--fc-500);
 }
 
-.SearchResult_Container {
+.Search_Result_Container {
   display: flex;
   justify-content: center;
   margin-top: 3rem;

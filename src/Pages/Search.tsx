@@ -1,9 +1,9 @@
 import SearchInput from "../Components/SearchInput";
 import BlogListDummy from "../API/DummyData/BlogList.json";
-import "./Style/Search.css";
 import { useEffect, useState } from "react";
 import { ArrPostProps, BlogListContainer } from "./Home";
 import BlogPost from "../Components/Common/BlogPost";
+import "./Style/Search.css";
 
 const Search = () => {
   const [blogList, setBlogList] = useState<ArrPostProps>();

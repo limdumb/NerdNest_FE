@@ -20,10 +20,10 @@ const SearchInput = () => {
   };
   return (
     <>
-      <div className="SearchInput_Container">
+      <div className="Search_Input_Container">
         <RiSearchLine className="Search_icon" />
         <input
-          className="SearchInput"
+          className="Search_Input"
           type="text"
           value={searchValue}
           onChange={(e) => handleSearchValueChange(e)}
@@ -32,7 +32,7 @@ const SearchInput = () => {
         />
       </div>
       {isSearch || searchValue !== '' ? (
-        <div className="SearchResult_Container">
+        <div className="Search_Result_Container">
           {/* 검색 결과 안내 문구 */}
         </div>
       ) : null}
