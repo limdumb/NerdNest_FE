@@ -48,14 +48,14 @@ export default function BlogPost(props: BlogPostType) {
                 <h1 className="Blog_Title">{post.blogTitle}</h1>
                 <div className="Comment_Like_Container">
                   <div className="Like_Container">
-                    <h2>{post.likeCount}</h2>
+                    <span className="Like_Comment_Contetns">{post.likeCount}</span>
                     <IoHeartCircle
                       color="var(--blue-400)"
                       fontSize="var(--font-xxl)"
                     />
                   </div>
                   <div className="Comment_Container">
-                    <h2>{post.commentCount}</h2>
+                    <span className="Like_Comment_Contetns">{post.commentCount}</span>
                     <MdOutlineInsertComment
                       color="var(--blue-400)"
                       fontSize="var(--font-xxl)"

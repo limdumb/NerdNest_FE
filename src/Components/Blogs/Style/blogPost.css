@@ -18,3 +18,11 @@
 .Blog_Post {
   cursor: pointer;
 }
+
+.Like_Comment_Contetns{
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+  font-size: var(--font-xl);
+  font-weight: var(--fw-bold);
+}
