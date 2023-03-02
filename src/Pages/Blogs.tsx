@@ -40,6 +40,26 @@ const BlogRecordWrapper = styled(Wrapper)`
 `;
 
 const Blogs = () => {
+  const test = [
+    {
+      titleImageUrl: "",
+      createdAt: "2022년 2월 24일",
+      commentCount: 2,
+      likeCount: 2
+    },
+    {
+      titleImageUrl: "",
+      createdAt: "2022년 2월 24일",
+      commentCount: 2,
+      likeCount: 2
+    },
+    {
+      titleImageUrl: "",
+      createdAt: "2022년 2월 24일",
+      commentCount: 2,
+      likeCount: 2
+    },
+  ];
   return (
     <BlogWrapper>
       <div className="Member_Information_Container">
@@ -63,7 +83,7 @@ const Blogs = () => {
           <BlogCategory />
         </CategoryWrapper>
         <BlogPostWrapper>
-          <BlogPost />
+          <BlogPost blogList={test}/>
         </BlogPostWrapper>
       </div>
     </BlogWrapper>
