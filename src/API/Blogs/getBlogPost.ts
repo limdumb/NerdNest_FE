@@ -1,4 +1,5 @@
 interface BlogListType {
+  blogId:number;
   titleImageUrl: string;
   blogTitle: string;
   createdAt: string;
@@ -18,6 +19,7 @@ export const getBlogPost = (
       let result: BlogPostType["blogList"] = [];
       for (let i = 1; i < 20; i++) {
         result.push({
+          blogId: i,
           titleImageUrl: "",
           blogTitle: `${i}번 입니다 이게 뭐죠? 이게뭔데요?`,
           createdAt: `${i}날짜`,

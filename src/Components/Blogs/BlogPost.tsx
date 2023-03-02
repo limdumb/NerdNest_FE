@@ -3,6 +3,7 @@ import { MdOutlineInsertComment } from "react-icons/md";
 import { BlogPostType } from "../../API/Blogs/getBlogPost";
 import styled from "styled-components";
 import "./Style/blogPost.css";
+import { useNavigate, useParams } from "react-router-dom";
 
 const BlogContetnsContainer = styled.div`
   display: flex;
@@ -26,11 +27,20 @@ const BlogPostImage = styled.img`
 `;
 
 export default function BlogPost(props: BlogPostType) {
+  const navigate = useNavigate();
+  const params = useParams();
   return (
     <ul>
       {props.blogList.map((post, index) => {
         return (
-          <li key={index}>
+          <li
+            key={index}
+            onClick={() =>
+              navigate(
+                `/${params.writer}/${params.memberId}/${post.blogTitle}/${post.blogId}`
+              )
+            }
+          >
             <BlogPostContainer>
               <BlogPostImage src={`${post.titleImageUrl}`} />
               <BlogContetnsContainer>
