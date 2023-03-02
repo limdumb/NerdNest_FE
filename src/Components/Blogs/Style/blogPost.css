@@ -1,0 +1,16 @@
+.Comment_Like_Container{
+  display: flex;
+}
+
+.Blog_Title{
+  height: 95px;
+}
+
+.Comment_Container{
+  display: flex;
+  margin-left: 10px;
+}
+
+.Like_Container{
+  display: flex;
+}

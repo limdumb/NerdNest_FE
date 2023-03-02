@@ -22,24 +22,20 @@ const CategoryWrapper = styled.aside`
   display: flex;
   flex-direction: column;
   width: 30%;
-  background-color: pink;
 `;
 
 const BlogPostWrapper = styled(Wrapper)`
-  background-color: orange;
   width: 70%;
 `;
 
 const MemberProfileWrapper = styled(Wrapper)`
   width: 30%;
-  background-color: aqua;
   align-items: center;
 `;
 
 const BlogRecordWrapper = styled(Wrapper)`
   padding-top: 40px;
   width: 70%;
-  background-color: blue;
 `;
 
 const Blogs = () => {
@@ -54,8 +50,6 @@ const Blogs = () => {
 
     fetchBlogPosts();
   }, []);
-
-  console.log(blogPosts && blogPosts);
 
   return (
     <BlogWrapper>
