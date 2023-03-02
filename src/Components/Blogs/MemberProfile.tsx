@@ -1,5 +1,5 @@
-import "./Style/memberProfile.css";
 import { TiPen } from "react-icons/ti";
+import "./Style/memberProfile.css";
 
 interface Props {
   profileImageUrl: string;

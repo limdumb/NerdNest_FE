@@ -1,9 +1,9 @@
 import { IoHeartCircle } from "react-icons/io5";
 import { MdOutlineInsertComment } from "react-icons/md";
 import { BlogPostType } from "../../API/Blogs/getBlogPost";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import "./Style/blogPost.css";
-import { useNavigate, useParams } from "react-router-dom";
 
 const BlogContetnsContainer = styled.div`
   display: flex;

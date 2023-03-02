@@ -6,7 +6,6 @@ import BlogPost from "../Components/Blogs/BlogPost";
 import BlogCategory from "../Components/Blogs/BlogCategory";
 import styled from "styled-components";
 import "./Style/blogs.css";
-import { useNavigate } from "react-router-dom";
 
 //추후 공용으로 뺄지는 상의예정
 export const Wrapper = styled.div`
