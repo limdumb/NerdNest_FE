@@ -38,3 +38,9 @@ input::-webkit-input-placeholder {
   font-size: var(--font-xxl);
   color: var(--fc-500);
 }
+
+.SearchResult_Container {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}

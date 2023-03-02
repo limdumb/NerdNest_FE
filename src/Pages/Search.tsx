@@ -14,9 +14,7 @@ const Search = () => {
   return (
     <div className="Search_Wrapper">
       <div className="Search_Container">
-        <div className="SearchInput_Container">
-          <SearchInput />
-        </div>
+        <SearchInput />
         <BlogListContainer>
           {blogList &&
             blogList.map((post) => <BlogPost key={post.blogId} post={post} />)}
