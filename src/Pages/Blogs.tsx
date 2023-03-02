@@ -33,12 +33,19 @@ const MemberProfileWrapper = styled(Wrapper)`
   align-items: center;
 `;
 
+const BlogRecordWrapper = styled(Wrapper)`
+  padding-top: 40px;
+  width: 70%;
+  background-color: blue;
+`;
+
 const Blogs = () => {
   return (
     <BlogWrapper>
       <div className="Member_Information_Container">
         <MemberProfileWrapper>
           <MemberProfile
+            //추후 데이터값으로 변경 예정
             profileImageUrl={
               "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
             }
@@ -46,9 +53,9 @@ const Blogs = () => {
             about={"안녕하세요 개발자 임경인 입니다"}
           />
         </MemberProfileWrapper>
-        <div className="Blog_Record_Container">
+        <BlogRecordWrapper>
           <BlogRecord />
-        </div>
+        </BlogRecordWrapper>
       </div>
       <div className="Blog_Information_Container">
         <CategoryWrapper>
