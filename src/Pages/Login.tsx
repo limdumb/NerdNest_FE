@@ -2,10 +2,9 @@ import { ChangeEvent, useState } from "react";
 import CommonInput from "../Components/Common/CommonInput";
 import styled from "styled-components";
 import EventButton from "../Components/Common/EventButton";
+import { Wrapper } from "./Blogs";
 
-export const AuthContent = styled.div`
-  display: flex;
-  flex-direction: column;
+export const AuthContent = styled(Wrapper)`
   align-items: center;
   width: 625px;
   height: 604.094px;

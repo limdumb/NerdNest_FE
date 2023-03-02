@@ -1,0 +1,14 @@
+.Category_Name{
+  font-size: var(--font-base);
+  margin-left: 5px;
+  background-color: none;
+}
+
+.Category_List{
+  display: flex;
+  align-items: center;
+}
+
+.Folder_Icon{
+  font-size: var(--font-md);
+}
