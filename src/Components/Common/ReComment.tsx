@@ -1,6 +1,6 @@
 const ReComment = () => {
     return (
-        <div>
+        <div className="ReComment_Container">
             
         </div>
     );
