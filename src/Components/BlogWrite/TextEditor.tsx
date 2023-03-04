@@ -3,14 +3,16 @@ import { useRef } from "react";
 import '@toast-ui/editor/dist/toastui-editor.css';
 
 interface Props{
-  
+  blogContent: string
 }
 
-export default function TextEditor() {
+export default function TextEditor(props:Props) {
   const editorRef = useRef(null)
+
   return (
     <div>
       <Editor
+        initialValue={props.blogContent}
         placeholder="내용을 입력해주세요."
         previewStyle="vertical" // 미리보기 스타일 지정
         height="800px" // 에디터 창 높이
