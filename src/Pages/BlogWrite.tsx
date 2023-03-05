@@ -4,6 +4,7 @@ import { Wrapper } from "./Blogs";
 import TextEditor from "../Components/BlogWrite/TextEditor";
 import TitleImageUploarder from "../Components/BlogWrite/TitleImageUploarder";
 import CommonInput from "../Components/Common/CommonInput";
+import "./Style/blogWrite.css"
 
 const WirteWrapper = styled(Wrapper)`
   margin-top: 20px;
@@ -19,6 +20,8 @@ const TitleWriteWrapper = styled(Wrapper)`
 `;
 
 const BlogWrite = () => {
+  const [blogText, setBlogText] = useState("")
+
   const [blogData, setBlogData] = useState({
     titleImageUrl: "",
     blogTitle: "",
@@ -52,8 +55,8 @@ const BlogWrite = () => {
           placeholder={"제목을 입력하세요"}
         />
       </TitleWriteWrapper>
-      <div>
-        <TextEditor blogContent={blogData.blogContent}/>
+      <div className="Text_Editor_Container">
+        <TextEditor blogText={blogText} setBlogText={setBlogText}/>
       </div>
       <div></div>
       <div></div>
