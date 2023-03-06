@@ -6,6 +6,7 @@ import TitleImageUploarder from "../Components/BlogWrite/TitleImageUploarder";
 import CommonInput from "../Components/Common/CommonInput";
 import "./Style/blogWrite.css";
 import CategorySelect from "../Components/BlogWrite/CategorySelect";
+import EventButton from "../Components/Common/EventButton";
 
 const WirteWrapper = styled(Wrapper)`
   margin-top: 20px;
@@ -28,7 +29,7 @@ const BlogWrite = () => {
     blogContent: "",
     categoryId: null,
   });
-  const [categoryValue, setCategoryValue] = useState(0)
+  const [categoryValue, setCategoryValue] = useState(0);
 
   const dummyData = [
     { categoryId: 1, categoryName: "리액트" },
@@ -44,7 +45,7 @@ const BlogWrite = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  console.log(categoryValue)
+  console.log(categoryValue);
 
   return (
     <WirteWrapper>
@@ -70,10 +71,14 @@ const BlogWrite = () => {
       <div className="Text_Editor_Container">
         <TextEditor blogText={blogText} setBlogText={setBlogText} />
       </div>
-      <div>
+      <div className="Category_Container">
+        <span className="Editor_Label">카테고리</span>
         <CategorySelect data={dummyData} setCategoryValue={setCategoryValue} />
       </div>
-      <div></div>
+      <hr />
+      <div className="Submit_Container">
+        <EventButton usage={"write"} />
+      </div>
     </WirteWrapper>
   );
 };

@@ -14,7 +14,7 @@ export default function CategorySelect(props: Props) {
   };
   return (
     <select className="Category_Select" onChange={(e) => handleChange(e)}>
-      <option key={0} value={0}>
+      <option value={0}>
         없음
       </option>
       {props.data.map((el) => {
