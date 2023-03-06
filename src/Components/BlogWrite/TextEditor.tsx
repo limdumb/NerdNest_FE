@@ -10,15 +10,13 @@ interface Props {
 export default function TextEditor(props: Props) {
   const editorRef = useRef<Editor>(null);
 
-  console.log(props.blogText);
-
   useEffect(() => {
-    editorRef.current?.getInstance().setMarkdown(props.blogText);
+    editorRef.current?.getInstance().setHTML(props.blogText);
   }, [props.blogText]);
 
   const onEditorBlur = () => {
-    const markDown = editorRef.current?.getInstance().getMarkdown();
-    props.setBlogText(markDown as string);
+    const HTMLText = editorRef.current?.getInstance().getHTML();
+    props.setBlogText(HTMLText as string);
   };
 
   return (
