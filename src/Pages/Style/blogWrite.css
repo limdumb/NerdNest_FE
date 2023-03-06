@@ -1,3 +1,9 @@
 .Text_Editor_Container{
  margin-bottom: 40px; 
 }
+
+.Editor_Label{
+  margin-bottom: 5px;
+  font-size: 15px;
+  font-weight: var(--fw-bold);
+}
