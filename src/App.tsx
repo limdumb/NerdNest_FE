@@ -7,9 +7,9 @@ import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Search from "./Pages/Search";
 import SignUp from "./Pages/SignUp";
-import Header from "./Components/Common/Header/Header";
 import styled from "styled-components";
 import AuthPage from "./Pages/AuthPage";
+import Header from "./Components/Header/Header";
 import "./App.css";
 
 const RootContainer = styled.div`

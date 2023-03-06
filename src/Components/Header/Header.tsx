@@ -2,8 +2,17 @@ import { TiPencil } from "react-icons/ti";
 import { RiSearchLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import styled from "styled-components";
 import DropDownTab from "./DropDownTab";
-import "../Style/Header.css";
+import '../Style/Header.css'
+
+export const ProfileImage = styled.img`
+  width: 35px;
+  height: 35px;
+  border-radius: 25px;
+  margin-left: 7px;
+  cursor: pointer;
+`;
 
 export default function Header() {
   const [isMemberId, setIsMemberId] = useState(true);
@@ -29,8 +38,7 @@ export default function Header() {
           <div className="Header_Login_SignUp_Container">
             {isMemberId ? (
               <>
-                <img
-                  className="Header_Member_Image"
+                <ProfileImage
                   src="https://images.unsplash.com/photo-1676824469794-9d8deeaf1f2c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
                   alt="memberImage"
                 />

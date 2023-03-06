@@ -1,0 +1,113 @@
+.BlogDetail_Container {
+  width: 100%;
+}
+
+.BlogDetail_Title_Container {
+  padding: 5rem 0;
+}
+
+.BlogDetail_Title_IM_Container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.BlogDetail_Title_Info {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+}
+
+.BlogDetail_Title_Manage {
+  display: flex;
+  justify-content: space-between;
+  width: 5%;
+}
+
+.BlogDetail_Body_Container {
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--hr-500);
+}
+
+.BlogDetail_Comment_Container {
+  margin-top: 2rem;
+  padding-bottom: 10rem;
+}
+
+.Pencil_icon:hover,
+.Delete_icon:hover {
+  color: var(--fc-400);
+}
+
+/* AddComment */
+.AddComment_Container {
+  width: 100%;
+  margin: 1.5rem 0;
+}
+
+.AddComment_Btn {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Comment */
+.Comment_Wrapper {
+  border-bottom: 1px solid var(--blue-300);
+}
+
+.Comment_Container {
+  display: flex;
+  align-items: center;
+}
+
+.Comment_Manage_Container {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+}
+
+svg {
+  color: var(--fc-500);
+  font-size: var(--font-md);
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+.Comment_Input_Container {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.isReComment_Btn {
+  width: 70px;
+  font-size: var(--font-sm);
+  background-color: transparent;
+}
+
+.isReComment_Btn:hover {
+  color: var(--fc-400);
+}
+
+/* ReComment */
+.ReComment_Container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.5rem;
+  padding-left: 6.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.Recomment_Btn {
+  position: relative;
+  bottom: 1.3rem;
+  left: 33.2rem;
+  width: 60px;
+  height: 30px;
+  background-color: var(--blue-200);
+  color: var(--fc-300);
+  border-radius: var(--br-m);
+}
