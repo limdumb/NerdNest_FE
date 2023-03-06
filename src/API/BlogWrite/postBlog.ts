@@ -20,6 +20,7 @@ export default function postBlog(params: Params) {
     axios.post("url", request).then((res)=>{
       if(res.status === 201){
         alert("게시물 작성이 완료 되었습니다")
+        //상의 후 해당 게시물로 가도록 설정할 예정
         navigate(-1)
       }
     })
