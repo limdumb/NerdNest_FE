@@ -25,6 +25,7 @@ const SignUp = () => {
       [e.target.name]: e.target.value,
     }));
   };
+  
   return (
     <AuthContent>
       <h2>회원가입</h2>
