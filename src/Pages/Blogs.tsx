@@ -44,7 +44,7 @@ const Blogs = () => {
   useEffect(() => {
     const fetchBlogPosts = async () => {
       //추후 멤버아이디 받을 예정
-      const response = await getBlogPost(1);
+      const response = await getBlogPost({ pages: 1, nickName: "가라" });
       setBlogPosts(response);
     };
 

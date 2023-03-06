@@ -7,7 +7,7 @@ interface Props{
 export default function TitleImageUploarder() {
   return (
     <>
-      <img className="Title_Image_Uploarder"/>
+      <img className="Title_Image_Uploader"/>
     </>
   );
 }

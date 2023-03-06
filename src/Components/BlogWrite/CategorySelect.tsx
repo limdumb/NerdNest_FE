@@ -9,12 +9,13 @@ interface Props {
 }
 
 export default function CategorySelect(props: Props) {
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const ChoiceCategoryHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     console.log(e.target.value);
   };
+
   return (
-    <select className="Category_Select" onChange={(e) => handleChange(e)}>
-      <option value={1}>
+    <select className="Category_Select" onChange={(e) => ChoiceCategoryHandler(e)}>
+      <option value={0}>
         없음
       </option>
       {props.data.map((el) => {
