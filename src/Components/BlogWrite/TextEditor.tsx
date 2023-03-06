@@ -1,5 +1,8 @@
 import { Editor } from "@toast-ui/react-editor";
 import { useEffect, useRef } from "react";
+import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
+import Prism from "prismjs"
+import "prismjs/themes/prism.css";
 import "@toast-ui/editor/dist/toastui-editor.css";
 
 interface Props {
@@ -29,6 +32,7 @@ export default function TextEditor(props: Props) {
         language="ko-KR"
         ref={editorRef}
         onBlur={onEditorBlur}
+        plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
         hideModeSwitch
       ></Editor>
     </div>
