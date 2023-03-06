@@ -1,0 +1,12 @@
+.Blog_Record_Box{
+  width: 840px;
+  height: 119px;
+  background-color: pink;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.Record_Content{
+  background-color: green;
+}

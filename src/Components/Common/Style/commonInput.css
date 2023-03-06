@@ -1,9 +1,10 @@
-.Input_Label{
+.Input_Label {
   margin-bottom: 5px;
   font-size: 15px;
+  font-weight: var(--fw-bold);
 }
 
-.Input_Container{
+.Input_Container {
   display: flex;
   flex-direction: column;
 }
