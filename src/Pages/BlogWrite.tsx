@@ -8,15 +8,15 @@ import CategorySelect from "../Components/BlogWrite/CategorySelect";
 import EventButton from "../Components/Common/EventButton";
 import "./Style/blogWrite.css";
 
-const WirteWrapper = styled(Wrapper)`
+export const WriteWrapper = styled(Wrapper)`
   margin-top: 20px;
 `;
 
-const ImageUploaderWrapper = styled(Wrapper)`
+export const ImageUploaderWrapper = styled(Wrapper)`
   margin-bottom: 20px;
 `;
 
-const TitleWriteWrapper = styled(Wrapper)`
+export const TitleWriteWrapper = styled(Wrapper)`
   margin-top: 20px;
   margin-bottom: 30px;
 `;
@@ -47,7 +47,7 @@ const BlogWrite = () => {
   };
 
   return (
-    <WirteWrapper>
+    <WriteWrapper>
       <ImageUploaderWrapper>
         <ImageUploaderWrapper />
         <TitleImageUploarder />
@@ -78,7 +78,7 @@ const BlogWrite = () => {
       <div className="Submit_Container">
         <EventButton usage={"write"} />
       </div>
-    </WirteWrapper>
+    </WriteWrapper>
   );
 };
 

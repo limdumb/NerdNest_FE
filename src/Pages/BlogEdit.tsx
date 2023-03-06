@@ -1,25 +1,13 @@
 import { ChangeEvent, useState } from "react";
-import styled from "styled-components";
-import { Wrapper } from "./Blogs";
+import { WriteWrapper, ImageUploaderWrapper, TitleWriteWrapper } from "./BlogWrite";
 import TextEditor from "../Components/BlogWrite/TextEditor";
 import TitleImageUploarder from "../Components/BlogWrite/TitleImageUploarder";
 import CommonInput from "../Components/Common/CommonInput";
 import CategorySelect from "../Components/BlogWrite/CategorySelect";
 import EventButton from "../Components/Common/EventButton";
+import getBlogEditData from "../API/BlogWrite/Get/getBlogEditData";
+import editBlogPost from "../API/BlogWrite/Patch/editBlogPost";
 import "./Style/blogWrite.css";
-
-const WirteWrapper = styled(Wrapper)`
-  margin-top: 20px;
-`;
-
-const ImageUploaderWrapper = styled(Wrapper)`
-  margin-bottom: 20px;
-`;
-
-const TitleWriteWrapper = styled(Wrapper)`
-  margin-top: 20px;
-  margin-bottom: 30px;
-`;
 
 const BlogWrite = () => {
   const [blogText, setBlogText] = useState("");
@@ -47,7 +35,7 @@ const BlogWrite = () => {
   };
 
   return (
-    <WirteWrapper>
+    <WriteWrapper>
       <ImageUploaderWrapper>
         <ImageUploaderWrapper />
         <TitleImageUploarder />
@@ -78,7 +66,7 @@ const BlogWrite = () => {
       <div className="Submit_Container">
         <EventButton usage={"edit"} />
       </div>
-    </WirteWrapper>
+    </WriteWrapper>
   );
 };
 

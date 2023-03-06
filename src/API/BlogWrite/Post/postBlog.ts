@@ -5,11 +5,16 @@ export interface Params {
   titleImageUrl: string;
   blogTitle: string;
   blogContent: string;
-  categoryId: number;
+  categoryId: number | null;
 }
 
 export default function postBlog(params: Params) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  if (params.categoryId === 0) {
+    params.categoryId = null;
+  }
+
   const request = JSON.stringify({
     titleImageUrl: params.titleImageUrl,
     blogTitle: params.blogTitle,
@@ -18,13 +23,13 @@ export default function postBlog(params: Params) {
   });
   try {
     //추후 로직 변경 예정
-    axios.post("url", request).then((res)=>{
-      if(res.status === 201){
-        alert("게시물 작성이 완료 되었습니다")
+    axios.post("url", request).then((res) => {
+      if (res.status === 201) {
+        alert("게시물 작성이 완료 되었습니다");
         //상의 후 해당 게시물로 가도록 설정할 예정
-        navigate(-1)
+        navigate(-1);
       }
-    })
+    });
   } catch (err) {
     console.error(err);
   }

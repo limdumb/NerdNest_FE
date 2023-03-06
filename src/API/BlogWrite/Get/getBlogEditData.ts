@@ -7,16 +7,16 @@ interface BlogDataType {
   categoryId: number;
 }
 
-export default function getBlogEditData(): Promise<BlogDataType> {
+export default function getBlogEditData(blogId:number): Promise<BlogDataType> {
   return new Promise((resolve, reject) => {
     try {
-      let result:BlogDataType = {
+      let result: BlogDataType = {
         titleImageUrl: "",
         blogTitle: "리액트 어려버",
         blogContent: "<p>ㅎㅇ</p>",
-        categoryId: 0
-      }
-      resolve(result)
+        categoryId: 0,
+      };
+      resolve(result);
     } catch (err) {
       reject(err);
     }

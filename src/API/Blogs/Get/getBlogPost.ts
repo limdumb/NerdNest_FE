@@ -11,8 +11,13 @@ export interface BlogPostType {
   blogList: BlogListType[];
 }
 
+interface Params {
+  pages: number;
+  nickName: string;
+}
+
 export const getBlogPost = (
-  pages: number
+  params: Params
 ): Promise<BlogPostType["blogList"]> => {
   return new Promise((resolve, reject) => {
     try {
