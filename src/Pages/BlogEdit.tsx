@@ -1,5 +1,9 @@
 import { ChangeEvent, useState } from "react";
-import { WriteWrapper, ImageUploaderWrapper, TitleWriteWrapper } from "./BlogWrite";
+import {
+  WriteWrapper,
+  ImageUploaderWrapper,
+  TitleWriteWrapper,
+} from "./BlogWrite";
 import TextEditor from "../Components/BlogWrite/TextEditor";
 import TitleImageUploarder from "../Components/BlogWrite/TitleImageUploarder";
 import CommonInput from "../Components/Common/CommonInput";
