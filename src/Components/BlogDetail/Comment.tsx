@@ -78,10 +78,10 @@ const Comment = ({ commentList }: { commentList: CommentListProps }) => {
               {isRecomment ? "답글 취소" : "답글 달기"}
             </button>
             <GoPencil
-              className="Pencil-icon"
+              className="Pencil_icon"
               onClick={() => setIsCommentEdit(!isCommentEdit)}
             />
-            <RiDeleteBin6Line className="Delete-icon" />
+            <RiDeleteBin6Line className="Delete_icon" />
           </div>
         </div>
         {commentList.recommentList.map((recommentList) => (

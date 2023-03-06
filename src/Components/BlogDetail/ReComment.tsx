@@ -33,10 +33,10 @@ const ReComment = ({ recommentList }: { recommentList: ReCommentProps }) => {
       <CommentSpan usage="date">{recommentList.createdAt}</CommentSpan>
       <div className="Comment_Manage_Container">
         <GoPencil
-          className="Pencil-icon"
+          className="Pencil_icon"
           onClick={() => setIsEditRecomment(!isEditRecomment)}
         />
-        <RiDeleteBin6Line className="Delete-icon" />
+        <RiDeleteBin6Line className="Delete_icon" />
       </div>
     </div>
   );
