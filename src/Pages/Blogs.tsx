@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BlogPostType, getBlogPost } from "../API/Blogs/getBlogPost";
+import { BlogPostType, getBlogPost } from "../API/Blogs/Get/getBlogPost";
 import MemberProfile from "../Components/Blogs/MemberProfile";
 import BlogRecord from "../Components/Blogs/BlogRecord";
 import BlogPost from "../Components/Blogs/BlogPost";

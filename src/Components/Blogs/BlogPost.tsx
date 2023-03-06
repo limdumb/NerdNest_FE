@@ -1,6 +1,6 @@
 import { IoHeartCircle } from "react-icons/io5";
 import { MdOutlineInsertComment } from "react-icons/md";
-import { BlogPostType } from "../../API/Blogs/getBlogPost";
+import { BlogPostType } from "../../API/Blogs/Get/getBlogPost";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import "./Style/blogPost.css";
@@ -48,14 +48,18 @@ export default function BlogPost(props: BlogPostType) {
                 <h1 className="Blog_Title">{post.blogTitle}</h1>
                 <div className="Comment_Like_Container">
                   <div className="Like_Container">
-                    <span className="Like_Comment_Contetns">{post.likeCount}</span>
+                    <span className="Like_Comment_Contetns">
+                      {post.likeCount}
+                    </span>
                     <IoHeartCircle
                       color="var(--blue-400)"
                       fontSize="var(--font-xxl)"
                     />
                   </div>
                   <div className="Comment_Container">
-                    <span className="Like_Comment_Contetns">{post.commentCount}</span>
+                    <span className="Like_Comment_Contetns">
+                      {post.commentCount}
+                    </span>
                     <MdOutlineInsertComment
                       color="var(--blue-400)"
                       fontSize="var(--font-xxl)"

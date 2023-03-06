@@ -45,7 +45,6 @@ const BlogWrite = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  console.log(categoryValue);
 
   return (
     <WirteWrapper>
