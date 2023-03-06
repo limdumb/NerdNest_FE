@@ -2,9 +2,9 @@ import { TiPencil } from "react-icons/ti";
 import { RiSearchLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import DropDownTab from "./DropDownTab";
 import styled from "styled-components";
-import "../Style/Header.css";
+import DropDownTab from "./DropDownTab";
+import '../Style/Header.css'
 
 export const ProfileImage = styled.img`
   width: 35px;
