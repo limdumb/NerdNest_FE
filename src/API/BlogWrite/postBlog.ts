@@ -8,6 +8,7 @@ interface Params {
 }
 
 export default function postBlog(params: Params) {
+  const navigate = useNavigate()
   const request = JSON.stringify({
     titleImageUrl: params.titleImageUrl,
     blogTitle: params.blogTitle,
@@ -19,6 +20,7 @@ export default function postBlog(params: Params) {
     axios.post("url", request).then((res)=>{
       if(res.status === 201){
         alert("게시물 작성이 완료 되었습니다")
+        navigate(-1)
       }
     })
   } catch (err) {
