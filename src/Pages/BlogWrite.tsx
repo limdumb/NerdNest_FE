@@ -4,9 +4,9 @@ import { Wrapper } from "./Blogs";
 import TextEditor from "../Components/BlogWrite/TextEditor";
 import TitleImageUploarder from "../Components/BlogWrite/TitleImageUploarder";
 import CommonInput from "../Components/Common/CommonInput";
-import "./Style/blogWrite.css";
 import CategorySelect from "../Components/BlogWrite/CategorySelect";
 import EventButton from "../Components/Common/EventButton";
+import "./Style/blogWrite.css";
 
 const WirteWrapper = styled(Wrapper)`
   margin-top: 20px;
@@ -32,7 +32,7 @@ const BlogWrite = () => {
   const [categoryValue, setCategoryValue] = useState(0);
 
   const dummyData = [
-    { categoryId: 1, categoryName: "리액트" },
+    { categoryId: 1, categoryName: "전체" },
     { categoryId: 2, categoryName: "리액트1" },
     { categoryId: 3, categoryName: "리액트2" },
     { categoryId: 4, categoryName: "리액트3" },
