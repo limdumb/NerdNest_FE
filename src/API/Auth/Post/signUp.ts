@@ -8,11 +8,11 @@ interface Params {
 }
 
 export default async function signUp(params: Params) {
-  const request = JSON.stringify({
+  const request = {
     email: params.email,
     nickName: params.nickName,
     password: params.password,
-  });
+  };
   try {
     await axios.post("url", request).then((res) => {
       if (res.status === 200) {

@@ -7,11 +7,11 @@ interface Params {
 }
 
 export default async function editMemberData(params: Params) {
-  const request = JSON.stringify({
+  const request = {
     profileImageUrl: params.profileImageUrl,
     nickName: params.nickName,
     about: params.about,
-  });
+  };
   try {
     await axios.patch("url", request);
   } catch (err) {

@@ -15,12 +15,12 @@ export default async function postBlog(params: Params) {
     params.categoryId = null;
   }
 
-  const request = JSON.stringify({
+  const request = {
     titleImageUrl: params.titleImageUrl,
     blogTitle: params.blogTitle,
     blogContent: params.blogContent,
     categoryId: params.categoryId,
-  });
+  };
   try {
     //추후 로직 변경 예정
     await axios.post("url", request).then((res) => {
