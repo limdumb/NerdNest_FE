@@ -85,7 +85,10 @@ const Comment = ({ commentList }: { commentList: CommentListProps }) => {
           </div>
         </div>
         {commentList.recommentList.map((recommentList) => (
-          <ReComment recommentList={recommentList} />
+          <ReComment
+            key={recommentList.commentId}
+            recommentList={recommentList}
+          />
         ))}
 
         <div className="Comment_Input_Container">
