@@ -1,4 +1,5 @@
 import signUp from "../API/Auth/Post/signUp";
+import nickNameCheck from "../API/Auth/Get/nickNameCheck";
 import React, { ChangeEvent, useState } from "react";
 import CommonInput from "../Components/Common/CommonInput";
 import EventButton from "../Components/Common/EventButton";
@@ -31,17 +32,22 @@ const SignUp = () => {
   const [nickNameErrorMessage, setNickNameErrorMessage] = useState<string>("");
   const [passwordCheckMessage, setPasswordCheckMessage] = useState<string>("");
 
+  // 조건식의 Regex
   const emailRegex =
     /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
   const nickNameRegex = /^[a-zA-Z0-9가-힣]{2,10}$/;
   const passwordRegex =
     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[a-zA-Z\d!@#$%^&*()_+]{6,10}$/;
+
+  //모든조건이 부합하는지에 대한 Boolean 값
   const allCheck = !(
     emailRegex.test(signUpValue.email) &&
     nickNameRegex.test(signUpValue.nickName) &&
     passwordRegex.test(signUpValue.password) &&
     signUpValue.password === signUpValue.passwordCheck
   );
+
+  //추후 CustomHook or Function으로 나눌에정
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSignUpValue(() => ({
       ...signUpValue,
@@ -120,7 +126,12 @@ const SignUp = () => {
             type={"text"}
             placeholder={"닉네임을 입력하세요"}
           />
-          <button className="NickName_Dubble_Check">중복 확인</button>
+          <button
+            className="NickName_Dubble_Check"
+            onClick={() => nickNameCheck(signUpValue.nickName)}
+          >
+            중복 확인
+          </button>
           <ErrorSpan>{nickNameErrorMessage}</ErrorSpan>
         </li>
         <li>
