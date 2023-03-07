@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import CommonInput from "../Components/Common/CommonInput";
 import EventButton from "../Components/Common/EventButton";
-import { AuthContent, AuthWriteList, OauthList } from "./Login";
+import { AuthContent, AuthWriteList, OauthList, ErrorSpan, ButtonWrapper } from "./Login";
 
 interface SignUpType {
   email: string;
@@ -17,7 +17,7 @@ const SignUp = () => {
     password: "",
     passwordCheck: "",
   });
-// 추후에 상태값 변경 예정
+  // 추후에 상태값 변경 예정
   const [emailErrorMessage, setEmailErrorMessage] = useState<string>("");
   const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>("");
   const [nickNameErrorMessage, setNickNameErrorMessage] = useState<string>("");
@@ -80,7 +80,7 @@ const SignUp = () => {
   return (
     <AuthContent>
       <h2>회원가입</h2>
-      <AuthWriteList height="60%" paddingBtm="10px">
+      <AuthWriteList height="438px" paddingBtm="10px">
         <li>
           <CommonInput
             height="44px"
@@ -93,7 +93,7 @@ const SignUp = () => {
             type={"email"}
             placeholder={"이메일을 입력하세요"}
           />
-          <span>{emailErrorMessage}</span>
+          <ErrorSpan>{emailErrorMessage}</ErrorSpan>
         </li>
         <li>
           <CommonInput
@@ -106,7 +106,7 @@ const SignUp = () => {
             type={"text"}
             placeholder={"닉네임을 입력하세요"}
           />
-          <span>{nickNameErrorMessage}</span>
+          <ErrorSpan>{nickNameErrorMessage}</ErrorSpan>
         </li>
         <li>
           <CommonInput
@@ -119,7 +119,7 @@ const SignUp = () => {
             type={"password"}
             placeholder={"비밀번호를 입력하세요"}
           />
-          <span>{passwordErrorMessage}</span>
+          <ErrorSpan>{passwordErrorMessage}</ErrorSpan>
         </li>
         <li>
           <CommonInput
@@ -132,7 +132,9 @@ const SignUp = () => {
             type={"password"}
             placeholder={"비밀번호를 입력하세요"}
           />
-          <span>{passwordCheckMessage}</span>
+          <ErrorSpan color="비밀번호가 일치합니다!">
+            {passwordCheckMessage}
+          </ErrorSpan>
         </li>
       </AuthWriteList>
       {/* oauth 들어올 예정 */}
@@ -140,12 +142,12 @@ const SignUp = () => {
         <div></div>
         <div></div>
       </OauthList>
-      <div>
+      <ButtonWrapper>
         <EventButton
           usage="signUp"
           onClick={() => console.log("로그인 로직 예정")}
         />
-      </div>
+      </ButtonWrapper>
     </AuthContent>
   );
 };

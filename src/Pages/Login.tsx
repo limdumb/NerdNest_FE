@@ -7,12 +7,13 @@ import { Wrapper } from "./Blogs";
 export const AuthContent = styled(Wrapper)`
   align-items: center;
   width: 625px;
-  height: 604.094px;
+  height: 670px;
   padding: 20px 10px;
   background-color: var(--fc-300);
   margin-bottom: 40px;
   border-radius: var(--br-l);
   border: 1px solid black;
+  justify-content: space-between;
 `;
 
 export const AuthWriteList = styled.ul<{ height: string; paddingBtm: string }>`
@@ -24,7 +25,14 @@ export const AuthWriteList = styled.ul<{ height: string; paddingBtm: string }>`
   padding-bottom: ${(props) => (props.paddingBtm ? props.paddingBtm : {})};
   & > li {
     margin-bottom: 15px;
+    height: 89px;
   }
+  margin-top: 10px;
+`;
+
+export const ErrorSpan = styled.span<{ color?: "비밀번호가 일치합니다!" }>`
+  margin-top: 10px;
+  color: ${(props) => (props.color ? "var(--blue-hv-400)" : "red")};
 `;
 
 export const OauthList = styled.ul`
@@ -32,9 +40,12 @@ export const OauthList = styled.ul`
   width: 40%;
   height: 60px;
   gap: 10px;
-  margin-bottom: 80px;
-  margin-top: 10px;
+  margin-bottom: 30px;
 `;
+
+export const ButtonWrapper = styled.div`
+margin-bottom : 20px;
+`
 
 interface LoginType {
   email: string;
@@ -58,7 +69,7 @@ const Login = () => {
   return (
     <AuthContent>
       <h2>로그인</h2>
-      <AuthWriteList height="60%" paddingBtm="80px">
+      <AuthWriteList height="438px" paddingBtm="80px">
         <li>
           <CommonInput
             radius="var(--br-m)"
@@ -85,12 +96,12 @@ const Login = () => {
         <div></div>
         <div></div>
       </OauthList>
-      <div>
+      <ButtonWrapper>
         <EventButton
           usage="login"
           onClick={() => console.log("로그인 로직 예정")}
         />
-      </div>
+      </ButtonWrapper>
     </AuthContent>
   );
 };
