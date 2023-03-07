@@ -30,7 +30,7 @@ export const AuthWriteList = styled.ul<{ height: string; paddingBtm: string }>`
   margin-top: 10px;
 `;
 
-export const ErrorSpan = styled.span<{ color?: "비밀번호가 일치합니다!" }>`
+export const ErrorSpan = styled.span<{ color?: boolean }>`
   margin-top: 10px;
   color: ${(props) => (props.color ? "var(--blue-hv-400)" : "red")};
 `;
@@ -44,8 +44,8 @@ export const OauthList = styled.ul`
 `;
 
 export const ButtonWrapper = styled.div`
-margin-bottom : 20px;
-`
+  margin-bottom: 20px;
+`;
 
 interface LoginType {
   email: string;
@@ -57,21 +57,34 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [emailErrorMessage, setEmailErrorMessage] = useState("");
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.persist();
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     setLoginValue(() => ({
       ...loginValue,
       [e.target.name]: e.target.value,
     }));
+
+    if (e.target.name === "email") {
+      if (e.target.value.length === 0) {
+        setEmailErrorMessage("이메일을 입력해 주세요");
+      } else if (!emailRegex.test(e.target.value)) {
+        setEmailErrorMessage("이메일 형식이 아닙니다");
+      } else {
+        setEmailErrorMessage("");
+      }
+    }
   };
 
   return (
     <AuthContent>
       <h2>로그인</h2>
-      <AuthWriteList height="438px" paddingBtm="80px">
+      <AuthWriteList height="438px" paddingBtm="50px">
         <li>
           <CommonInput
+            height="44px"
             radius="var(--br-m)"
             name="email"
             value={loginValue.email}
@@ -79,9 +92,12 @@ const Login = () => {
             type={"email"}
             placeholder={"이메일을 입력하세요"}
           />
+          <ErrorSpan>{emailErrorMessage}</ErrorSpan>
         </li>
         <li>
           <CommonInput
+            label="비밀번호"
+            height="44px"
             radius="var(--br-m)"
             name="password"
             value={loginValue.password}

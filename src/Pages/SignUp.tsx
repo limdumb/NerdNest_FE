@@ -1,7 +1,13 @@
 import React, { ChangeEvent, useState } from "react";
 import CommonInput from "../Components/Common/CommonInput";
 import EventButton from "../Components/Common/EventButton";
-import { AuthContent, AuthWriteList, OauthList, ErrorSpan, ButtonWrapper } from "./Login";
+import {
+  AuthContent,
+  AuthWriteList,
+  OauthList,
+  ErrorSpan,
+  ButtonWrapper,
+} from "./Login";
 
 interface SignUpType {
   email: string;
@@ -23,6 +29,27 @@ const SignUp = () => {
   const [nickNameErrorMessage, setNickNameErrorMessage] = useState<string>("");
   const [passwordCheckMessage, setPasswordCheckMessage] = useState<string>("");
 
+  const emailRegex =
+    /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+  const nickNameRegex = /^[a-zA-Z0-9가-힣]{2,10}$/;
+  const passwordRegex =
+    /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[a-zA-Z\d!@#$%^&*()_+]{6,10}$/;
+
+  const passEmailValue = emailRegex.test(signUpValue.email);
+  const passNickNameValue = nickNameRegex.test(signUpValue.nickName);
+  const passPasswordValue = passwordRegex.test(signUpValue.password);
+  const passwordCheckValue = signUpValue.password === signUpValue.passwordCheck;
+  // {!passEmailValue && !passNickNameValue && !passPasswordValue && !passwordCheckValue}
+  console.log(
+    "boolean:" +
+      `${!(
+        passEmailValue &&
+        passNickNameValue &&
+        passPasswordValue &&
+        passwordCheckValue
+      )}`
+  );
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSignUpValue(() => ({
       ...signUpValue,
@@ -30,8 +57,6 @@ const SignUp = () => {
     }));
 
     if (e.target.name === "email") {
-      const emailRegex =
-        /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
       if (e.target.value.length === 0) {
         setEmailErrorMessage("이메일을 입력해 주세요");
       } else if (!emailRegex.test(e.target.value)) {
@@ -42,7 +67,6 @@ const SignUp = () => {
     }
 
     if (e.target.name === "nickName") {
-      const nickNameRegex = /^[a-zA-Z0-9가-힣]{2,10}$/;
       if (e.target.value.length === 0) {
         setNickNameErrorMessage("닉네임을 입력하세요");
       } else if (!nickNameRegex.test(e.target.value)) {
@@ -55,8 +79,6 @@ const SignUp = () => {
     }
 
     if (e.target.name === "password") {
-      const passwordRegex =
-        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[a-zA-Z\d!@#$%^&*()_+]{6,10}$/;
       if (e.target.value.length === 0) {
         setPasswordErrorMessage("비밀번호를 입력해 주세요");
       } else if (!passwordRegex.test(e.target.value)) {
@@ -132,9 +154,7 @@ const SignUp = () => {
             type={"password"}
             placeholder={"비밀번호를 입력하세요"}
           />
-          <ErrorSpan color="비밀번호가 일치합니다!">
-            {passwordCheckMessage}
-          </ErrorSpan>
+          <ErrorSpan>{passwordCheckMessage}</ErrorSpan>
         </li>
       </AuthWriteList>
       {/* oauth 들어올 예정 */}
@@ -146,6 +166,14 @@ const SignUp = () => {
         <EventButton
           usage="signUp"
           onClick={() => console.log("로그인 로직 예정")}
+          disabled={
+            !(
+              passEmailValue &&
+              passNickNameValue &&
+              passPasswordValue &&
+              passwordCheckValue
+            )
+          }
         />
       </ButtonWrapper>
     </AuthContent>
