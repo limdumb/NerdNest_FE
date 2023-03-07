@@ -17,7 +17,7 @@ interface InputProps {
 }
 
 interface Props extends InputProps {
-  label?: "닉네임" | "H1" | "비밀번호 확인";
+  label?: "닉네임" | "H1" | "비밀번호 확인" | "비밀번호";
   name?: string
 }
 
@@ -38,8 +38,6 @@ export default function CommonInput(props: Props) {
       <label className="Input_Label">
         {props.type === "email"
           ? "이메일"
-          : props.type === "password"
-          ? "비밀번호"
           : props.label}
       </label>
       <Input
