@@ -23,7 +23,7 @@ const SignUp = () => {
     password: "",
     passwordCheck: "",
   });
-  // 추후에 상태값 변경 예정
+  // 추후에 상태값 및 코드 리팩토링 예정
   const [emailErrorMessage, setEmailErrorMessage] = useState<string>("");
   const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>("");
   const [nickNameErrorMessage, setNickNameErrorMessage] = useState<string>("");
@@ -34,12 +34,12 @@ const SignUp = () => {
   const nickNameRegex = /^[a-zA-Z0-9가-힣]{2,10}$/;
   const passwordRegex =
     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[a-zA-Z\d!@#$%^&*()_+]{6,10}$/;
-
-  const passEmailValue = emailRegex.test(signUpValue.email);
-  const passNickNameValue = nickNameRegex.test(signUpValue.nickName);
-  const passPasswordValue = passwordRegex.test(signUpValue.password);
-  const passwordCheckValue = signUpValue.password === signUpValue.passwordCheck;
-
+  const allCheck = !(
+    emailRegex.test(signUpValue.email) &&
+    nickNameRegex.test(signUpValue.nickName) &&
+    passwordRegex.test(signUpValue.password) &&
+    signUpValue.password === signUpValue.passwordCheck
+  );
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSignUpValue(() => ({
       ...signUpValue,
@@ -156,14 +156,7 @@ const SignUp = () => {
         <EventButton
           usage="signUp"
           onClick={() => console.log("로그인 로직 예정")}
-          disabled={
-            !(
-              passEmailValue &&
-              passNickNameValue &&
-              passPasswordValue &&
-              passwordCheckValue
-            )
-          }
+          disabled={allCheck}
         />
       </ButtonWrapper>
     </AuthContent>
