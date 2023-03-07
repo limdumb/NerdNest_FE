@@ -1,11 +1,13 @@
-.NickName_Dubble_Check{
+.NickName_Dubble_Check {
   height: 44px;
   position: relative;
   bottom: 44px;
-  left: 552px;
+  left: 543px;
+  width: 60px;
   background-color: white;
   border: 1px solid gray;
   border-top-right-radius: var(--br-m);
   border-bottom-right-radius: var(--br-m);
-  font-weight: var(--fw-bold);
+  font-weight: var(--fw-midium);
+  font-size: var(--font-sm);
 }

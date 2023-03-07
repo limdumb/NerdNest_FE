@@ -9,7 +9,7 @@ import {
   ErrorSpan,
   ButtonWrapper,
 } from "./Login";
-import "./Style/signUp.css"
+import "./Style/signUp.css";
 
 interface SignUpType {
   email: string;
