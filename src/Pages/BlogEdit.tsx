@@ -9,8 +9,8 @@ import TitleImageUploarder from "../Components/BlogWrite/TitleImageUploarder";
 import CommonInput from "../Components/Common/CommonInput";
 import CategorySelect from "../Components/BlogWrite/CategorySelect";
 import EventButton from "../Components/Common/EventButton";
-import getBlogEditData from "../API/BlogWrite/Get/getBlogEditData";
-import editBlogPost from "../API/BlogWrite/Patch/editBlogPost";
+import getBlogEditData from "../API/BlogWriteEdit/Get/getBlogEditData";
+import editBlogPost from "../API/BlogWriteEdit/Patch/editBlogPost";
 import "./Style/blogWrite.css";
 
 const BlogWrite = () => {
