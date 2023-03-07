@@ -45,7 +45,7 @@ const Home = () => {
   return (
     <div className="Home_Wrapper">
       <div className="Home_Container">
-        <ul className="HomeSort_Container">
+        <ul className="Home_Sort_Container">
           {sortArr.map((sort, idx) => (
             <Sort
               key={idx}

@@ -48,20 +48,20 @@ const IconContainer = styled.div<IconStyledProps>`
 const BlogPost = ({ post }: { post: PostProps }) => {
   return (
     <>
-      <div className="BlogPost_Wrapper">
-        <div className="BlogPost_Container">
-          <div className="BlogPostImage_Container">
+      <div className="Blog_Post_Wrapper">
+        <div className="Blog_Post_Container">
+          <div className="Blog_Post_Image_Container">
             <img
-              className="BlogPostImage"
+              className="Blog_Post_Image"
               src={post.titleImageUrl}
               alt="TitleImage"
             />
           </div>
-          <div className="BlogPostBody_Container">
+          <div className="Blog_Post_Body_Container">
             <PostContent usage="title" marginTop="10px">
               {post.blogTitle}
             </PostContent>
-            <div className="BlogPostInfo_Container">
+            <div className="Blog_Post_Info_Container">
               <PostContent usage="info">{post.createdAt}</PostContent>
               <IconContainer
                 fontColor="var(--fc-300)"
@@ -73,7 +73,7 @@ const BlogPost = ({ post }: { post: PostProps }) => {
               </IconContainer>
             </div>
           </div>
-          <div className="BlogPostWriter_Container">
+          <div className="Blog_Post_Writer_Container">
             <PostContent usage="writer">{post.writer}</PostContent>
             <IconContainer
               fontColor="var(--fc-500)"
