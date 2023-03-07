@@ -1,3 +1,4 @@
+import signUp from "../API/Auth/Post/signUp";
 import React, { ChangeEvent, useState } from "react";
 import CommonInput from "../Components/Common/CommonInput";
 import EventButton from "../Components/Common/EventButton";
@@ -8,6 +9,7 @@ import {
   ErrorSpan,
   ButtonWrapper,
 } from "./Login";
+import "./Style/signUp.css"
 
 interface SignUpType {
   email: string;
@@ -118,6 +120,7 @@ const SignUp = () => {
             type={"text"}
             placeholder={"닉네임을 입력하세요"}
           />
+          <button className="NickName_Dubble_Check">중복 확인</button>
           <ErrorSpan>{nickNameErrorMessage}</ErrorSpan>
         </li>
         <li>
@@ -155,7 +158,13 @@ const SignUp = () => {
       <ButtonWrapper>
         <EventButton
           usage="signUp"
-          onClick={() => console.log("로그인 로직 예정")}
+          onClick={() => {
+            signUp({
+              email: signUpValue.email,
+              nickName: signUpValue.nickName,
+              password: signUpValue.password,
+            });
+          }}
           disabled={allCheck}
         />
       </ButtonWrapper>

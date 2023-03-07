@@ -26,6 +26,7 @@ export default function AuthTab() {
       tabNavigate: "/auth/signup",
     },
   ];
+
   return (
     <ul className="Auth_Tab_List">
       {AuthArr.map((el, index) => {
