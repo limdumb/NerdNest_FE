@@ -13,10 +13,10 @@ interface LoginResponseType {
 
 export default async function login(params: Params) {
   const navigate = useNavigate();
-  const request = JSON.stringify({
+  const request = {
     email: params.email,
     password: params.password,
-  });
+  };
 
   await axios.post<LoginResponseType>("url", request).then((res) => {
     if (res.status === 200) {

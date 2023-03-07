@@ -1,4 +1,4 @@
-import SearchInput from "../Components/SearchInput";
+import SearchInput from "../Components/Search/SearchInput";
 import BlogListDummy from "../API/DummyData/BlogList.json";
 import { useEffect, useState } from "react";
 import { ArrPostProps, BlogListContainer } from "./Home";

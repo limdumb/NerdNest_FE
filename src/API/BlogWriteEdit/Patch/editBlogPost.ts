@@ -4,12 +4,12 @@ import { Params } from "../Post/postBlog";
 
 export default async function editBlogPost(params:Params) {
   const navigate = useNavigate()
-  const request = JSON.stringify({
+  const request = {
     titleImageUrl: params.titleImageUrl,
     blogTitle: params.blogTitle,
     blogContent: params.blogContent,
     categoryId: params.categoryId,
-  });
+  };
   try {
     //추후 로직 변경 예정
     await axios.patch("url", request).then((res)=>{
