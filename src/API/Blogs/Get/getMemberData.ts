@@ -13,3 +13,5 @@ export default async function getMemberData(memberId: number) {
     console.error(err);
   }
 }
+
+//멤버데이터 수정부터 하면됨
