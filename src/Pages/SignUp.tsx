@@ -39,16 +39,6 @@ const SignUp = () => {
   const passNickNameValue = nickNameRegex.test(signUpValue.nickName);
   const passPasswordValue = passwordRegex.test(signUpValue.password);
   const passwordCheckValue = signUpValue.password === signUpValue.passwordCheck;
-  // {!passEmailValue && !passNickNameValue && !passPasswordValue && !passwordCheckValue}
-  console.log(
-    "boolean:" +
-      `${!(
-        passEmailValue &&
-        passNickNameValue &&
-        passPasswordValue &&
-        passwordCheckValue
-      )}`
-  );
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSignUpValue(() => ({
