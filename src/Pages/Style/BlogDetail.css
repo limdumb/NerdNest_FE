@@ -1,36 +1,36 @@
-.BlogDetail_Container {
+.Blog_Detail_Container {
   width: 100%;
 }
 
-.BlogDetail_Title_Container {
+.Blog_Detail_Title_Container {
   padding: 5rem 0;
 }
 
-.BlogDetail_Title_IM_Container {
+.Blog_Detail_Title_IM_Container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 2rem;
 }
 
-.BlogDetail_Title_Info {
+.Blog_Detail_Title_Info {
   display: flex;
   justify-content: space-between;
   width: 40%;
 }
 
-.BlogDetail_Title_Manage {
+.Blog_Detail_Title_Manage {
   display: flex;
   justify-content: space-between;
   width: 5%;
 }
 
-.BlogDetail_Body_Container {
+.Blog_Detail_Body_Container {
   padding-bottom: 3rem;
   border-bottom: 1px solid var(--hr-500);
 }
 
-.BlogDetail_Comment_Container {
+.Blog_Detail_Comment_Container {
   margin-top: 2rem;
   padding-bottom: 10rem;
 }

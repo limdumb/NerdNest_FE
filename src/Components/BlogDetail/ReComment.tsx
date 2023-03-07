@@ -13,12 +13,12 @@ interface ReCommentProps {
   createdAt: string;
 }
 
-const ReComment = ({ recommentList }: { recommentList: ReCommentProps }) => {
+const ReComment = ({ recomment }: { recomment: ReCommentProps }) => {
   const [isEditRecomment, setIsEditRecomment] = useState(false);
-  const [editRecomment, setEditRecomment] = useState(recommentList.comment);
+  const [editRecomment, setEditRecomment] = useState(recomment.comment);
   return (
     <div className="ReComment_Container">
-      <CommentSpan usage="write">⌙ {recommentList.nickName}: </CommentSpan>
+      <CommentSpan usage="write">⌙ {recomment.nickName}: </CommentSpan>
       {isEditRecomment ? (
         <CommentInput
           width="30%"
@@ -28,9 +28,9 @@ const ReComment = ({ recommentList }: { recommentList: ReCommentProps }) => {
           onChange={(e) => setEditRecomment(e.target.value)}
         />
       ) : (
-        <CommentSpan>{recommentList.comment}</CommentSpan>
+        <CommentSpan>{recomment.comment}</CommentSpan>
       )}
-      <CommentSpan usage="date">{recommentList.createdAt}</CommentSpan>
+      <CommentSpan usage="date">{recomment.createdAt}</CommentSpan>
       <div className="Comment_Manage_Container">
         <GoPencil
           className="Pencil_icon"
