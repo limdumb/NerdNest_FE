@@ -88,8 +88,8 @@ const BlogDetail = () => {
         <h2>{blogData && blogData.commentList.length} Comment</h2>
         <AddComment />
         {blogData &&
-          blogData.commentList.map((commentList) => (
-            <Comment key={commentList.commentId} commentList={commentList} />
+          blogData.commentList.map((comment) => (
+            <Comment key={comment.commentId} comment={comment} />
           ))}
       </div>
     </div>

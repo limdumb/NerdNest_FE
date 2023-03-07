@@ -44,9 +44,9 @@ export const CommentSpan = styled.span<CommentStyledProps>`
   }
 `;
 
-const Comment = ({ commentList }: { commentList: CommentListProps }) => {
-  const [comment, setComment] = useState("");
-  const [editComment, setEditComment] = useState(commentList.comment);
+const Comment = ({ comment }: { comment: CommentListProps }) => {
+  const [commentValue, setCommentValue] = useState("");
+  const [editComment, setEditComment] = useState(comment.comment);
   const [isCommentEdit, setIsCommentEdit] = useState(false);
   const [isRecomment, setIsRecomment] = useState(false);
   return (
@@ -57,7 +57,7 @@ const Comment = ({ commentList }: { commentList: CommentListProps }) => {
             src="https://images.unsplash.com/photo-1676824469794-9d8deeaf1f2c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
             alt="memberImage"
           />
-          <CommentSpan usage="write">{commentList.nickName} :</CommentSpan>
+          <CommentSpan usage="write">{comment.nickName} :</CommentSpan>
           {isCommentEdit ? (
             <CommentInput
               width="30%"
@@ -67,9 +67,9 @@ const Comment = ({ commentList }: { commentList: CommentListProps }) => {
               onChange={(e) => setEditComment(e.target.value)}
             />
           ) : (
-            <CommentSpan>{commentList.comment}</CommentSpan>
+            <CommentSpan>{comment.comment}</CommentSpan>
           )}
-          <CommentSpan usage="date">{commentList.createdAt}</CommentSpan>
+          <CommentSpan usage="date">{comment.createdAt}</CommentSpan>
           <div className="Comment_Manage_Container">
             <button
               className="isReComment_Btn"
@@ -84,10 +84,10 @@ const Comment = ({ commentList }: { commentList: CommentListProps }) => {
             <RiDeleteBin6Line className="Delete_icon" />
           </div>
         </div>
-        {commentList.recommentList.map((recommentList) => (
+        {comment.recommentList.map((recomment) => (
           <ReComment
-            key={recommentList.commentId}
-            recommentList={recommentList}
+            key={recomment.commentId}
+            recomment={recomment}
           />
         ))}
 
@@ -96,8 +96,8 @@ const Comment = ({ commentList }: { commentList: CommentListProps }) => {
             <>
               <CommentInput
                 width="50%"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
+                value={commentValue}
+                onChange={(e) => setCommentValue(e.target.value)}
                 placeholder="댓글을 입력해주세요."
                 marginLeft="7rem"
                 marginBottom="1.5rem"
