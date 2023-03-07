@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export default function nickNameCheck(nickName: string) {
+export default async function nickNameCheck(nickName: string) {
   try {
-    axios.get(`/members/check?${nickName}`).then((res) => {
+    await axios.get(`/members/check?${nickName}`).then((res) => {
       if (res.status === 200) {
         alert("사용 가능한 닉네임 입니다 🙆🏻");
       }

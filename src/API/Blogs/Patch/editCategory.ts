@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export default function editCategory(categoryId: number, categoryName: string) {
+export default async function editCategory(categoryId: number, categoryName: string) {
   try {
-    axios.patch(
+    await axios.patch(
       `category/${categoryId}`,
       JSON.stringify({ categoryName: categoryName })
     );
