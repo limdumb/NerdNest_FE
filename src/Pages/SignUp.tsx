@@ -177,12 +177,11 @@ const SignUp = () => {
         <EventButton
           usage="signUp"
           onClick={() => {
-            //만약 signUp이 성공하면 "/"로 이동시키고 그게 아니라면 안되게
             signUp({
               email: signUpValue.email,
               nickName: signUpValue.nickName,
               password: signUpValue.password,
-              navigate:navigate
+              navigate: navigate,
             });
           }}
           disabled={allCheck}
