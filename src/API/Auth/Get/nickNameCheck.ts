@@ -15,5 +15,7 @@ export default async function nickNameCheck(nickName: string) {
         alert("중복된 닉네임 입니다 다른 닉네임을 사용 해주세요 ❗️");
       }
     }
+  } else {
+    alert("닉네임의 글자수를 확인해주세요!");
   }
 }
