@@ -1,5 +1,6 @@
 import axios from "axios";
 import login from "./login";
+import { baseInstance } from "../../Instance/Instance";
 
 interface Params {
   email: string;
@@ -14,7 +15,7 @@ export default async function signUp(params: Params) {
     password: params.password,
   };
   try {
-    await axios.post("url", request).then((res) => {
+    await baseInstance.post("/signup", request).then((res) => {
       if (res.status === 200) {
         login({ email: params.email, password: params.password });
       }
