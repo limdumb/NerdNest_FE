@@ -3,6 +3,8 @@ import CommonInput from "../Components/Common/CommonInput";
 import styled from "styled-components";
 import EventButton from "../Components/Common/EventButton";
 import { Wrapper } from "./Blogs";
+import login from "../API/Auth/Post/login";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContent = styled(Wrapper)`
   align-items: center;
@@ -57,6 +59,8 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const emailRegex =
     /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -116,7 +120,13 @@ const Login = () => {
         <EventButton
           usage="login"
           disabled={!emailRegex.test(loginValue.email)}
-          onClick={() => console.log("로그인 로직 예정")}
+          onClick={() => {
+            login({
+              email: loginValue.email,
+              password: loginValue.password,
+              navigate: navigate,
+            });
+          }}
         />
       </ButtonWrapper>
     </AuthContent>
