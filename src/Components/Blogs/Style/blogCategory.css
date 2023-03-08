@@ -1,6 +1,5 @@
 .Category_Name{
   font-size: var(--font-base);
-  margin-left: 5px;
   background-color: none;
 }
 
@@ -11,4 +10,29 @@
 
 .Folder_Icon{
   font-size: var(--font-md);
+  margin-right: 8px;
+}
+
+.Category_Title_Container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Category_Title{
+  display: flex;
+}
+
+.Category_Folder_Icon{
+  margin-top: 2px;
+  margin-right: 8px;
+}
+
+.Category_Title_Container{
+  margin-bottom: 10px;
+}
+
+.Category_Edit_Pen{
+  margin-right: 84px;
+  margin-bottom: 7px;
 }

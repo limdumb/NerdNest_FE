@@ -5,6 +5,11 @@ import BlogRecord from "../Components/Blogs/BlogRecord";
 import BlogPost from "../Components/Blogs/BlogPost";
 import BlogCategory from "../Components/Blogs/BlogCategory";
 import styled from "styled-components";
+import useFetch from "../Custom Hook/useFetch";
+import { useParams } from "react-router-dom";
+import { VscFolderOpened } from "react-icons/vsc";
+import { TiPen } from "react-icons/ti";
+import { HiPlusCircle } from "react-icons/hi";
 import "./Style/blogs.css";
 
 //추후 공용으로 뺄지는 상의예정
@@ -38,8 +43,15 @@ const BlogRecordWrapper = styled(Wrapper)`
   width: 70%;
 `;
 
+export type CategoryType = {
+  categoryList: { categoryId: number; categoryName: string }[] | undefined;
+};
+
 const Blogs = () => {
+  const params = useParams();
+  const memberId = localStorage.getItem("memberId");
   const [blogPosts, setBlogPosts] = useState<BlogPostType["blogList"]>([]);
+  const [editActive, setEditActive] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchBlogPosts = async () => {
@@ -47,9 +59,12 @@ const Blogs = () => {
       const response = await getBlogPost({ pages: 1, nickName: "가라" });
       setBlogPosts(response);
     };
-
     fetchBlogPosts();
   }, []);
+
+  const { data } = useFetch<CategoryType>(`/category/${params.memberId}`);
+  console.log(editActive);
+  //카테고리 => 멤버정보 => 블로그리스트 순서대로 데이터 받아볼것
   return (
     <BlogWrapper>
       <div className="Member_Information_Container">
@@ -69,8 +84,35 @@ const Blogs = () => {
       </div>
       <div className="Blog_Information_Container">
         <CategoryWrapper>
-          <h4>카테고리</h4>
-          <BlogCategory />
+          <div className="Category_Title_Container">
+            <div className="Category_Title">
+              <VscFolderOpened className="Category_Folder_Icon" />
+              <h3>카테고리</h3>
+            </div>
+            <div>
+              {editActive ? <HiPlusCircle /> : null}
+              {memberId === params.memberId ? (
+                editActive ? (
+                  <TiPen
+                    className="Category_Edit_Pen"
+                    onClick={() => {
+                      setEditActive(false);
+                      console.log("완료 로직");
+                    }}
+                  />
+                ) : (
+                  <TiPen
+                    className="Category_Edit_Pen"
+                    onClick={() => {
+                      console.log("수정ON");
+                      setEditActive(true);
+                    }}
+                  />
+                )
+              ) : null}
+            </div>
+          </div>
+          <BlogCategory categoryList={data?.categoryList} />
         </CategoryWrapper>
         <BlogPostWrapper>
           <BlogPost blogList={blogPosts} />
