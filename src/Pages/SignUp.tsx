@@ -10,8 +10,8 @@ import {
   ErrorSpan,
   ButtonWrapper,
 } from "./Login";
-import "./Style/signUp.css";
 import { useNavigate } from "react-router-dom";
+import "./Style/signUp.css";
 
 interface SignUpType {
   email: string;
