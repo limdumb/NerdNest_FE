@@ -43,15 +43,19 @@ const BlogRecordWrapper = styled(Wrapper)`
   width: 70%;
 `;
 
-export type CategoryType = {
-  categoryList: { categoryId: number; categoryName: string }[] | undefined;
-};
+export interface CategoryType {
+  categoryList: {
+    categoryId: number;
+    categoryName: string;
+  }[] | undefined;
+}
 
 const Blogs = () => {
   const params = useParams();
   const memberId = localStorage.getItem("memberId");
   const [blogPosts, setBlogPosts] = useState<BlogPostType["blogList"]>([]);
   const [editActive, setEditActive] = useState<boolean>(false);
+  const [newCategory, setNewCategory] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchBlogPosts = async () => {
@@ -63,7 +67,6 @@ const Blogs = () => {
   }, []);
 
   const { data } = useFetch<CategoryType>(`/category/${params.memberId}`);
-  console.log(editActive);
   //카테고리 => 멤버정보 => 블로그리스트 순서대로 데이터 받아볼것
   return (
     <BlogWrapper>
@@ -90,13 +93,19 @@ const Blogs = () => {
               <h3>카테고리</h3>
             </div>
             <div>
-              {editActive ? <HiPlusCircle /> : null}
+              {editActive ? (
+                <HiPlusCircle
+                  className="Category_Add_Button"
+                  onClick={() => setNewCategory(!newCategory)}
+                />
+              ) : null}
               {memberId === params.memberId ? (
                 editActive ? (
                   <TiPen
                     className="Category_Edit_Pen"
                     onClick={() => {
                       setEditActive(false);
+                      setNewCategory(false)
                       console.log("완료 로직");
                     }}
                   />
@@ -112,7 +121,7 @@ const Blogs = () => {
               ) : null}
             </div>
           </div>
-          <BlogCategory categoryList={data?.categoryList} />
+          <BlogCategory categoryList={data?.categoryList} editActive={editActive} newCategory={newCategory}/>
         </CategoryWrapper>
         <BlogPostWrapper>
           <BlogPost blogList={blogPosts} />

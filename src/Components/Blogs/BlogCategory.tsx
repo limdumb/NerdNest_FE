@@ -17,10 +17,19 @@ import "./Style/blogCategory.css";
   4-1 url 변경시켜서 쿼리로 받을 수 있게 하기
  */
 
-export default function BlogCategory(categoryList: CategoryType, editActive: boolean) {
+interface Props extends CategoryType {
+  newCategory: boolean;
+  editActive: boolean;
+}
+
+export default function BlogCategory({
+  categoryList,
+  newCategory,
+  editActive,
+}: Props) {
   return (
     <ul>
-      {categoryList.categoryList?.map((el) => {
+      {categoryList?.map((el) => {
         return (
           <li className="Category_List" key={el.categoryId}>
             <VscFolderOpened className="Folder_Icon" />
@@ -28,6 +37,7 @@ export default function BlogCategory(categoryList: CategoryType, editActive: boo
           </li>
         );
       })}
+      {editActive ? newCategory ? <input /> : null : null}
     </ul>
   );
 }
