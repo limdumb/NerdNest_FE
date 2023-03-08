@@ -58,10 +58,10 @@ const Login = () => {
     password: "",
   });
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
+  const emailRegex =
+    /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const emailRegex =
-      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     setLoginValue(() => ({
       ...loginValue,
       [e.target.name]: e.target.value,
@@ -115,6 +115,7 @@ const Login = () => {
       <ButtonWrapper>
         <EventButton
           usage="login"
+          disabled={!emailRegex.test(loginValue.email)}
           onClick={() => console.log("로그인 로직 예정")}
         />
       </ButtonWrapper>
