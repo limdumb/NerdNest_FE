@@ -121,6 +121,7 @@ const Blogs = () => {
               ) : null}
             </div>
           </div>
+          
           <BlogCategory categoryList={data?.categoryList} editActive={editActive} newCategory={newCategory}/>
         </CategoryWrapper>
         <BlogPostWrapper>

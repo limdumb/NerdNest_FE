@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { VscFolderOpened } from "react-icons/vsc";
 import { CategoryType } from "../../Pages/Blogs";
+import createCategory from "../../API/Blogs/Post/createCategory";
 import "./Style/blogCategory.css";
 
 /*  
@@ -8,7 +9,7 @@ import "./Style/blogCategory.css";
   1. 카테고리를 추가하는것
   1-1 추가/수정/삭제 모드로 전환이 가능한 state를 만든다 + 버튼도 만든다 O
   1-2 추가 버튼을 만든다 O
-  1-3 추가 버튼을 누르면 마지막 카테고리 밑에 input과 확인버튼을 만든다
+  1-3 추가 버튼을 누르면 마지막 카테고리 밑에 input과 확인버튼을 만든다 O
   1-4 확인 버튼을 누르면 추가되었습니다 라는 alert가 확인되면서
       input과 버튼이 사라지고 카테고리가 추가된다
   2. 카테고리를 삭제하는것
@@ -27,6 +28,11 @@ export default function BlogCategory({
   newCategory,
   editActive,
 }: Props) {
+  const [CategoryValue, setCategoryValue] = useState<string>("");
+  
+  const addCategoryHandler = () => {
+    
+  }
   return (
     <ul>
       {categoryList?.map((el) => {
@@ -37,7 +43,27 @@ export default function BlogCategory({
           </li>
         );
       })}
-      {editActive ? newCategory ? <input /> : null : null}
+      {editActive ? (
+        newCategory ? (
+          <div className="Category_Add_Container">
+            <VscFolderOpened className="Add_Folder_Icon" />
+            <input
+              className="Category_Add_Input"
+              defaultValue={CategoryValue}
+              onChange={(e) => setCategoryValue(e.target.value)}
+            />
+            <button
+              className="Category_Submit_Button"
+              onClick={() => {
+                
+                createCategory(CategoryValue);
+              }}
+            >
+              확인
+            </button>
+          </div>
+        ) : null
+      ) : null}
     </ul>
   );
 }

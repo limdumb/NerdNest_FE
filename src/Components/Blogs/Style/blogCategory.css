@@ -36,3 +36,33 @@
   margin-right: 84px;
   margin-bottom: 7px;
 }
+
+.Category_Add_Input{
+  height: 22px;
+  border: 1px solid gray;
+  /* border-radius: 3px; */
+  border-right: none;
+  width: 140px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.Category_Submit_Button{
+  border: 1px solid gray;
+  height: 22px;
+  background-color: white;
+  border-left: none;
+  padding-right: 2px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.Category_Add_Container{
+  display: flex;
+  margin-top: 10px;
+}
+
+.Add_Folder_Icon{
+  margin-right: 8px;
+  margin-top: 4px;
+}
