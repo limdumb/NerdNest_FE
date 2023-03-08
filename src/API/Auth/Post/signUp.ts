@@ -28,7 +28,6 @@ export default async function signUp(params: Params) {
     });
   } catch (err) {
     if (err) {
-      console.log(err);
       alert("정보가 잘못 되었습니다!");
     }
   }
