@@ -10,6 +10,7 @@ import {
   ErrorSpan,
   ButtonWrapper,
 } from "./Login";
+import { useNavigate } from "react-router-dom";
 import "./Style/signUp.css";
 
 interface SignUpType {
@@ -26,13 +27,14 @@ const SignUp = () => {
     password: "",
     passwordCheck: "",
   });
-  const [nickNameCheckm, setNickNameCheck] = useState<boolean>(false);
+  const [duplicationCheck, setDuplicationCheck] = useState<boolean>(false);
   // 추후에 상태값 및 코드 리팩토링 예정
   const [emailErrorMessage, setEmailErrorMessage] = useState<string>("");
   const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>("");
   const [nickNameErrorMessage, setNickNameErrorMessage] = useState<string>("");
   const [passwordCheckMessage, setPasswordCheckMessage] = useState<string>("");
 
+  const navigate = useNavigate();
   // 조건식의 Regex
   const emailRegex =
     /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -45,8 +47,8 @@ const SignUp = () => {
     emailRegex.test(signUpValue.email) &&
     nickNameRegex.test(signUpValue.nickName) &&
     passwordRegex.test(signUpValue.password) &&
-    signUpValue.password === signUpValue.passwordCheck&&
-    nickNameCheckm
+    signUpValue.password === signUpValue.passwordCheck &&
+    duplicationCheck
   );
 
   //추후 CustomHook or Function으로 나눌에정
@@ -131,7 +133,7 @@ const SignUp = () => {
           <button
             className="NickName_Dubble_Check"
             onClick={() => {
-              setNickNameCheck(true)
+              setDuplicationCheck(true);
               nickNameCheck(signUpValue.nickName);
             }}
           >
@@ -179,6 +181,7 @@ const SignUp = () => {
               email: signUpValue.email,
               nickName: signUpValue.nickName,
               password: signUpValue.password,
+              navigate: navigate,
             });
           }}
           disabled={allCheck}
