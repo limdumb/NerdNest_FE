@@ -2,6 +2,8 @@ import { useState } from "react";
 import { VscFolderOpened } from "react-icons/vsc";
 import { CategoryType } from "../../Pages/Blogs";
 import createCategory from "../../API/Blogs/Post/createCategory";
+import { HiDotsHorizontal } from "react-icons/hi";
+import { BsTrashFill } from "react-icons/bs";
 import "./Style/blogCategory.css";
 
 /*  
@@ -21,35 +23,47 @@ import "./Style/blogCategory.css";
 interface Props extends CategoryType {
   newCategory: boolean;
   editActive: boolean;
-  setNewCategory: React.Dispatch<React.SetStateAction<boolean>>
-
+  setNewCategory: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function BlogCategory({
   categoryList,
   newCategory,
   editActive,
-  setNewCategory
+  setNewCategory,
 }: Props) {
   const [CategoryValue, setCategoryValue] = useState<string>("");
-  const [addSubmitCheck, setAddSubmitCheck] = useState<boolean>(true);
+  const accessToken = localStorage.getItem("accessToken");
+
   const addCategoryHandler = (
     categoryId: number,
     categoryName: string,
     data: CategoryType[]
   ) => {
-    const newCategory = { categoryId: categoryId, categoryName: categoryName };
-    data.push(newCategory as any);
-    setCategoryValue("")
+    setNewCategory(!newCategory);
+    const newCategoryData = {
+      categoryId: categoryId,
+      categoryName: categoryName,
+    };
+    data.push(newCategoryData as any);
+    setCategoryValue("");
   };
-  const accessToken = localStorage.getItem("accessToken")
+
   return (
     <ul>
       {categoryList.map((el) => {
         return (
           <li className="Category_List" key={el.categoryId}>
-            <VscFolderOpened className="Folder_Icon" />
-            <button className="Category_Name">{el.categoryName}</button>
+            <div className="Category_Contents">
+              <VscFolderOpened className="Folder_Icon" />
+              <button className="Category_Name">{el.categoryName}</button>
+              {editActive ? (
+                <>
+                  <BsTrashFill color="gray" className="Category_Delete_Icon" />
+                  <HiDotsHorizontal />
+                </>
+              ) : null}
+            </div>
           </li>
         );
       })}
@@ -65,14 +79,12 @@ export default function BlogCategory({
             <button
               className="Category_Submit_Button"
               onClick={() => {
-                setNewCategory(!newCategory);
                 createCategory(CategoryValue, accessToken);
                 addCategoryHandler(
                   (categoryList.length + 1) as number,
                   CategoryValue,
                   categoryList as unknown as CategoryType[]
                 );
-
               }}
             >
               확인
