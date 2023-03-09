@@ -5,15 +5,15 @@ import { baseInstance } from "../API/Instance/Instance";
 interface State<T> {
   loading: boolean;
   error: any;
-  data: T | null;
+  data: T;
 }
 
-export default function useFetch<T>(endPoint: string) {
+export default function useFetch<T>(endPoint: string, initialValue: T) {
   //추후 env로 변경 가능성 있음
   const [data, setData] = useState<State<T>>({
     loading: true,
     error: null,
-    data: null,
+    data: initialValue,
   });
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function useFetch<T>(endPoint: string) {
         setData({ loading: false, error: null, data: response.data });
       })
       .catch((error: any) => {
-        setData({ loading: false, error, data: null });
+        setData({ loading: false, error, data: initialValue });
       });
   }, [endPoint]);
   return data;

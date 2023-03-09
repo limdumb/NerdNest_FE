@@ -10,8 +10,8 @@ import "./Style/blogCategory.css";
   1-1 추가/수정/삭제 모드로 전환이 가능한 state를 만든다 + 버튼도 만든다 O
   1-2 추가 버튼을 만든다 O
   1-3 추가 버튼을 누르면 마지막 카테고리 밑에 input과 확인버튼을 만든다 O
-  1-4 확인 버튼을 누르면 추가되었습니다 라는 alert가 확인되면서
-      input과 버튼이 사라지고 카테고리가 추가된다
+  1-4 확인 버튼을 누르면 추가되었습니다 라는 alert가 확인되면서 O
+      input과 버튼이 사라지고 카테고리가 추가된다 O
   2. 카테고리를 삭제하는것
   3. 카테고리를 수정하는것
   4. 클릭할때 해당 카테고리에 맞는 데이터를 볼수있는 로직구현
@@ -21,21 +21,31 @@ import "./Style/blogCategory.css";
 interface Props extends CategoryType {
   newCategory: boolean;
   editActive: boolean;
+  setNewCategory: React.Dispatch<React.SetStateAction<boolean>>
+
 }
 
 export default function BlogCategory({
   categoryList,
   newCategory,
   editActive,
+  setNewCategory
 }: Props) {
   const [CategoryValue, setCategoryValue] = useState<string>("");
-  
-  const addCategoryHandler = () => {
-    
-  }
+  const [addSubmitCheck, setAddSubmitCheck] = useState<boolean>(true);
+  const addCategoryHandler = (
+    categoryId: number,
+    categoryName: string,
+    data: CategoryType[]
+  ) => {
+    const newCategory = { categoryId: categoryId, categoryName: categoryName };
+    data.push(newCategory as any);
+    setCategoryValue("")
+  };
+  const accessToken = localStorage.getItem("accessToken")
   return (
     <ul>
-      {categoryList?.map((el) => {
+      {categoryList.map((el) => {
         return (
           <li className="Category_List" key={el.categoryId}>
             <VscFolderOpened className="Folder_Icon" />
@@ -55,8 +65,14 @@ export default function BlogCategory({
             <button
               className="Category_Submit_Button"
               onClick={() => {
-                
-                createCategory(CategoryValue);
+                setNewCategory(!newCategory);
+                createCategory(CategoryValue, accessToken);
+                addCategoryHandler(
+                  (categoryList.length + 1) as number,
+                  CategoryValue,
+                  categoryList as unknown as CategoryType[]
+                );
+
               }}
             >
               확인

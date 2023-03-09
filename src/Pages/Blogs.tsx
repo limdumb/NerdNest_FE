@@ -47,7 +47,7 @@ export interface CategoryType {
   categoryList: {
     categoryId: number;
     categoryName: string;
-  }[] | undefined;
+  }[];
 }
 
 const Blogs = () => {
@@ -66,7 +66,14 @@ const Blogs = () => {
     fetchBlogPosts();
   }, []);
 
-  const { data } = useFetch<CategoryType>(`/category/${params.memberId}`);
+  const CateogryInitialValue = {
+    categoryList: [{ categoryId: 0, categoryName: "" }],
+  };
+
+  const { data } = useFetch<CategoryType>(
+    `/category/${params.memberId}`,
+    CateogryInitialValue
+  );
   //카테고리 => 멤버정보 => 블로그리스트 순서대로 데이터 받아볼것
   return (
     <BlogWrapper>
@@ -105,7 +112,7 @@ const Blogs = () => {
                     className="Category_Edit_Pen"
                     onClick={() => {
                       setEditActive(false);
-                      setNewCategory(false)
+                      setNewCategory(false);
                       console.log("완료 로직");
                     }}
                   />
@@ -121,8 +128,13 @@ const Blogs = () => {
               ) : null}
             </div>
           </div>
-          
-          <BlogCategory categoryList={data?.categoryList} editActive={editActive} newCategory={newCategory}/>
+
+          <BlogCategory
+            categoryList={data.categoryList}
+            editActive={editActive}
+            newCategory={newCategory}
+            setNewCategory={setNewCategory}
+          />
         </CategoryWrapper>
         <BlogPostWrapper>
           <BlogPost blogList={blogPosts} />
