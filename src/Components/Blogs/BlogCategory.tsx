@@ -43,8 +43,6 @@ export default function BlogCategory({
   const [CategoryValue, setCategoryValue] = useState<string>("");
   const accessToken = localStorage.getItem("accessToken");
 
-  useEffect(() => {}, [categoryList]);
-
   const addCategoryHandler = (categoryId: number) => {
     if (CategoryValue !== "전체") {
       setNewCategory(!newCategory);

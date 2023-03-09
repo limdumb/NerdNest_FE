@@ -57,7 +57,7 @@ const Blogs = () => {
   const [editActive, setEditActive] = useState<boolean>(false);
   const [newCategory, setNewCategory] = useState<boolean>(false);
   //랜더링을 위한 임시상태
-  const [renderState, setRenderState] = useState<boolean>(false)
+  const [renderState, setRenderState] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchBlogPosts = async () => {
@@ -76,8 +76,7 @@ const Blogs = () => {
     `/category/${params.memberId}`,
     CateogryInitialValue
   );
-  
-  //카테고리 => 멤버정보 => 블로그리스트 순서대로 데이터 받아볼것
+
   return (
     <BlogWrapper>
       <div className="Member_Information_Container">
@@ -129,7 +128,6 @@ const Blogs = () => {
               ) : null}
             </div>
           </div>
-
           <BlogCategory
             categoryList={data.categoryList}
             editActive={editActive}
