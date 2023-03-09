@@ -2,7 +2,8 @@ import axios from "axios";
 
 export default async function deleteCategory(
   categoryId: number,
-  categoryName: string
+  categoryName: string,
+  accessToken: string | null
 ) {
   try {
     await axios.delete(`/category/${categoryId}`).then((res) => {

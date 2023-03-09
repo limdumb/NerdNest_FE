@@ -2,6 +2,7 @@ import { useState } from "react";
 import { VscFolderOpened } from "react-icons/vsc";
 import { CategoryType } from "../../Pages/Blogs";
 import createCategory from "../../API/Blogs/Post/createCategory";
+import deleteCategory from "../../API/Blogs/Delete/deleteCategory";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { BsTrashFill } from "react-icons/bs";
 import "./Style/blogCategory.css";
@@ -15,6 +16,9 @@ import "./Style/blogCategory.css";
   1-4 확인 버튼을 누르면 추가되었습니다 라는 alert가 확인되면서 O
       input과 버튼이 사라지고 카테고리가 추가된다 O
   2. 카테고리를 삭제하는것
+  2-1 삭제버튼을 만든다
+  2-3 삭제 버튼을 누르면 삭제가 완료 되었습니다 라는 alert 표시 후 삭제된다
+  
   3. 카테고리를 수정하는것
   4. 클릭할때 해당 카테고리에 맞는 데이터를 볼수있는 로직구현
   4-1 url 변경시켜서 쿼리로 받을 수 있게 하기
@@ -35,20 +39,20 @@ export default function BlogCategory({
   const [CategoryValue, setCategoryValue] = useState<string>("");
   const accessToken = localStorage.getItem("accessToken");
 
-  const addCategoryHandler = (
-    categoryId: number,
-    categoryName: string,
-    data: CategoryType[]
-  ) => {
-    setNewCategory(!newCategory);
-    const newCategoryData = {
-      categoryId: categoryId,
-      categoryName: categoryName,
-    };
-    data.push(newCategoryData as any);
-    setCategoryValue("");
+  const addCategoryHandler = (categoryId: number) => {
+    if(CategoryValue !== "전체"){
+      setNewCategory(!newCategory);
+      const newCategoryData = {
+        categoryId: categoryId,
+        categoryName: CategoryValue,
+      };
+      categoryList.push(newCategoryData);
+      setCategoryValue("");
+    }
   };
 
+  const deleteCategoryHandler = (categoryId: number) => {};
+  console.log(categoryList);
   return (
     <ul>
       {categoryList.map((el) => {
@@ -58,10 +62,19 @@ export default function BlogCategory({
               <VscFolderOpened className="Folder_Icon" />
               <button className="Category_Name">{el.categoryName}</button>
               {editActive ? (
-                <>
-                  <BsTrashFill color="gray" className="Category_Delete_Icon" />
-                  <HiDotsHorizontal />
-                </>
+                el.categoryName !== "전체" ? (
+                  <>
+                    <BsTrashFill
+                      color="gray"
+                      className="Category_Delete_Icon"
+                    />
+                    <HiDotsHorizontal
+                      onClick={() => {
+                        // deleteCategory(el.categoryId, accessToken)
+                      }}
+                    />
+                  </>
+                ) : null
               ) : null}
             </div>
           </li>
@@ -80,11 +93,7 @@ export default function BlogCategory({
               className="Category_Submit_Button"
               onClick={() => {
                 createCategory(CategoryValue, accessToken);
-                addCategoryHandler(
-                  (categoryList.length + 1) as number,
-                  CategoryValue,
-                  categoryList as unknown as CategoryType[]
-                );
+                addCategoryHandler((categoryList.length + 1) as number);
               }}
             >
               확인

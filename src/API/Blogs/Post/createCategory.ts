@@ -6,16 +6,21 @@ export default async function createCategory(
 ) {
   baseInstance.defaults.headers.common["Authorization"] = accessToken;
   if (categoryName.length !== 0) {
-    try {
-      await baseInstance
-        .post("/category", { categoryName: categoryName })
-        .then((res) => {
-          if (res.status === 201) alert("카테고리가 생성 되었습니다.");
-        });
-    } catch (err) {
-      console.error(err);
+    if(categoryName !== "전체"){
+      try {
+        await baseInstance
+          .post("/category", { categoryName: categoryName })
+          .then((res) => {
+            if (res.status === 201) alert("카테고리가 생성 되었습니다.");
+          });
+      } catch (err) {
+        console.error(err);
+      }
+    }else{
+      alert("전체 카테고리는 생성 할 수 없습니다.")
     }
-  } else {
+  }
+  else {
     alert("카테고리명을 입력해주세요!");
   }
 }
