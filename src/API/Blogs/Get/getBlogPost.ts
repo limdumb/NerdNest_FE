@@ -13,7 +13,7 @@ export interface BlogPostType {
 
 interface Params {
   pages: number;
-  nickName: string;
+  nickName: string | undefined;
 }
 
 export const getBlogPost = (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { VscFolderOpened } from "react-icons/vsc";
 import { CategoryType } from "../../Pages/Blogs";
 import createCategory from "../../API/Blogs/Post/createCategory";
@@ -28,6 +28,8 @@ interface Props extends CategoryType {
   newCategory: boolean;
   editActive: boolean;
   setNewCategory: React.Dispatch<React.SetStateAction<boolean>>;
+  setRenderState: React.Dispatch<React.SetStateAction<boolean>>;
+  renderState: boolean;
 }
 
 export default function BlogCategory({
@@ -35,12 +37,16 @@ export default function BlogCategory({
   newCategory,
   editActive,
   setNewCategory,
+  setRenderState,
+  renderState,
 }: Props) {
   const [CategoryValue, setCategoryValue] = useState<string>("");
   const accessToken = localStorage.getItem("accessToken");
 
+  useEffect(() => {}, [categoryList]);
+
   const addCategoryHandler = (categoryId: number) => {
-    if(CategoryValue !== "전체"){
+    if (CategoryValue !== "전체") {
       setNewCategory(!newCategory);
       const newCategoryData = {
         categoryId: categoryId,
@@ -51,8 +57,14 @@ export default function BlogCategory({
     }
   };
 
-  const deleteCategoryHandler = (categoryId: number) => {};
-  console.log(categoryList);
+  const deleteCategoryHandler = (categoryId: number) => {
+    const findCategoryIndex = categoryList.findIndex((el) => {
+      return el.categoryId === categoryId;
+    });
+    categoryList.splice(findCategoryIndex, 1);
+    setRenderState(!renderState);
+  };
+
   return (
     <ul>
       {categoryList.map((el) => {
@@ -67,12 +79,16 @@ export default function BlogCategory({
                     <BsTrashFill
                       color="gray"
                       className="Category_Delete_Icon"
-                    />
-                    <HiDotsHorizontal
                       onClick={() => {
-                        // deleteCategory(el.categoryId, accessToken)
+                        deleteCategoryHandler(el.categoryId);
+                        deleteCategory(
+                          el.categoryId,
+                          el.categoryName,
+                          accessToken
+                        );
                       }}
                     />
+                    <HiDotsHorizontal onClick={() => {}} />
                   </>
                 ) : null
               ) : null}

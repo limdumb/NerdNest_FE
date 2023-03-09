@@ -56,11 +56,13 @@ const Blogs = () => {
   const [blogPosts, setBlogPosts] = useState<BlogPostType["blogList"]>([]);
   const [editActive, setEditActive] = useState<boolean>(false);
   const [newCategory, setNewCategory] = useState<boolean>(false);
+  //랜더링을 위한 임시상태
+  const [renderState, setRenderState] = useState<boolean>(false)
 
   useEffect(() => {
     const fetchBlogPosts = async () => {
       //추후 멤버아이디 받을 예정
-      const response = await getBlogPost({ pages: 1, nickName: "가라" });
+      const response = await getBlogPost({ pages: 1, nickName: params.writer });
       setBlogPosts(response);
     };
     fetchBlogPosts();
@@ -74,6 +76,7 @@ const Blogs = () => {
     `/category/${params.memberId}`,
     CateogryInitialValue
   );
+  
   //카테고리 => 멤버정보 => 블로그리스트 순서대로 데이터 받아볼것
   return (
     <BlogWrapper>
@@ -113,14 +116,12 @@ const Blogs = () => {
                     onClick={() => {
                       setEditActive(false);
                       setNewCategory(false);
-                      console.log("완료 로직");
                     }}
                   />
                 ) : (
                   <TiPen
                     className="Category_Edit_Pen"
                     onClick={() => {
-                      console.log("수정ON");
                       setEditActive(true);
                     }}
                   />
@@ -134,6 +135,8 @@ const Blogs = () => {
             editActive={editActive}
             newCategory={newCategory}
             setNewCategory={setNewCategory}
+            setRenderState={setRenderState}
+            renderState={renderState}
           />
         </CategoryWrapper>
         <BlogPostWrapper>
