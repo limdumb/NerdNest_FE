@@ -2,12 +2,14 @@ import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import { CategoryType, Wrapper } from "./Blogs";
 import TextEditor from "../Components/BlogWrite/TextEditor";
-import TitleImageUploarder from "../Components/BlogWrite/TitleImageUploarder";
+import ImageUploader from "../Components/Common/ImageUploader";
 import CommonInput from "../Components/Common/CommonInput";
 import CategorySelect from "../Components/BlogWrite/CategorySelect";
 import EventButton from "../Components/Common/EventButton";
 import useFetch from "../Custom Hook/useFetch";
 import postBlog from "../API/BlogWriteEdit/Post/postBlog";
+import { useNavigate } from "react-router-dom";
+import { titleImageUploader } from "../API/Blogs/Post/imageUploader";
 import "./Style/blogWrite.css";
 
 export const WriteWrapper = styled(Wrapper)`
@@ -26,12 +28,13 @@ export const TitleWriteWrapper = styled(Wrapper)`
 const BlogWrite = () => {
   const [blogText, setBlogText] = useState("");
   const [blogData, setBlogData] = useState({
-    titleImageUrl: "",
     blogTitle: "",
-    blogContent: "",
     categoryId: null,
   });
-  const memberId = localStorage.getItem("memberId");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [categoryId, setCategoryId] = useState<number>(0);
+  const memberId = parseInt(localStorage.getItem("memberId") as string);
+  const accessToken = localStorage.getItem("accessToken")
   const CateogryInitialValue = {
     categoryList: [{ categoryId: 0, categoryName: "" }],
   };
@@ -47,12 +50,18 @@ const BlogWrite = () => {
       [e.target.name]: e.target.value,
     }));
   };
+  const navigate = useNavigate;
 
   return (
     <WriteWrapper>
       <ImageUploaderWrapper>
         <ImageUploaderWrapper />
-        <TitleImageUploarder />
+        <ImageUploader
+          setImageFile={setImageFile}
+          imageFile={imageFile}
+          profileImageUrl={""}
+          usage={"Title"}
+        />
         <span>썸네일을 등록 해주세요</span>
       </ImageUploaderWrapper>
       <hr />
@@ -74,11 +83,27 @@ const BlogWrite = () => {
       </div>
       <div className="Category_Container">
         <span className="Editor_Label">카테고리</span>
-        <CategorySelect data={categoryData.data.categoryList} />
+        <CategorySelect
+          data={categoryData.data.categoryList}
+          setCategoryId={setCategoryId}
+        />
       </div>
       <hr />
       <div className="Submit_Container">
-        <EventButton usage={"write"} />
+        <EventButton
+          usage={"write"}
+          onClick={() => {
+            titleImageUploader(imageFile as File,accessToken);
+            postBlog({
+              navigate: navigate,
+              blogTitle: blogData.blogTitle,
+              blogContent: blogText,
+              categoryId: categoryId,
+              memberId: memberId,
+              accessToken: accessToken
+            });
+          }}
+        />
       </div>
     </WriteWrapper>
   );

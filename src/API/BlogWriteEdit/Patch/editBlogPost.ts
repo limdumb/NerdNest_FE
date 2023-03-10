@@ -5,7 +5,6 @@ import { Params } from "../Post/postBlog";
 export default async function editBlogPost(params:Params) {
   const navigate = useNavigate()
   const request = {
-    titleImageUrl: params.titleImageUrl,
     blogTitle: params.blogTitle,
     blogContent: params.blogContent,
     categoryId: params.categoryId,

@@ -9,25 +9,53 @@ import TitleImageUploarder from "../Components/BlogWrite/TitleImageUploarder";
 import CommonInput from "../Components/Common/CommonInput";
 import CategorySelect from "../Components/BlogWrite/CategorySelect";
 import EventButton from "../Components/Common/EventButton";
-import getBlogEditData from "../API/BlogWriteEdit/Get/getBlogEditData";
 import editBlogPost from "../API/BlogWriteEdit/Patch/editBlogPost";
+import { CategoryType } from "./Blogs";
+import useFetch from "../Custom Hook/useFetch";
 import "./Style/blogWrite.css";
+import { useParams } from "react-router-dom";
+
+interface ExistingDataType {
+  titleImageUrl: string;
+  blogTitle: string;
+  blogContent: string;
+  categoryId: number;
+}
 
 const BlogWrite = () => {
-  const [blogText, setBlogText] = useState("");
-  const [blogData, setBlogData] = useState({
+  const params = useParams();
+  const memberId = parseInt(localStorage.getItem("memberId") as string);
+  const accessToken = localStorage.getItem("accessToken");
+  const existingInitialValue: ExistingDataType = {
     titleImageUrl: "",
     blogTitle: "",
     blogContent: "",
-    categoryId: null,
+    categoryId: 0,
+  };
+
+  const CateogryInitialValue = {
+    categoryList: [{ categoryId: 0, categoryName: "" }],
+  };
+  const categoryData = useFetch<CategoryType>(
+    `/category/${memberId}`,
+    CateogryInitialValue
+  );
+
+  const existingData = useFetch<ExistingDataType>(
+    `/blogs/edit/${params.blogId}`,
+    existingInitialValue,
+    accessToken as string
+  );
+  const [blogText, setBlogText] = useState("");
+  const [blogData, setBlogData] = useState({
+    titleImageUrl: existingData.data.titleImageUrl,
+    blogTitle: existingData.data.blogTitle,
+    blogContent: existingData.data.blogContent,
   });
 
-  const dummyData = [
-    { categoryId: 1, categoryName: "전체" },
-    { categoryId: 2, categoryName: "리액트1" },
-    { categoryId: 3, categoryName: "리액트2" },
-    { categoryId: 4, categoryName: "리액트3" },
-  ];
+  const [categoryId, setCategoryId] = useState<number>(0);
+
+  console.log(existingData);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.persist();
@@ -63,7 +91,10 @@ const BlogWrite = () => {
       </div>
       <div className="Category_Container">
         <span className="Editor_Label">카테고리</span>
-        <CategorySelect data={dummyData} />
+        <CategorySelect
+          data={categoryData.data.categoryList}
+          setCategoryId={setCategoryId}
+        />
       </div>
       <hr />
       <div className="Submit_Container">

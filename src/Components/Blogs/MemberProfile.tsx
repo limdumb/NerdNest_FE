@@ -76,6 +76,7 @@ export default function MemberProfile({
       {isProfileEdit ? (
         <>
           <ImageUploader
+            usage="Profile"
             setImageFile={setImageFile}
             imageFile={imageFile}
             profileImageUrl={profileImageUrl}
