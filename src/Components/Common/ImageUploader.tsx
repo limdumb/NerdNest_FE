@@ -49,20 +49,3 @@ export default function ImageUploader(props: Props) {
     </>
   );
 }
-
-/*  
-  1. post를 통해서 버킷에 객체를 업로드 하는 방식임
-  1-1 데이터의 전송에는 multipart/form-data를 사용함
-  2. Post요청을 보낼때 url과 form data에 무조껀 포함시켜야 하는 key-value 의 쌍들이 포함된 fields를 제공
-  3.  클라이언트는 fields의 내용을 요청에 포함 시켜야함
-  4. "Content-Type": "multipart/form-data"
-  - - -
-  구현
-  1. form을 만들어서 파일을 업로드 할 수 있게 한다 O
-  2. 받은 파일을 받아서 Image를 Blob으로 처리한다
-  2-1 blob은 데이터를 간접적으로 접근하기 위한 포인터 객체임
-  3. formData를 생성해서 안에 append 해준다
-  4. 그 이후 해당 정보를 createObjectURL메소드를 사용해 변수에 담아서 Image를 Render시킨다
-  5. 사용자가 확인을 누르면 formdata를 request에 담아서 보낸다
-  6. 그 이후 홈으로 보낸다.
-*/

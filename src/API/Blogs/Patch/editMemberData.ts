@@ -1,9 +1,11 @@
+import { NavigateFunction } from "react-router-dom";
 import { baseInstance } from "../../Instance/Instance";
 
 interface Params {
   nickName: string;
   about: string;
   memberId: number;
+  navigate: NavigateFunction;
 }
 
 export default async function editMemberData(params: Params) {
@@ -18,14 +20,16 @@ export default async function editMemberData(params: Params) {
         .then((res) => {
           if (res.status === 200) {
             alert("수정이 완료 되었습니다!");
-            window.location.reload()
+            params.navigate(`/${params.nickName}/${params.memberId}`);
+            window.location.reload();
           }
         });
     } catch (err: any) {
       if (err.response.status === 409) {
         alert("닉네임이 중복 되었습니다.");
+      } else if (err.response.status === 400) {
+        alert("정보가 잘못 되었습니다 다시 진행해주세요!");
       }
-      console.error(err);
     }
   } else {
     alert("닉네임을 입력해주세요!");

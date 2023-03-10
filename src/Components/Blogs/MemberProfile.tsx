@@ -1,12 +1,11 @@
 import { TiPen } from "react-icons/ti";
 import { MemberType } from "../../Pages/Blogs";
-import { FcPlus } from "react-icons/fc";
 import { Params, useNavigate } from "react-router-dom";
 import { ChangeEvent, useState } from "react";
 import editMemberData from "../../API/Blogs/Patch/editMemberData";
 import ImageUploader from "../Common/ImageUploader";
-import "./Style/memberProfile.css";
 import { profileImageUploader } from "../../API/Blogs/Post/imageUploader";
+import "./Style/memberProfile.css";
 
 interface Props extends MemberType {
   memberId: string | null;
@@ -38,7 +37,6 @@ export default function MemberProfile({
     nickName = e.target.value;
     about = e.target.value;
   };
-  console.log(memberEditValue.nickName)
 
   const accessToken = localStorage.getItem("accessToken");
   const navigate = useNavigate();
@@ -59,9 +57,9 @@ export default function MemberProfile({
                     nickName: memberEditValue.nickName,
                     about: memberEditValue.about,
                     memberId: parseInt(memberId),
+                    navigate: navigate,
                   });
                   setIsProfileEdit(!isProfileEdit);
-                  navigate(`/${memberEditValue.nickName}/${params.memberId}`);
                 } else {
                   alert("닉네임을 입력해주세요!");
                 }

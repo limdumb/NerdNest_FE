@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { BlogPostType, getBlogPost } from "../API/Blogs/Get/getBlogPost";
+import React, { useEffect, useRef, useState } from "react";
 import MemberProfile from "../Components/Blogs/MemberProfile";
 import BlogRecord from "../Components/Blogs/BlogRecord";
 import BlogPost from "../Components/Blogs/BlogPost";
@@ -55,32 +54,48 @@ export interface MemberType {
   nickName: string;
   about: string;
 }
-//member에 대한 데이터 타입 정하기
-//그에맞는 데이터 타입으로 내려주기
+
+export interface BlogArrayType {
+  blogList: {
+    blogId: number;
+    titleImageUrl: string;
+    blogTitle: string;
+    createdAt: string;
+    modifiedAt: string;
+    commentCount: number;
+    likeCount: number;
+  }[];
+}
 
 const Blogs = () => {
   const params = useParams();
   const memberId = localStorage.getItem("memberId");
-  const [blogPosts, setBlogPosts] = useState<BlogPostType["blogList"]>([]);
   const [editActive, setEditActive] = useState<boolean>(false);
   const [isProfileEdit, setIsProfileEdit] = useState<boolean>(false);
   const [newCategory, setNewCategory] = useState<boolean>(false);
   //랜더링을 위한 임시상태
   const [renderState, setRenderState] = useState<boolean>(false);
 
-  useEffect(() => {
-    const fetchBlogPosts = async () => {
-      //추후 멤버아이디 받을 예정
-      const response = await getBlogPost({ pages: 1, nickName: params.writer });
-      setBlogPosts(response);
-    };
-    fetchBlogPosts();
-  }, []);
+  const [pages, setPages] = useState<number>(1);
+  const ref = useRef(null);
 
   const CateogryInitialValue = {
     categoryList: [{ categoryId: 0, categoryName: "" }],
   };
   const memberInitialValue = { profileImageUrl: "", nickName: "", about: "" };
+  const blogInitialValue: BlogArrayType = {
+    blogList: [
+      {
+        blogId: 0,
+        titleImageUrl: "",
+        blogTitle: "",
+        createdAt: "",
+        modifiedAt: "",
+        commentCount: 0,
+        likeCount: 0,
+      },
+    ],
+  };
 
   const categoryData = useFetch<CategoryType>(
     `/category/${params.memberId}`,
@@ -91,6 +106,13 @@ const Blogs = () => {
     `/members/${params.memberId}`,
     memberInitialValue
   );
+
+  const blogData = useFetch<BlogArrayType>(
+    `/blogs/all?nickname=${params.nickName}&page=${pages}`,
+    blogInitialValue
+  );
+
+  console.log(blogData.data.blogList);
 
   return (
     <BlogWrapper>
@@ -155,9 +177,10 @@ const Blogs = () => {
           />
         </CategoryWrapper>
         <BlogPostWrapper>
-          <BlogPost blogList={blogPosts} />
+          <BlogPost blogList={blogData.data.blogList} />
         </BlogPostWrapper>
       </div>
+      {blogData.loading ? <div ref={ref}>loading...</div> : null}
     </BlogWrapper>
   );
 };
