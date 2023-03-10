@@ -67,18 +67,19 @@ export interface BlogArrayType {
   }[];
 }
 
+interface BlogType {
+  blogId: number;
+  titleImageUrl: string;
+  blogTitle: string;
+  createdAt: string;
+  modifiedAt: string;
+  commentCount: number;
+  likeCount: number;
+}
+
 const Blogs = () => {
   const params = useParams();
-  const memberId = localStorage.getItem("memberId");
-  const [editActive, setEditActive] = useState<boolean>(false);
-  const [isProfileEdit, setIsProfileEdit] = useState<boolean>(false);
-  const [newCategory, setNewCategory] = useState<boolean>(false);
-  //랜더링을 위한 임시상태
-  const [renderState, setRenderState] = useState<boolean>(false);
-
   const [pages, setPages] = useState<number>(1);
-  const ref = useRef(null);
-
   const CateogryInitialValue = {
     categoryList: [{ categoryId: 0, categoryName: "" }],
   };
@@ -96,7 +97,6 @@ const Blogs = () => {
       },
     ],
   };
-
   const categoryData = useFetch<CategoryType>(
     `/category/${params.memberId}`,
     CateogryInitialValue
@@ -108,11 +108,45 @@ const Blogs = () => {
   );
 
   const blogData = useFetch<BlogArrayType>(
-    `/blogs/all?nickname=${params.nickName}&page=${pages}`,
+    `/blogs/category/${params.categoryId}?page=${pages}`,
     blogInitialValue
   );
+  const memberId = localStorage.getItem("memberId");
+  const [editActive, setEditActive] = useState<boolean>(false);
+  const [isProfileEdit, setIsProfileEdit] = useState<boolean>(false);
+  const [newCategory, setNewCategory] = useState<boolean>(false);
+  //랜더링을 위한 임시상태
+  const [renderState, setRenderState] = useState<boolean>(false);
+  const [newBlogsData, setNewBlogsData] = useState<BlogType[]>(
+    blogData.data.blogList
+  );
+  const [lock, setLock] = useState<boolean>(false);
+  const bottomRef = useRef(null);
 
-  console.log(blogData.data.blogList);
+  const fetchBlogData = () => {
+    let newBlogArr = [...newBlogsData, blogData.data.blogList];
+    if (blogData.data.blogList.length === 0) {
+      setLock(true);
+    } else {
+      newBlogArr = newBlogArr.concat(blogData.data.blogList);
+      setNewBlogsData(newBlogArr as BlogType[]);
+    }
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        if (lock === true) {
+          return;
+        }
+        setPages(pages + 1);
+      }
+    });
+    if (bottomRef.current) observer.observe(bottomRef.current);
+    return () => {
+      if (bottomRef.current) observer.unobserve(bottomRef.current);
+    };
+  }, [newBlogsData]);
 
   return (
     <BlogWrapper>
@@ -180,7 +214,7 @@ const Blogs = () => {
           <BlogPost blogList={blogData.data.blogList} />
         </BlogPostWrapper>
       </div>
-      {blogData.loading ? <div ref={ref}>loading...</div> : null}
+      {blogData.loading ? <div ref={bottomRef}>loading...</div> : null}
     </BlogWrapper>
   );
 };

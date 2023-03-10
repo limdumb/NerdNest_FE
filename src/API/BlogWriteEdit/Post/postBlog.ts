@@ -1,11 +1,14 @@
-//Authorization 토큰 필요
-import axios from "axios";
+import { baseInstance } from "../../Instance/Instance";
 import { useNavigate } from "react-router-dom";
+
 export interface Params {
   titleImageUrl: string;
   blogTitle: string;
   blogContent: string;
   categoryId: number | null;
+  memberId: number;
+  blogId: number;
+  nickName: string;
 }
 
 export default async function postBlog(params: Params) {
@@ -21,15 +24,19 @@ export default async function postBlog(params: Params) {
     blogContent: params.blogContent,
     categoryId: params.categoryId,
   };
+  
   try {
     //추후 로직 변경 예정
-    await axios.post("url", request).then((res) => {
-      if (res.status === 201) {
-        alert("게시물 작성이 완료 되었습니다");
-        //상의 후 해당 게시물로 가도록 설정할 예정
-        navigate(-1);
-      }
-    });
+    await baseInstance
+      .post(`/blogs/${params.memberId}`, request)
+      .then((res) => {
+        if (res.status === 201) {
+          alert("게시물 작성이 완료 되었습니다");
+          navigate(
+            `/${params.nickName}/${params.memberId}/${params.blogTitle}/${params.blogId}`
+          );
+        }
+      });
   } catch (err) {
     console.error(err);
   }

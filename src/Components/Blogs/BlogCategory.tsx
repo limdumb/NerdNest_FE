@@ -7,7 +7,7 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import { BsTrashFill } from "react-icons/bs";
 import "./Style/blogCategory.css";
 import editCategory from "../../API/Blogs/Patch/editCategory";
-import { Params, useNavigate } from "react-router-dom";
+import { Params, useNavigate, useParams } from "react-router-dom";
 
 interface Props extends CategoryType {
   newCategory: boolean;
@@ -25,13 +25,13 @@ export default function BlogCategory({
   setNewCategory,
   setRenderState,
   renderState,
-  params,
 }: Props) {
   const [categoryValue, setCategoryValue] = useState<string>("");
   const [nameEditCheck, setNameEditCheck] = useState<boolean>(false);
   const [categoryIndex, setCategoryIndex] = useState(1);
   const accessToken = localStorage.getItem("accessToken");
   const lastCategoryId = categoryList[categoryList.length - 1].categoryId + 1;
+  const params = useParams();
   const navigate = useNavigate();
   const addCategoryHandler = (categoryId: number) => {
     if (categoryValue !== "전체") {
@@ -99,7 +99,11 @@ export default function BlogCategory({
                 ) : (
                   <button
                     className="Category_Name"
-                    onClick={() => navigate(`?=${el.categoryName}`)}
+                    onClick={() =>
+                      navigate(
+                        `/${params.nickName}/${params.memberId}/${el.categoryName}/${el.categoryId}`
+                      )
+                    }
                   >
                     {el.categoryName}
                   </button>
@@ -107,7 +111,11 @@ export default function BlogCategory({
               ) : (
                 <button
                   className="Category_Name"
-                  onClick={() => navigate(`?=${el.categoryName}`)}
+                  onClick={() =>
+                    navigate(
+                      `/${params.nickName}/${params.memberId}/${el.categoryName}/${el.categoryId}`
+                    )
+                  }
                 >
                   {el.categoryName}
                 </button>

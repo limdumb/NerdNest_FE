@@ -30,8 +30,11 @@ function App() {
               <Route path="signup" element={<SignUp />} />
               <Route path="login" element={<Login />} />
             </Route>
-            <Route path="/:nickName/:memberId" element={<Blogs />} />
-            <Route path="/nickName" element={<BlogWrite />} />
+            <Route
+              path="/:nickName/:memberId/:category/:categoryId"
+              element={<Blogs />}
+            />
+            <Route path="/write" element={<BlogWrite />} />
             <Route path="/edit/:blogId" element={<BlogEdit />} />
             <Route
               path="/:writer/:memberId/:title/:blogId"

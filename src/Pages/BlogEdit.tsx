@@ -21,7 +21,6 @@ const BlogWrite = () => {
     blogContent: "",
     categoryId: null,
   });
-  const [categoryValue, setCategoryValue] = useState(0);
 
   const dummyData = [
     { categoryId: 1, categoryName: "전체" },
@@ -64,7 +63,7 @@ const BlogWrite = () => {
       </div>
       <div className="Category_Container">
         <span className="Editor_Label">카테고리</span>
-        <CategorySelect data={dummyData} setCategoryValue={setCategoryValue} />
+        <CategorySelect data={dummyData} />
       </div>
       <hr />
       <div className="Submit_Container">

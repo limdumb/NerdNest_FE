@@ -38,7 +38,7 @@ export default function BlogPost(props: BlogArrayType) {
             key={index}
             onClick={() =>
               navigate(
-                `/${params.writer}/${params.memberId}/${post.blogTitle}/${post.blogId}`
+                `/${params.nickName}/${params.memberId}/${post.blogTitle}/${post.blogId}`
               )
             }
           >
