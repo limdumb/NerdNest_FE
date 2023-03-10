@@ -1,12 +1,18 @@
 import { TiPen } from "react-icons/ti";
 import { MemberType } from "../../Pages/Blogs";
 import { FcPlus } from "react-icons/fc";
+import { Params, useNavigate } from "react-router-dom";
+import { ChangeEvent, useState } from "react";
+import editMemberData from "../../API/Blogs/Patch/editMemberData";
+import ImageUploader from "../Common/ImageUploader";
 import "./Style/memberProfile.css";
+import { profileImageUploader } from "../../API/Blogs/Post/imageUploader";
 
 interface Props extends MemberType {
   memberId: string | null;
   setIsProfileEdit: React.Dispatch<React.SetStateAction<boolean>>;
   isProfileEdit: boolean;
+  params: Readonly<Params<string>>;
 }
 
 export default function MemberProfile({
@@ -16,30 +22,85 @@ export default function MemberProfile({
   memberId,
   isProfileEdit,
   setIsProfileEdit,
+  params,
 }: Props) {
+  const [memberEditValue, setMemberEditValue] = useState({
+    nickName: nickName,
+    about: about,
+  });
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
+  const memberEditHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setMemberEditValue(() => ({
+      ...memberEditValue,
+      [e.target.name]: e.target.value,
+    }));
+    nickName = e.target.value;
+    about = e.target.value;
+  };
+  console.log(memberEditValue.nickName)
+
+  const accessToken = localStorage.getItem("accessToken");
+  const navigate = useNavigate();
   return (
     <>
-      {memberId ? (
-        <TiPen
-          className="Member_Profile_Edit"
-          onClick={() => setIsProfileEdit(!isProfileEdit)}
-        />
-      ) : null}
+      <div>
+        {memberId === params.memberId ? (
+          isProfileEdit ? (
+            <TiPen
+              className="Member_Profile_Edit"
+              onClick={() => {
+                if (
+                  memberEditValue.nickName.length !== 0 &&
+                  memberEditValue.nickName.length > 2
+                ) {
+                  profileImageUploader(imageFile as File, accessToken);
+                  editMemberData({
+                    nickName: memberEditValue.nickName,
+                    about: memberEditValue.about,
+                    memberId: parseInt(memberId),
+                  });
+                  setIsProfileEdit(!isProfileEdit);
+                  navigate(`/${memberEditValue.nickName}/${params.memberId}`);
+                } else {
+                  alert("닉네임을 입력해주세요!");
+                }
+              }}
+            />
+          ) : (
+            <TiPen
+              className="Member_Profile_Edit"
+              onClick={() => setIsProfileEdit(!isProfileEdit)}
+            />
+          )
+        ) : null}
+      </div>
       {isProfileEdit ? (
         <>
-          <FcPlus className="Profile_Image_Edit_Icon" />
-          <img className="Member_Profile_Image" src={`${profileImageUrl}`} />
+          <ImageUploader
+            setImageFile={setImageFile}
+            imageFile={imageFile}
+            profileImageUrl={profileImageUrl}
+          />
           <div className="Member_Profile_Content">
             <label className="Member_Label">닉네임:</label>
-            <div>
-              <input className="Member_Edit_Input" />
-              <button className="Member_Edit_Submit">확인</button>
-            </div>
+            <input
+              className="Member_Edit_Input"
+              name="nickName"
+              defaultValue={memberEditValue.nickName}
+              onChange={(e) => {
+                memberEditHandler(e);
+              }}
+            />
             <label className="Member_Label">자기소개:</label>
-            <div>
-              <input className="Member_Edit_Input" />
-              <button className="Member_Edit_Submit">확인</button>
-            </div>
+            <input
+              className="Member_Edit_Input"
+              name="about"
+              defaultValue={memberEditValue.about}
+              onChange={(e) => {
+                memberEditHandler(e);
+              }}
+            />
           </div>
         </>
       ) : (

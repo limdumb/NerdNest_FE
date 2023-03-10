@@ -97,6 +97,7 @@ const Blogs = () => {
       <div className="Member_Information_Container">
         <MemberProfileWrapper>
           <MemberProfile
+            params={params}
             profileImageUrl={memberData.data.profileImageUrl}
             nickName={memberData.data.nickName}
             about={memberData.data.about}
