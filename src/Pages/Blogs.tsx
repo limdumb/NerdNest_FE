@@ -50,11 +50,20 @@ export interface CategoryType {
   }[];
 }
 
+export interface MemberType {
+  profileImageUrl: string;
+  nickName: string;
+  about: string;
+}
+//member에 대한 데이터 타입 정하기
+//그에맞는 데이터 타입으로 내려주기
+
 const Blogs = () => {
   const params = useParams();
   const memberId = localStorage.getItem("memberId");
   const [blogPosts, setBlogPosts] = useState<BlogPostType["blogList"]>([]);
   const [editActive, setEditActive] = useState<boolean>(false);
+  const [isProfileEdit, setIsProfileEdit] = useState<boolean>(false);
   const [newCategory, setNewCategory] = useState<boolean>(false);
   //랜더링을 위한 임시상태
   const [renderState, setRenderState] = useState<boolean>(false);
@@ -71,10 +80,16 @@ const Blogs = () => {
   const CateogryInitialValue = {
     categoryList: [{ categoryId: 0, categoryName: "" }],
   };
+  const memberInitialValue = { profileImageUrl: "", nickName: "", about: "" };
 
-  const { data } = useFetch<CategoryType>(
+  const categoryData = useFetch<CategoryType>(
     `/category/${params.memberId}`,
     CateogryInitialValue
+  );
+
+  const memberData = useFetch<MemberType>(
+    `/members/${params.memberId}`,
+    memberInitialValue
   );
 
   return (
@@ -82,12 +97,12 @@ const Blogs = () => {
       <div className="Member_Information_Container">
         <MemberProfileWrapper>
           <MemberProfile
-            //추후 데이터값으로 변경 예정
-            profileImageUrl={
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-            }
-            nickName={"경인"}
-            about={"안녕하세요 개발자 임경인 입니다"}
+            profileImageUrl={memberData.data.profileImageUrl}
+            nickName={memberData.data.nickName}
+            about={memberData.data.about}
+            memberId={memberId}
+            setIsProfileEdit={setIsProfileEdit}
+            isProfileEdit={isProfileEdit}
           />
         </MemberProfileWrapper>
         <BlogRecordWrapper>
@@ -129,12 +144,13 @@ const Blogs = () => {
             </div>
           </div>
           <BlogCategory
-            categoryList={data.categoryList}
+            categoryList={categoryData.data.categoryList}
             editActive={editActive}
             newCategory={newCategory}
             setNewCategory={setNewCategory}
             setRenderState={setRenderState}
             renderState={renderState}
+            params={params}
           />
         </CategoryWrapper>
         <BlogPostWrapper>
