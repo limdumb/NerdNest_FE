@@ -25,6 +25,7 @@ export default async function login(params: Params) {
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.refreshToken);
       params.navigate("/");
+      window.location.reload();
     }
   });
   try {
