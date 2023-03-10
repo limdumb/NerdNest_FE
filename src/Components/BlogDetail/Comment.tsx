@@ -107,10 +107,7 @@ const Comment = ({ commentList }: { commentList: CommentListProps }) => {
                 </>
               ) : null}
             </div>
-            <ReComment
-              commentList={commentList}
-              parentId={comment.commentId}
-            />
+            <ReComment commentList={commentList} parentId={comment.commentId} />
           </div>
         ) : null
       )}

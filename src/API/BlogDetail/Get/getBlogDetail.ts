@@ -1,4 +1,4 @@
-import { BlogDetailProps } from "../../Pages/BlogDetail";
+import { BlogDetailProps } from "../../../Pages/BlogDetail";
 
 export default function getBlogDetailData(): Promise<BlogDetailProps> {
   return new Promise((resolve, reject) => {

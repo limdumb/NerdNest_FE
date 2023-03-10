@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import getBlogDetailData from "../API/BlogDetail/Get/getBlogDetail";
 import AddComment from "../Components/BlogDetail/AddComment";
 import Comment from "../Components/BlogDetail/Comment";
-import getBlogDetailData from "../API/BlogDetail/getBlogDetail";
 import TextViewer from "../Components/BlogDetail/TextViewer";
 import "./Style/BlogDetail.css";
 
