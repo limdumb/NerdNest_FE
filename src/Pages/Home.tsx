@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
+import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-import blogListDummy from "../API/DummyData/BlogList.json";
+import getHomeData from "../API/Home/Get/getHomeData";
 import BlogPost from "../Components/Common/BlogPost";
 import "./Style/Home.css";
 
@@ -34,34 +36,64 @@ export const BlogListContainer = styled.div`
   padding-top: 3em;
 `;
 const Home = () => {
-  const sortArr: string[] = ["추천순", "최신순", "내 추천"];
-  const [blogList, setBlogList] = useState<ArrPostProps>();
+  const sortArr = [
+    { k_name: "추천순", e_name: "likes" },
+    { k_name: "최신순", e_name: "newest" },
+    { k_name: "내 추천", e_name: "myLike" },
+  ];
+  const [blogList, setBlogList] = useState<ArrPostProps>([
+    {
+      memberId: 0,
+      blogId: 0,
+      titleImageUrl: "",
+      blogTitle: "",
+      blogPreview: "",
+      createdAt: "",
+      writer: "",
+      commentCount: 0,
+      likeCount: 0,
+    },
+  ]);
   const [isSortActive, setIsSortActive] = useState(0);
-
-  useEffect(() => {
-    setBlogList(blogListDummy.data);
-  }, []);
+  const [scrollValue, setScrollValue] = useState(1);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const tab = searchParams.get("tab");
+  const interSectRef = useRef<HTMLParagraphElement>(null);
 
   return (
-    <div className="Home_Wrapper">
-      <div className="Home_Container">
-        <ul className="Home_Sort_Container">
-          {sortArr.map((sort, idx) => (
-            <Sort
-              key={idx}
-              borderBtm={idx === isSortActive}
-              onClick={() => setIsSortActive(idx)}
-            >
-              {sort}
-            </Sort>
-          ))}
-        </ul>
-        <BlogListContainer>
-          {blogList &&
-            blogList.map((post) => <BlogPost key={post.blogId} post={post} />)}
-        </BlogListContainer>
-      </div>
-    </div>
+    <>
+      <section className="Home_Wrapper">
+        <div className="Home_Container">
+          <ul className="Home_Sort_Container">
+            {sortArr.map((sort, idx) => (
+              <Sort
+                key={idx}
+                borderBtm={idx === isSortActive}
+                onClick={() => {
+                  navigate(`?tab=${sort.e_name}&page=${scrollValue}`);
+                  setIsSortActive(idx);
+                }}
+              >
+                {sort.k_name}
+              </Sort>
+            ))}
+          </ul>
+          <BlogListContainer>
+            {blogList && blogList.length !== 0
+              ? blogList.map((post) => (
+                  <BlogPost key={post.blogId} post={post} />
+                ))
+              : null}
+          </BlogListContainer>
+        </div>
+      </section>
+      {isLoading ? (
+        <p className="Home_Loading_Container" ref={interSectRef}>
+          Loading...
+        </p>
+      ) : null}
+    </>
   );
 };
 
