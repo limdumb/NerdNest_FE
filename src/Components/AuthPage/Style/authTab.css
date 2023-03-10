@@ -1,0 +1,8 @@
+.Auth_Tab_List{
+  display: flex;
+  justify-content: space-between;
+}
+
+.Auth_Tab_List > :first-child{
+  margin-right: 10px;
+}
