@@ -5,7 +5,6 @@ interface Props {
     categoryId: number;
     categoryName: string;
   }[];
-  setCategoryValue: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function CategorySelect(props: Props) {
@@ -14,17 +13,19 @@ export default function CategorySelect(props: Props) {
   };
 
   return (
-    <select className="Category_Select" onChange={(e) => ChoiceCategoryHandler(e)}>
-      <option value={0}>
-        없음
-      </option>
-      {props.data.map((el) => {
-        return (
-          <option key={el.categoryId} value={el.categoryId}>
-            {el.categoryName}
-          </option>
-        );
-      })}
+    <select
+      className="Category_Select"
+      onChange={(e) => ChoiceCategoryHandler(e)}
+    >
+      {props.data.length !== 0
+        ? props.data.map((el) => {
+            return (
+              <option key={el.categoryId} value={el.categoryId}>
+                {el.categoryName}
+              </option>
+            );
+          })
+        : null}
     </select>
   );
 }

@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { BlogPostType, getBlogPost } from "../API/Blogs/Get/getBlogPost";
+import React, { useEffect, useRef, useState } from "react";
 import MemberProfile from "../Components/Blogs/MemberProfile";
 import BlogRecord from "../Components/Blogs/BlogRecord";
 import BlogPost from "../Components/Blogs/BlogPost";
 import BlogCategory from "../Components/Blogs/BlogCategory";
 import styled from "styled-components";
+import useFetch from "../Custom Hook/useFetch";
+import { useParams } from "react-router-dom";
+import { VscFolderOpened } from "react-icons/vsc";
+import { TiPen } from "react-icons/ti";
+import { HiPlusCircle } from "react-icons/hi";
 import "./Style/blogs.css";
 
 //추후 공용으로 뺄지는 상의예정
@@ -38,29 +42,124 @@ const BlogRecordWrapper = styled(Wrapper)`
   width: 70%;
 `;
 
+export interface CategoryType {
+  categoryList: {
+    categoryId: number;
+    categoryName: string;
+  }[];
+}
+
+export interface MemberType {
+  profileImageUrl: string;
+  nickName: string;
+  about: string;
+}
+
+export interface BlogArrayType {
+  blogList: {
+    blogId: number;
+    titleImageUrl: string;
+    blogTitle: string;
+    createdAt: string;
+    modifiedAt: string;
+    commentCount: number;
+    likeCount: number;
+  }[];
+}
+
+interface BlogType {
+  blogId: number;
+  titleImageUrl: string;
+  blogTitle: string;
+  createdAt: string;
+  modifiedAt: string;
+  commentCount: number;
+  likeCount: number;
+}
+
 const Blogs = () => {
-  const [blogPosts, setBlogPosts] = useState<BlogPostType["blogList"]>([]);
+  const params = useParams();
+  const [pages, setPages] = useState<number>(1);
+  const CateogryInitialValue = {
+    categoryList: [{ categoryId: 0, categoryName: "" }],
+  };
+  const memberInitialValue = { profileImageUrl: "", nickName: "", about: "" };
+  const blogInitialValue: BlogArrayType = {
+    blogList: [
+      {
+        blogId: 0,
+        titleImageUrl: "",
+        blogTitle: "",
+        createdAt: "",
+        modifiedAt: "",
+        commentCount: 0,
+        likeCount: 0,
+      },
+    ],
+  };
+  const categoryData = useFetch<CategoryType>(
+    `/category/${params.memberId}`,
+    CateogryInitialValue
+  );
+
+  const memberData = useFetch<MemberType>(
+    `/members/${params.memberId}`,
+    memberInitialValue
+  );
+
+  const blogData = useFetch<BlogArrayType>(
+    `/blogs/category/${params.categoryId}?page=${pages}`,
+    blogInitialValue
+  );
+  const memberId = localStorage.getItem("memberId");
+  const [editActive, setEditActive] = useState<boolean>(false);
+  const [isProfileEdit, setIsProfileEdit] = useState<boolean>(false);
+  const [newCategory, setNewCategory] = useState<boolean>(false);
+  //랜더링을 위한 임시상태
+  const [renderState, setRenderState] = useState<boolean>(false);
+  const [newBlogsData, setNewBlogsData] = useState<BlogType[]>(
+    blogData.data.blogList
+  );
+  const [lock, setLock] = useState<boolean>(false);
+  const bottomRef = useRef(null);
+
+  const fetchBlogData = () => {
+    let newBlogArr = [...newBlogsData, blogData.data.blogList];
+    if (blogData.data.blogList.length === 0) {
+      setLock(true);
+    } else {
+      newBlogArr = newBlogArr.concat(blogData.data.blogList);
+      setNewBlogsData(newBlogArr as BlogType[]);
+    }
+  };
 
   useEffect(() => {
-    const fetchBlogPosts = async () => {
-      //추후 멤버아이디 받을 예정
-      const response = await getBlogPost({ pages: 1, nickName: "가라" });
-      setBlogPosts(response);
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        if (lock === true) {
+          return;
+        }
+        setPages(pages + 1);
+      }
+    });
+    if (bottomRef.current) observer.observe(bottomRef.current);
+    return () => {
+      if (bottomRef.current) observer.unobserve(bottomRef.current);
     };
+  }, [newBlogsData]);
 
-    fetchBlogPosts();
-  }, []);
   return (
     <BlogWrapper>
       <div className="Member_Information_Container">
         <MemberProfileWrapper>
           <MemberProfile
-            //추후 데이터값으로 변경 예정
-            profileImageUrl={
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-            }
-            nickName={"경인"}
-            about={"안녕하세요 개발자 임경인 입니다"}
+            params={params}
+            profileImageUrl={memberData.data.profileImageUrl}
+            nickName={memberData.data.nickName}
+            about={memberData.data.about}
+            memberId={memberId}
+            setIsProfileEdit={setIsProfileEdit}
+            isProfileEdit={isProfileEdit}
           />
         </MemberProfileWrapper>
         <BlogRecordWrapper>
@@ -69,13 +168,53 @@ const Blogs = () => {
       </div>
       <div className="Blog_Information_Container">
         <CategoryWrapper>
-          <h4>카테고리</h4>
-          <BlogCategory />
+          <div className="Category_Title_Container">
+            <div className="Category_Title">
+              <VscFolderOpened className="Category_Folder_Icon" />
+              <h3>카테고리</h3>
+            </div>
+            <div>
+              {editActive ? (
+                <HiPlusCircle
+                  className="Category_Add_Button"
+                  onClick={() => setNewCategory(!newCategory)}
+                />
+              ) : null}
+              {memberId === params.memberId ? (
+                editActive ? (
+                  <TiPen
+                    className="Category_Edit_Pen"
+                    onClick={() => {
+                      setEditActive(false);
+                      setNewCategory(false);
+                    }}
+                  />
+                ) : (
+                  <TiPen
+                    className="Category_Edit_Pen"
+                    onClick={() => {
+                      setEditActive(true);
+                    }}
+                  />
+                )
+              ) : null}
+            </div>
+          </div>
+          <BlogCategory
+            categoryList={categoryData.data.categoryList}
+            editActive={editActive}
+            newCategory={newCategory}
+            setNewCategory={setNewCategory}
+            setRenderState={setRenderState}
+            renderState={renderState}
+            params={params}
+          />
         </CategoryWrapper>
         <BlogPostWrapper>
-          <BlogPost blogList={blogPosts} />
+          <BlogPost blogList={blogData.data.blogList} />
         </BlogPostWrapper>
       </div>
+      {blogData.loading ? <div ref={bottomRef}>loading...</div> : null}
     </BlogWrapper>
   );
 };

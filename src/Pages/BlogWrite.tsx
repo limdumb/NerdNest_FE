@@ -1,11 +1,13 @@
 import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
-import { Wrapper } from "./Blogs";
+import { CategoryType, Wrapper } from "./Blogs";
 import TextEditor from "../Components/BlogWrite/TextEditor";
 import TitleImageUploarder from "../Components/BlogWrite/TitleImageUploarder";
 import CommonInput from "../Components/Common/CommonInput";
 import CategorySelect from "../Components/BlogWrite/CategorySelect";
 import EventButton from "../Components/Common/EventButton";
+import useFetch from "../Custom Hook/useFetch";
+import postBlog from "../API/BlogWriteEdit/Post/postBlog";
 import "./Style/blogWrite.css";
 
 export const WriteWrapper = styled(Wrapper)`
@@ -29,14 +31,14 @@ const BlogWrite = () => {
     blogContent: "",
     categoryId: null,
   });
-  const [categoryValue, setCategoryValue] = useState(0);
-
-  const dummyData = [
-    { categoryId: 1, categoryName: "전체" },
-    { categoryId: 2, categoryName: "리액트1" },
-    { categoryId: 3, categoryName: "리액트2" },
-    { categoryId: 4, categoryName: "리액트3" },
-  ];
+  const memberId = localStorage.getItem("memberId");
+  const CateogryInitialValue = {
+    categoryList: [{ categoryId: 0, categoryName: "" }],
+  };
+  const categoryData = useFetch<CategoryType>(
+    `/category/${memberId}`,
+    CateogryInitialValue
+  );
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.persist();
@@ -72,7 +74,7 @@ const BlogWrite = () => {
       </div>
       <div className="Category_Container">
         <span className="Editor_Label">카테고리</span>
-        <CategorySelect data={dummyData} setCategoryValue={setCategoryValue} />
+        <CategorySelect data={categoryData.data.categoryList} />
       </div>
       <hr />
       <div className="Submit_Container">

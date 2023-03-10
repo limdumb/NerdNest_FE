@@ -1,8 +1,8 @@
 import { IoHeartCircle } from "react-icons/io5";
 import { MdOutlineInsertComment } from "react-icons/md";
-import { BlogPostType } from "../../API/Blogs/Get/getBlogPost";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { BlogArrayType } from "../../Pages/Blogs";
 import "./Style/blogPost.css";
 
 const BlogContetnsContainer = styled.div`
@@ -26,7 +26,7 @@ const BlogPostImage = styled.img`
   height: 170px;
 `;
 
-export default function BlogPost(props: BlogPostType) {
+export default function BlogPost(props: BlogArrayType) {
   const navigate = useNavigate();
   const params = useParams();
   return (
@@ -38,7 +38,7 @@ export default function BlogPost(props: BlogPostType) {
             key={index}
             onClick={() =>
               navigate(
-                `/${params.writer}/${params.memberId}/${post.blogTitle}/${post.blogId}`
+                `/${params.nickName}/${params.memberId}/${post.blogTitle}/${post.blogId}`
               )
             }
           >

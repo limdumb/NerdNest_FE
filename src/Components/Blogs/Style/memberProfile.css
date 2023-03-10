@@ -1,21 +1,48 @@
-.Member_Profile_Image{
+.Member_Profile_Image {
   width: 150px;
   height: 150px;
   border-radius: 50%;
   margin-top: 20px;
+  border: 1px solid gray;
 }
 
-.Member_Profile_Content{
+.Member_Profile_Content {
+  display: flex;
+  flex-direction: column;
+}
+
+.Member_Profile_NickName {
   margin-top: 20px;
 }
 
-.Member_Profile_NickName{
-  margin-top: 20px;
-}
-
-.Member_Profile_Edit{
-  font-size:25px;
+.Member_Profile_Edit {
+  font-size: 25px;
+  height: 25px;
   position: relative;
-  top: 10px;
-  left: 93px;
+  top: 20px;
+  left: 80px;
+}
+
+.Member_Edit_Input {
+  height: 30px;
+  margin-top: 10px;
+  font-weight: var(--fw-bold);
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.Member_Label {
+  margin-top: 10px;
+  font-size: var(--font-sm);
+}
+
+.Profile_Image_Edit_Icon{
+  position: relative;
+  top: 25px;
+  left: 50px;
+  font-size: 30px;
+  z-index: 100000;
+}
+.Plus_Container{
+  height: 0px;
 }
