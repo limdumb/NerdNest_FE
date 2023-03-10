@@ -4,11 +4,12 @@ import styled from "styled-components";
 interface CommentInputType {
   width: string;
   height?: string;
-  value: string;
+  value?: string;
   onChange: ChangeEventHandler<HTMLTextAreaElement>;
   placeholder?: string;
   marginLeft?: string;
   marginBottom?: string;
+  defaultValue?: string;
 }
 
 const CommentStyledInput = styled.textarea<CommentInputType>`
@@ -37,6 +38,7 @@ const CommentInput = (props: CommentInputType) => {
         placeholder={props.placeholder}
         marginLeft={props.marginLeft}
         marginBottom={props.marginBottom}
+        defaultValue={props.defaultValue}
       ></CommentStyledInput>
     </>
   );

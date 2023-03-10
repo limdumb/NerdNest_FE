@@ -12,28 +12,16 @@ export interface BlogDetailProps {
   createdAt: string;
   modifiedAt: string;
   blogContents: string;
-  commentList: [
-    {
-      commentId: number;
-      memberId: number;
-      nickName: string;
-      profileImageUrl: string;
-      comment: string;
-      createdAt: string;
-      modifiedAt: string;
-      parentId: null | number;
-      recommentList: [
-        {
-          commentId: number;
-          memberId: number;
-          perentsId: number;
-          nickName: string;
-          comment: string;
-          createdAt: string;
-        }
-      ];
-    }
-  ];
+  commentList: {
+    commentId: number;
+    memberId: number;
+    nickName: string;
+    profileImageUrl: string;
+    comment: string;
+    createdAt: string;
+    modifiedAt: string;
+    parentId: null | number;
+  }[];
 }
 
 const BlogDetailSpan = styled.span<{ usage?: string }>`
@@ -59,7 +47,6 @@ const BlogDetail = () => {
     };
     fetchData();
   }, []);
-
   return (
     <div className="Blog_Detail_Container">
       <div className="Blog_Detail_Title_Container">
@@ -87,10 +74,7 @@ const BlogDetail = () => {
       <div className="Blog_Detail_Comment_Container">
         <h2>{blogData && blogData.commentList.length} Comment</h2>
         <AddComment />
-        {blogData &&
-          blogData.commentList.map((comment) => (
-            <Comment key={comment.commentId} comment={comment} />
-          ))}
+        {blogData && <Comment commentList={blogData.commentList} />}
       </div>
     </div>
   );
