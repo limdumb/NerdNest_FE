@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import getBlogDetailData from "../API/BlogDetail/Get/getBlogDetail";
 import AddComment from "../Components/BlogDetail/AddComment";
 import Comment from "../Components/BlogDetail/Comment";
-import getBlogDetailData from "../API/BlogDetail/getBlogDetail";
 import TextViewer from "../Components/BlogDetail/TextViewer";
 import "./Style/BlogDetail.css";
 
@@ -14,13 +14,23 @@ export interface BlogDetailProps {
   blogContents: string;
   commentList: {
     commentId: number;
+    parentId: null | number;
     memberId: number;
     nickName: string;
     profileImageUrl: string;
-    comment: string;
+    commentContent: string;
     createdAt: string;
     modifiedAt: string;
-    parentId: null | number;
+    children: {
+      commentId: number;
+      parentId: null | number;
+      memberId: number;
+      nickName: string;
+      profileImageUrl: string;
+      commentContent: string;
+      createdAt: string;
+      modifiedAt: string;
+    }[];
   }[];
 }
 
