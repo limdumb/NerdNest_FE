@@ -7,6 +7,7 @@ interface Params {
 }
 
 export default async function editMemberData(params: Params) {
+  
   const request = {
     profileImageUrl: params.profileImageUrl,
     nickName: params.nickName,

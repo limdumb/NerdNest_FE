@@ -13,8 +13,10 @@ export default async function createCategory(
           .then((res) => {
             if (res.status === 201) alert("카테고리가 생성 되었습니다.");
           });
-      } catch (err) {
-        console.error(err);
+      } catch (err:any) {
+        if(err.response.status === 409){
+          alert("중복된 카테고리명 입니다.")
+        }
       }
     }else{
       alert("전체 카테고리는 생성 할 수 없습니다.")
