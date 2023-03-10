@@ -13,5 +13,10 @@
 .Home_Sort_Container {
   display: flex;
   justify-content: space-between;
-  width: 15%;
+  width: 19%;
+}
+
+.Home_Loading_Container {
+  display: flex;
+  justify-content: center;
 }

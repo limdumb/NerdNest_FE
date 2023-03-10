@@ -22,7 +22,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Header/>
+        <Header />
         <RootContainer>
           <Routes>
             <Route path="/" element={<Home />} />
