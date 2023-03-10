@@ -1,10 +1,10 @@
 import { TiPencil } from "react-icons/ti";
 import { RiSearchLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import styled from "styled-components";
 import DropDownTab from "./DropDownTab";
-import '../Style/Header.css'
+import "../Style/Header.css";
+import { useEffect } from "react";
 
 export const ProfileImage = styled.img`
   width: 35px;
@@ -15,7 +15,7 @@ export const ProfileImage = styled.img`
 `;
 
 export default function Header() {
-  const [isMemberId, setIsMemberId] = useState(true);
+  const isMemberId = localStorage.getItem("memberId");
   return (
     <header className="Header_Wrapper">
       <div className="Header_Container">

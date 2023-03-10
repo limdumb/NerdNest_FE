@@ -19,6 +19,15 @@ export default async function login(params: Params) {
     password: params.password,
   };
 
+  await baseInstance.post<LoginResponseType>("/login", request).then((res) => {
+    if (res.status === 200) {
+      localStorage.setItem("memberId", `${res.data.memberId}`);
+      localStorage.setItem("accessToken", res.data.accessToken);
+      localStorage.setItem("refreshToken", res.data.refreshToken);
+      params.navigate("/");
+      window.location.reload();
+    }
+  });
   try {
     await baseInstance
       .post<LoginResponseType>("/login", request)
