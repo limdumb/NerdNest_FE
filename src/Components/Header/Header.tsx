@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import DropDownTab from "./DropDownTab";
 import "../Style/Header.css";
-import { useEffect } from "react";
 
 export const ProfileImage = styled.img`
   width: 35px;
