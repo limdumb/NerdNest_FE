@@ -57,9 +57,41 @@ const Home = () => {
   const [isSortActive, setIsSortActive] = useState(0);
   const [scrollValue, setScrollValue] = useState(1);
   const [searchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const tab = searchParams.get("tab");
   const interSectRef = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    setIsLoading(true);
+    const get = async () => {
+      setIsLoading(false);
+      const result = await getHomeData(tab, scrollValue);
+      setBlogList([...blogList, ...result]);
+    };
+    get();
+  }, [searchParams, scrollValue]);
+
+  const options = {
+    root: null,
+    rootMargin: "20px",
+    threshold: 1,
+  };
+
+  const handleObserver = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      const target = entries[0];
+      if (target.isIntersecting) {
+        setScrollValue(scrollValue + 1);
+      }
+    },
+    [scrollValue]
+  );
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleObserver, options);
+    if (interSectRef.current) observer.observe(interSectRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
