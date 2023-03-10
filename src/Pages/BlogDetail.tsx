@@ -14,13 +14,23 @@ export interface BlogDetailProps {
   blogContents: string;
   commentList: {
     commentId: number;
+    parentId: null | number;
     memberId: number;
     nickName: string;
     profileImageUrl: string;
-    comment: string;
+    commentContent: string;
     createdAt: string;
     modifiedAt: string;
-    parentId: null | number;
+    children: {
+      commentId: number;
+      parentId: null | number;
+      memberId: number;
+      nickName: string;
+      profileImageUrl: string;
+      commentContent: string;
+      createdAt: string;
+      modifiedAt: string;
+    }[];
   }[];
 }
 

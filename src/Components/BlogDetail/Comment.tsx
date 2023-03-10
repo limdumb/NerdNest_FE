@@ -11,10 +11,20 @@ export interface CommentProps {
   memberId: number;
   nickName: string;
   profileImageUrl: string;
-  comment: string;
+  commentContent: string;
   createdAt: string;
   modifiedAt: string;
   parentId: null | number;
+  children: {
+    commentId: number;
+    parentId: null | number;
+    memberId: number;
+    nickName: string;
+    profileImageUrl: string;
+    commentContent: string;
+    createdAt: string;
+    modifiedAt: string;
+  }[];
 }
 
 export interface CommentListProps extends Array<CommentProps> {}
@@ -58,11 +68,11 @@ const Comment = ({ commentList }: { commentList: CommentListProps }) => {
                   width="30%"
                   height="40px"
                   marginLeft="1rem"
-                  defaultValue={comment.comment}
+                  defaultValue={comment.commentContent}
                   onChange={(e) => setCommentValue(e.target.value)}
                 />
               ) : (
-                <CommentSpan>{comment.comment}</CommentSpan>
+                <CommentSpan>{comment.commentContent}</CommentSpan>
               )}
               <CommentSpan usage="date">{comment.createdAt}</CommentSpan>
               <div className="Comment_Manage_Container">
@@ -98,7 +108,7 @@ const Comment = ({ commentList }: { commentList: CommentListProps }) => {
               ) : null}
             </div>
             <ReComment
-              recommentList={commentList}
+              commentList={commentList}
               parentId={comment.commentId}
             />
           </div>
