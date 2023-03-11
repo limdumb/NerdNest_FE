@@ -21,6 +21,7 @@ export interface BlogDetailProps {
     commentContent: string;
     createdAt: string;
     modifiedAt: string;
+    status: string;
     children: {
       commentId: number;
       parentId: null | number;
@@ -30,6 +31,7 @@ export interface BlogDetailProps {
       commentContent: string;
       createdAt: string;
       modifiedAt: string;
+      status: string;
     }[];
   }[];
 }
