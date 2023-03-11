@@ -122,6 +122,7 @@ const Blogs = () => {
   );
   const [lock, setLock] = useState<boolean>(false);
   const bottomRef = useRef(null);
+  // 카테고리별 받아오는 API로직
 
   const fetchBlogData = () => {
     let newBlogArr = [...newBlogsData, blogData.data.blogList];
@@ -147,6 +148,10 @@ const Blogs = () => {
       if (bottomRef.current) observer.unobserve(bottomRef.current);
     };
   }, [newBlogsData]);
+
+  useEffect(() => {
+    fetchBlogData();
+  }, [pages]);
 
   return (
     <BlogWrapper>

@@ -34,7 +34,7 @@ const BlogWrite = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [categoryId, setCategoryId] = useState<number>(0);
   const memberId = parseInt(localStorage.getItem("memberId") as string);
-  const accessToken = localStorage.getItem("accessToken")
+  const accessToken = localStorage.getItem("accessToken");
   const CateogryInitialValue = {
     categoryList: [{ categoryId: 0, categoryName: "" }],
   };
@@ -42,6 +42,7 @@ const BlogWrite = () => {
     `/category/${memberId}`,
     CateogryInitialValue
   );
+  console.log(categoryId);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.persist();
@@ -92,15 +93,20 @@ const BlogWrite = () => {
       <div className="Submit_Container">
         <EventButton
           usage={"write"}
-          onClick={() => {
-            titleImageUploader(imageFile as File,accessToken);
+          onClick={async () => {
+            const imageResponse = await titleImageUploader(
+              imageFile as File,
+              accessToken
+            );
+            console.log(imageResponse);
             postBlog({
               navigate: navigate,
+              titleImageUrl: imageResponse.imageFileUrl,
               blogTitle: blogData.blogTitle,
               blogContent: blogText,
               categoryId: categoryId,
               memberId: memberId,
-              accessToken: accessToken
+              accessToken: accessToken,
             });
           }}
         />

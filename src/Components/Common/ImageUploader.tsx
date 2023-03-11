@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FcPlus } from "react-icons/fc";
 import "./Style/imageUploader.css";
 
@@ -13,6 +13,10 @@ export default function ImageUploader(props: Props) {
   const [previewImage, setPreviewImage] = useState<string | null>(
     props.profileImageUrl
   );
+
+  useEffect(() => {
+    setPreviewImage(props.profileImageUrl);
+  }, [props.profileImageUrl]);
 
   const ref = useRef<HTMLInputElement | null>(null);
   const imageUploadHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

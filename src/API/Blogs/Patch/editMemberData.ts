@@ -6,6 +6,8 @@ interface Params {
   about: string;
   memberId: number;
   navigate: NavigateFunction;
+  categoryName: string;
+  categoryId: number;
 }
 
 export default async function editMemberData(params: Params) {
@@ -20,7 +22,9 @@ export default async function editMemberData(params: Params) {
         .then((res) => {
           if (res.status === 200) {
             alert("수정이 완료 되었습니다!");
-            params.navigate(`/${params.nickName}/${params.memberId}`);
+            params.navigate(
+              `/${params.nickName}/${params.memberId}/전체/${params.categoryId}`
+            );
             window.location.reload();
           }
         });

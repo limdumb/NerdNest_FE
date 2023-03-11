@@ -40,6 +40,7 @@ export default function MemberProfile({
 
   const accessToken = localStorage.getItem("accessToken");
   const navigate = useNavigate();
+  
   return (
     <>
       <div>
@@ -58,6 +59,8 @@ export default function MemberProfile({
                     about: memberEditValue.about,
                     memberId: parseInt(memberId),
                     navigate: navigate,
+                    categoryId: parseInt(params.categoryId as string),
+                    categoryName: params.categoryName as string
                   });
                   setIsProfileEdit(!isProfileEdit);
                 } else {

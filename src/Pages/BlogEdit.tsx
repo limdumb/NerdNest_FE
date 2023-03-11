@@ -1,11 +1,10 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
   WriteWrapper,
   ImageUploaderWrapper,
   TitleWriteWrapper,
 } from "./BlogWrite";
 import TextEditor from "../Components/BlogWrite/TextEditor";
-import TitleImageUploarder from "../Components/BlogWrite/TitleImageUploarder";
 import CommonInput from "../Components/Common/CommonInput";
 import CategorySelect from "../Components/BlogWrite/CategorySelect";
 import EventButton from "../Components/Common/EventButton";
@@ -14,6 +13,7 @@ import { CategoryType } from "./Blogs";
 import useFetch from "../Custom Hook/useFetch";
 import "./Style/blogWrite.css";
 import { useParams } from "react-router-dom";
+import ImageUploader from "../Components/Common/ImageUploader";
 
 interface ExistingDataType {
   titleImageUrl: string;
@@ -41,21 +41,32 @@ const BlogWrite = () => {
     CateogryInitialValue
   );
 
-  const existingData = useFetch<ExistingDataType>(
+  const existingData = useFetch<{ data: ExistingDataType}>(
     `/blogs/edit/${params.blogId}`,
-    existingInitialValue,
+    {data: existingInitialValue},
     accessToken as string
   );
+
   const [blogText, setBlogText] = useState("");
   const [blogData, setBlogData] = useState({
-    titleImageUrl: existingData.data.titleImageUrl,
-    blogTitle: existingData.data.blogTitle,
-    blogContent: existingData.data.blogContent,
+    titleImageUrl: existingData.data.data.titleImageUrl,
+    blogTitle: existingData.data.data.blogTitle,
+    blogContent: existingData.data.data.blogContent,
   });
 
-  const [categoryId, setCategoryId] = useState<number>(0);
+  useEffect(() => {
+    console.log(existingData);
+    if (!existingData.loading) {
+      setBlogData({
+        titleImageUrl: existingData.data.data.titleImageUrl,
+        blogTitle: existingData.data.data.blogTitle,
+        blogContent: existingData.data.data.blogContent,
+      });
+    }
+  }, [existingData]);
 
-  console.log(existingData);
+  const [categoryId, setCategoryId] = useState<number>(0);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.persist();
@@ -69,7 +80,12 @@ const BlogWrite = () => {
     <WriteWrapper>
       <ImageUploaderWrapper>
         <ImageUploaderWrapper />
-        <TitleImageUploarder />
+        <ImageUploader
+          setImageFile={setImageFile}
+          imageFile={imageFile}
+          profileImageUrl={blogData.titleImageUrl}
+          usage={"Title"}
+        />
         <span>썸네일을 등록 해주세요</span>
       </ImageUploaderWrapper>
       <hr />
@@ -87,7 +103,7 @@ const BlogWrite = () => {
       </TitleWriteWrapper>
       <label className="Editor_Label">Body</label>
       <div className="Text_Editor_Container">
-        <TextEditor blogText={blogText} setBlogText={setBlogText} />
+        <TextEditor blogText={blogData.blogContent} setBlogText={setBlogText} />
       </div>
       <div className="Category_Container">
         <span className="Editor_Label">카테고리</span>

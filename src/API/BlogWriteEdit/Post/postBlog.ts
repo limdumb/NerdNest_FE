@@ -8,11 +8,13 @@ export interface Params {
   memberId: number;
   navigate: NavigateFunction;
   accessToken: string | null
+  titleImageUrl: string
 }
 
 export default async function postBlog(params: Params) {
   baseInstance.defaults.headers.common["Authorization"] = params.accessToken;
   const request = {
+    titleImageUrl: params.titleImageUrl,
     blogTitle: params.blogTitle,
     blogContent: params.blogContent,
     categoryId: params.categoryId,
@@ -20,14 +22,12 @@ export default async function postBlog(params: Params) {
 
   try {
     await baseInstance
-      .post(`/blogs/${params.memberId}`, request)
+      .post(`/blogs`, request)
       .then((res) => {
         if (res.status === 201) {
           alert("게시물 작성이 완료 되었습니다");
           params.navigate(
-            //백엔드와 상의 후 로직수정 예정
-            // `/${res.data.nickName}/${params.memberId}/${params.blogTitle}/${res.data.blogId}`
-            `/${"임덤덤"}/${params.memberId}/${params.blogTitle}/${1}`
+            `/${res.data.nickName}/${params.memberId}/${params.blogTitle}/${res.data.blogId}`
           );
         }
       });
