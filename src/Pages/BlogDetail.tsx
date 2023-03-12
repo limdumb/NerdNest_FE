@@ -5,7 +5,7 @@ import getBlogDetailData from "../API/BlogDetail/Get/getBlogDetail";
 import { baseInstance } from "../API/Instance/Instance";
 import AddComment from "../Components/BlogDetail/AddComment";
 import Comment from "../Components/BlogDetail/Comment";
-import TextViewer from "../Components/BlogDetail/TextViewer";
+import TextViewer from "../Components/BlogDetail/Common/TextViewer";
 import "./Style/BlogDetail.css";
 
 export interface BlogDetailProps {

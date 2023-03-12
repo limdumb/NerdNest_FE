@@ -1,11 +1,13 @@
 import { useState } from "react";
-import styled from "styled-components";
 import { ProfileImage } from "../Header/Header";
 import { GoPencil } from "react-icons/go";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import ReComment from "./ReComment";
-import CommentInput from "./CommentInput";
+import CommentInput from "./Common/CommentInput";
 import postComment from "../../API/BlogDetail/Post/postComment";
+import { CommentCommonBtn, CommentSpan } from "./Common/Styled/CommentStyled";
+import patchComment from "../../API/BlogDetail/Patch/patchComment";
+import deleteComment from "../../API/BlogDetail/Delete/deleteComment";
 
 export interface CommentProps {
   commentId: number;
@@ -29,23 +31,6 @@ export interface CommentProps {
 }
 
 export interface CommentListProps extends Array<CommentProps> {}
-
-interface CommentStyledProps {
-  usage?: string;
-}
-
-export const CommentSpan = styled.span<CommentStyledProps>`
-  color: ${(props) =>
-    props.usage === "date" ? "var(--fc-400)" : "var(--fc-500)"};
-  font-size: ${(props) =>
-    props.usage === "date" ? "var(--font-sm)" : "var(--font-base)"};
-  font-weight: ${(props) => (props.usage === "write" ? "var(--fw-bold)" : "")};
-  margin-left: 0.5rem;
-  cursor: ${(props) => (props.usage === "write" ? "pointer" : "")};
-  &:hover {
-    color: ${(props) => (props.usage === "write" ? "var(--fc-400)" : "")};
-  }
-`;
 
 const Comment = ({
   commentList,
@@ -75,13 +60,29 @@ const Comment = ({
               <ProfileImage src={comment.profileImageUrl} alt="memberImage" />
               <CommentSpan usage="write">{comment.nickname} :</CommentSpan>
               {isCommentEdit && idx === commentIdx ? (
-                <CommentInput
-                  width="30%"
-                  height="40px"
-                  marginLeft="1rem"
-                  defaultValue={comment.commentContent}
-                  onChange={(e) => setCommentValue(e.target.value)}
-                />
+                <>
+                  <CommentInput
+                    width="30%"
+                    height="40px"
+                    marginLeft="1rem"
+                    defaultValue={comment.commentContent}
+                    onChange={(e) => setCommentValue(e.target.value)}
+                  />
+                  <CommentCommonBtn
+                    usage="edit"
+                    onClick={() => setIsCommentEdit(false)}
+                  >
+                    취소
+                  </CommentCommonBtn>
+                  <CommentCommonBtn
+                    usage="edit"
+                    onClick={() =>
+                      patchComment(comment.commentId, commentValue, accessToken)
+                    }
+                  >
+                    완료
+                  </CommentCommonBtn>
+                </>
               ) : (
                 <CommentSpan>{comment.commentContent}</CommentSpan>
               )}
@@ -100,7 +101,10 @@ const Comment = ({
                     setIsCommentEdit(!isCommentEdit);
                   }}
                 />
-                <RiDeleteBin6Line className="Delete_icon" />
+                <RiDeleteBin6Line
+                  className="Delete_icon"
+                  onClick={() => deleteComment(comment.commentId, accessToken)}
+                />
               </div>
             </div>
             <div className="Comment_Input_Container">
@@ -114,16 +118,22 @@ const Comment = ({
                     marginLeft="7rem"
                     marginBottom="1.5rem"
                   ></CommentInput>
-                  <button
-                    className="Recomment_Btn"
-                    onClick={(e) => postComment(content, accessToken)}
+                  <CommentCommonBtn
+                    onClick={() => {
+                      postComment(content, accessToken);
+                      setCommentValue("");
+                    }}
                   >
                     작성
-                  </button>
+                  </CommentCommonBtn>
                 </>
               ) : null}
             </div>
-            <ReComment commentList={commentList} parentId={comment.commentId} />
+            <ReComment
+              commentList={commentList}
+              parentId={comment.commentId}
+              accessToken={accessToken}
+            />
           </div>
         ) : null
       )}
