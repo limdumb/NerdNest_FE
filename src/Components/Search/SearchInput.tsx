@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
-const SearchInput = () => {
+const SearchInput = ({ keyword }: { keyword: string | null }) => {
   const [searchValue, setSerachValue] = useState("");
   const [isSearch, setIsSearch] = useState(false);
+  const navigate = useNavigate();
 
   const handleSearchValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.persist();
@@ -15,7 +17,12 @@ const SearchInput = () => {
   ) => {
     e.preventDefault();
     if (e.key === "Enter") {
-      searchValue === "" ? alert("검색어를 입력해주세요.") : setIsSearch(true);
+      if (searchValue === "") {
+        alert("검색어를 입력해주세요.");
+      } else {
+        setIsSearch(true);
+        navigate(`/search?keyword=${searchValue}&page=1`);
+      }
     }
   };
   return (
@@ -31,9 +38,9 @@ const SearchInput = () => {
           placeholder="검색어를 입력하세요."
         />
       </div>
-      {isSearch || searchValue !== '' ? (
+      {isSearch || searchValue !== "" ? (
         <div className="Search_Result_Container">
-          {/* 검색 결과 안내 문구 */}
+          "{keyword}"에 대한 몇개의 검색 결과입니다.
         </div>
       ) : null}
     </>

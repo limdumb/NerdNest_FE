@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import DropDownTab from "./DropDownTab";
 import "../Style/Header.css";
-import { useEffect } from "react";
 
 export const ProfileImage = styled.img`
   width: 35px;
@@ -19,7 +18,7 @@ export default function Header() {
   return (
     <header className="Header_Wrapper">
       <div className="Header_Container">
-        <Link to="/">
+        <Link to="/?tab=newest&page=1">
           <div className="Header_LogoContainer" />
         </Link>
         <div
