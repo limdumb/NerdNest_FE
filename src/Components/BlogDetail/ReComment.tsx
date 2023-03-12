@@ -14,13 +14,14 @@ const ReComment = ({
   const [isEditRecomment, setIsEditRecomment] = useState(false);
   const [editRecomment, setEditRecomment] = useState("");
   const [recommentIdx, setRecommentIdx] = useState(0);
+
   return (
     <>
       {commentList.map((recommentList) =>
         recommentList.children.map((recomment, idx) =>
           recomment.parentId === parentId ? (
             <div className="ReComment_Container" key={recomment.commentId}>
-              <CommentSpan usage="write">⌙ {recomment.nickName}: </CommentSpan>
+              <CommentSpan usage="write">⌙ {recomment.nickname}: </CommentSpan>
               {isEditRecomment && recommentIdx === idx ? (
                 <CommentInput
                   width="30%"

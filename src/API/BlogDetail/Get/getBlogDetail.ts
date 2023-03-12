@@ -12,7 +12,7 @@ export default function getBlogDetailData(): Promise<BlogDetailProps> {
           {
             commentId: 1,
             memberId: 1,
-            nickName: "minse95",
+            nickname: "minse95",
             profileImageUrl: "",
             commentContent: "댓글1",
             createdAt: "2022.03.06",
@@ -23,7 +23,7 @@ export default function getBlogDetailData(): Promise<BlogDetailProps> {
               {
                 commentId: 2,
                 memberId: 3,
-                nickName: "minse97",
+                nickname: "minse97",
                 profileImageUrl: "",
                 commentContent: "대댓글1-1",
                 createdAt: "2022.03.06",
@@ -34,7 +34,7 @@ export default function getBlogDetailData(): Promise<BlogDetailProps> {
               {
                 commentId: 3,
                 memberId: 3,
-                nickName: "minse97",
+                nickname: "minse97",
                 profileImageUrl: "",
                 commentContent: "대댓글1-2",
                 createdAt: "2022.03.06",
@@ -45,7 +45,7 @@ export default function getBlogDetailData(): Promise<BlogDetailProps> {
               {
                 commentId: 7,
                 memberId: 3,
-                nickName: "minse97",
+                nickname: "minse97",
                 profileImageUrl: "",
                 commentContent: "대댓글1-3",
                 createdAt: "2022.03.06",
@@ -58,7 +58,7 @@ export default function getBlogDetailData(): Promise<BlogDetailProps> {
           {
             commentId: 4,
             memberId: 2,
-            nickName: "minse96",
+            nickname: "minse96",
             profileImageUrl: "",
             commentContent: "댓글2",
             createdAt: "2022.03.06",
@@ -69,7 +69,7 @@ export default function getBlogDetailData(): Promise<BlogDetailProps> {
               {
                 commentId: 5,
                 memberId: 3,
-                nickName: "minse97",
+                nickname: "minse97",
                 profileImageUrl: "",
                 commentContent: "대댓글2-1",
                 createdAt: "2022.03.06",
@@ -80,7 +80,7 @@ export default function getBlogDetailData(): Promise<BlogDetailProps> {
               {
                 commentId: 6,
                 memberId: 3,
-                nickName: "minse97",
+                nickname: "minse97",
                 profileImageUrl: "",
                 commentContent: "대댓글2-2",
                 createdAt: "2022.03.06",

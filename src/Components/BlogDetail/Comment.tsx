@@ -5,11 +5,12 @@ import { GoPencil } from "react-icons/go";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import ReComment from "./ReComment";
 import CommentInput from "./CommentInput";
+import postComment from "../../API/BlogDetail/Post/postComment";
 
 export interface CommentProps {
   commentId: number;
   memberId: number;
-  nickName: string;
+  nickname: string;
   profileImageUrl: string;
   commentContent: string;
   createdAt: string;
@@ -19,7 +20,7 @@ export interface CommentProps {
     commentId: number;
     parentId: null | number;
     memberId: number;
-    nickName: string;
+    nickname: string;
     profileImageUrl: string;
     commentContent: string;
     createdAt: string;
@@ -46,11 +47,24 @@ export const CommentSpan = styled.span<CommentStyledProps>`
   }
 `;
 
-const Comment = ({ commentList }: { commentList: CommentListProps }) => {
+const Comment = ({
+  commentList,
+  blogId,
+  accessToken,
+}: {
+  commentList: CommentListProps;
+  blogId: number;
+  accessToken: string | null;
+}) => {
   const [commentValue, setCommentValue] = useState("");
   const [isCommentEdit, setIsCommentEdit] = useState(false);
   const [isRecomment, setIsRecomment] = useState(false);
   const [commentIdx, setCommentIdx] = useState(0);
+  const content = {
+    blogId: Number(blogId),
+    parentId: commentIdx + 1,
+    commentContent: commentValue,
+  };
 
   return (
     <>
@@ -58,11 +72,8 @@ const Comment = ({ commentList }: { commentList: CommentListProps }) => {
         comment.parentId === null ? (
           <div className="Comment_Wrapper" key={comment.commentId}>
             <div className="Comment_Container">
-              <ProfileImage
-                src="https://images.unsplash.com/photo-1676824469794-9d8deeaf1f2c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-                alt="memberImage"
-              />
-              <CommentSpan usage="write">{comment.nickName} :</CommentSpan>
+              <ProfileImage src={comment.profileImageUrl} alt="memberImage" />
+              <CommentSpan usage="write">{comment.nickname} :</CommentSpan>
               {isCommentEdit && idx === commentIdx ? (
                 <CommentInput
                   width="30%"
@@ -103,7 +114,12 @@ const Comment = ({ commentList }: { commentList: CommentListProps }) => {
                     marginLeft="7rem"
                     marginBottom="1.5rem"
                   ></CommentInput>
-                  <button className="Recomment_Btn">작성</button>
+                  <button
+                    className="Recomment_Btn"
+                    onClick={(e) => postComment(content, accessToken)}
+                  >
+                    작성
+                  </button>
                 </>
               ) : null}
             </div>
