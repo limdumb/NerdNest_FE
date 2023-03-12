@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import getBlogDetailData from "../API/BlogDetail/Get/getBlogDetail";
+import { baseInstance } from "../API/Instance/Instance";
 import AddComment from "../Components/BlogDetail/AddComment";
 import Comment from "../Components/BlogDetail/Comment";
-import getBlogDetailData from "../API/BlogDetail/getBlogDetail";
-import TextViewer from "../Components/BlogDetail/TextViewer";
+import TextViewer from "../Components/BlogDetail/Common/TextViewer";
 import "./Style/BlogDetail.css";
 
 export interface BlogDetailProps {
@@ -14,13 +15,25 @@ export interface BlogDetailProps {
   blogContents: string;
   commentList: {
     commentId: number;
+    parentId: null | number;
     memberId: number;
-    nickName: string;
+    nickname: string;
     profileImageUrl: string;
-    comment: string;
+    commentContent: string;
     createdAt: string;
     modifiedAt: string;
-    parentId: null | number;
+    status: string;
+    children: {
+      commentId: number;
+      parentId: null | number;
+      memberId: number;
+      nickname: string;
+      profileImageUrl: string;
+      commentContent: string;
+      createdAt: string;
+      modifiedAt: string;
+      status: string;
+    }[];
   }[];
 }
 
@@ -39,13 +52,12 @@ const BlogDetail = () => {
   const [blogData, setBlogData] = useState<BlogDetailProps>();
   const { writer, blogId } = useParams();
   const navigate = useNavigate();
+  const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await getBlogDetailData();
-      setBlogData(res);
-    };
-    fetchData();
+    baseInstance
+      .get(`/blogs/${blogId}`)
+      .then((res) => setBlogData(res.data.data));
   }, []);
   return (
     <div className="Blog_Detail_Container">
@@ -73,8 +85,10 @@ const BlogDetail = () => {
       <div></div>
       <div className="Blog_Detail_Comment_Container">
         <h2>{blogData && blogData.commentList.length} Comment</h2>
-        <AddComment />
-        {blogData && <Comment commentList={blogData.commentList} />}
+        <AddComment accessToken={accessToken} blogId={Number(blogId)} />
+        {blogData && (
+          <Comment commentList={blogData.commentList} blogId={Number(blogId)} accessToken={accessToken} />
+        )}
       </div>
     </div>
   );

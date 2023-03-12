@@ -19,7 +19,7 @@ export default function Header() {
   return (
     <header className="Header_Wrapper">
       <div className="Header_Container">
-        <Link to="/">
+        <Link to="/?tab=newest&page=1">
           <div className="Header_LogoContainer" />
         </Link>
         <div

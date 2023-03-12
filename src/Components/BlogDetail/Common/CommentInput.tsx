@@ -1,7 +1,7 @@
 import { ChangeEventHandler } from "react";
 import styled from "styled-components";
 
-interface CommentInputType {
+export interface CommentInputType {
   width: string;
   height?: string;
   value?: string;
@@ -12,7 +12,7 @@ interface CommentInputType {
   defaultValue?: string;
 }
 
-const CommentStyledInput = styled.textarea<CommentInputType>`
+export const CommentStyledInput = styled.textarea<CommentInputType>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   resize: none;
@@ -26,7 +26,6 @@ const CommentStyledInput = styled.textarea<CommentInputType>`
     outline-color: var(--blue-300);
   }
 `;
-
 const CommentInput = (props: CommentInputType) => {
   return (
     <>

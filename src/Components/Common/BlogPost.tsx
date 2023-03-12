@@ -3,6 +3,7 @@ import { IoHeartCircle } from "react-icons/io5";
 import { MdOutlineInsertComment } from "react-icons/md";
 import { PostProps } from "../../Pages/Home";
 import "./Style/BlogPost.css";
+import { useNavigate } from "react-router-dom";
 
 interface SpanStyledProps {
   usage: string;
@@ -46,42 +47,58 @@ const IconContainer = styled.div<IconStyledProps>`
   }
 `;
 const BlogPost = ({ post }: { post: PostProps }) => {
+  const navigate = useNavigate();
+  const {
+    blogId,
+    memberId,
+    titleImageUrl,
+    blogTitle,
+    createdAt,
+    commentCount,
+    writer,
+    likeCount,
+  } = post;
   return (
     <>
-      <div className="Blog_Post_Wrapper">
+      <div
+        className="Blog_Post_Wrapper"
+        onClick={() =>
+          navigate(`${writer}/${memberId}/${blogTitle}/${blogId}/1`)
+        }
+      >
         <div className="Blog_Post_Container">
           <div className="Blog_Post_Image_Container">
             <img
               className="Blog_Post_Image"
-              src={post.titleImageUrl}
+              src={titleImageUrl}
               alt="TitleImage"
             />
           </div>
           <div className="Blog_Post_Body_Container">
             <PostContent usage="title" marginTop="10px">
-              {post.blogTitle}
+              {blogTitle}
             </PostContent>
             <div className="Blog_Post_Info_Container">
-              <PostContent usage="info">{post.createdAt}</PostContent>
+              <PostContent usage="info">{createdAt}</PostContent>
               <IconContainer
                 fontColor="var(--fc-300)"
                 iconColor="var(--fc-300)"
                 iconSize="var(--font-md)"
               >
                 <MdOutlineInsertComment className="Comment_icon" />
-                {post.commentCount}
+                {commentCount}
               </IconContainer>
             </div>
           </div>
           <div className="Blog_Post_Writer_Container">
-            <PostContent usage="writer">{post.writer}</PostContent>
+            <PostContent usage="writer">{writer}</PostContent>
             <IconContainer
               fontColor="var(--fc-500)"
               iconColor="var(--blue-400)"
               iconSize="var(--font-xl)"
             >
               <IoHeartCircle className="Heart_icon" />
-              {post.likeCount}
+              {likeCount}
             </IconContainer>
           </div>
         </div>
