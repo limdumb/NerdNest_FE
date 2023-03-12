@@ -123,16 +123,22 @@ const Blogs = () => {
   const [lock, setLock] = useState<boolean>(false);
   const bottomRef = useRef(null);
   // 카테고리별 받아오는 API로직
+  console.log("Outside of fetch BlogData")
+  console.log(blogData.data.blogList)
 
   const fetchBlogData = () => {
-    let newBlogArr = [...newBlogsData, blogData.data.blogList];
-    if (blogData.data.blogList.length === 0) {
-      setLock(true);
-    } else {
-      newBlogArr = newBlogArr.concat(blogData.data.blogList);
-      setNewBlogsData(newBlogArr as BlogType[]);
+      let newBlogArr = [...newBlogsData, blogData.data.blogList];
+      if (blogData.data.blogList.length === 0) {
+        setLock(true);
+      } else {
+        newBlogArr = newBlogArr.concat(blogData.data.blogList);
+        setNewBlogsData(newBlogArr as BlogType[]);
     }
   };
+
+  useEffect(() => {
+    fetchBlogData();
+  }, [pages]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -148,10 +154,6 @@ const Blogs = () => {
       if (bottomRef.current) observer.unobserve(bottomRef.current);
     };
   }, [newBlogsData]);
-
-  useEffect(() => {
-    fetchBlogData();
-  }, [pages]);
 
   return (
     <BlogWrapper>

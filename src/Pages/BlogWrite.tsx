@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
-import { CategoryType, Wrapper } from "./Blogs";
+import { CategoryType, MemberType, Wrapper } from "./Blogs";
 import TextEditor from "../Components/BlogWrite/TextEditor";
 import ImageUploader from "../Components/Common/ImageUploader";
 import CommonInput from "../Components/Common/CommonInput";
@@ -26,23 +26,33 @@ export const TitleWriteWrapper = styled(Wrapper)`
 `;
 
 const BlogWrite = () => {
+  const memberId = parseInt(localStorage.getItem("memberId") as string);
+  const CateogryInitialValue = {
+    categoryList: [{ categoryId: 0, categoryName: "" }],
+  };
+  const memberInitialValue = {
+    profileImageUrl: "",
+    nickName: "",
+    about: "",
+  };
+
+  const categoryData = useFetch<CategoryType>(
+    `/category/${memberId}`,
+    CateogryInitialValue
+  );
+  const allCategoryId = categoryData.data.categoryList[0].categoryId;
+  const memberData = useFetch<MemberType>(
+    `/members/${memberId}`,
+    memberInitialValue
+  );
   const [blogText, setBlogText] = useState("");
   const [blogData, setBlogData] = useState({
     blogTitle: "",
     categoryId: null,
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [categoryId, setCategoryId] = useState<number>(0);
-  const memberId = parseInt(localStorage.getItem("memberId") as string);
+  const [categoryId, setCategoryId] = useState<number>(allCategoryId);
   const accessToken = localStorage.getItem("accessToken");
-  const CateogryInitialValue = {
-    categoryList: [{ categoryId: 0, categoryName: "" }],
-  };
-  const categoryData = useFetch<CategoryType>(
-    `/category/${memberId}`,
-    CateogryInitialValue
-  );
-  console.log(categoryId);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.persist();
@@ -51,7 +61,7 @@ const BlogWrite = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   return (
     <WriteWrapper>
@@ -98,16 +108,16 @@ const BlogWrite = () => {
               imageFile as File,
               accessToken
             );
-            console.log(imageResponse);
             postBlog({
-              navigate: navigate,
               titleImageUrl: imageResponse.imageFileUrl,
               blogTitle: blogData.blogTitle,
               blogContent: blogText,
               categoryId: categoryId,
-              memberId: memberId,
               accessToken: accessToken,
             });
+            navigate(
+              `/${memberData.data.nickName}/${memberId}/전체/${allCategoryId}`
+            );
           }}
         />
       </div>

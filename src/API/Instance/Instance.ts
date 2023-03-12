@@ -5,4 +5,8 @@ export const baseInstance = axios.create({
   timeout: 1000,
 });
 
+// const test = baseInstance.interceptors.request.use(()=>{
+
+// },)
+
 //axios intersepter

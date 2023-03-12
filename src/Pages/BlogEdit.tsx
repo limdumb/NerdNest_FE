@@ -41,9 +41,9 @@ const BlogWrite = () => {
     CateogryInitialValue
   );
 
-  const existingData = useFetch<{ data: ExistingDataType}>(
+  const existingData = useFetch<{ data: ExistingDataType }>(
     `/blogs/edit/${params.blogId}`,
-    {data: existingInitialValue},
+    { data: existingInitialValue },
     accessToken as string
   );
 
@@ -55,7 +55,6 @@ const BlogWrite = () => {
   });
 
   useEffect(() => {
-    console.log(existingData);
     if (!existingData.loading) {
       setBlogData({
         titleImageUrl: existingData.data.data.titleImageUrl,
@@ -65,7 +64,9 @@ const BlogWrite = () => {
     }
   }, [existingData]);
 
-  const [categoryId, setCategoryId] = useState<number>(0);
+  const [categoryId, setCategoryId] = useState<number>(
+    categoryData.data.categoryList[0].categoryId
+  );
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
