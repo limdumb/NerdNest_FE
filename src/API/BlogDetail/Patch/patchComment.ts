@@ -1,17 +1,13 @@
 import { baseInstance } from "../../Instance/Instance";
 
-interface PostCommentContentProps {
-  blogId: number | undefined;
-  commentContent: string | null;
-}
-
-export default function postComment(
-  content: PostCommentContentProps,
+export default function patchComment(
+  commentId: number,
+  comment: string,
   accessToken: string | null
 ) {
   baseInstance.defaults.headers.common["Authorization"] = accessToken;
   baseInstance
-    .post(`/comments`, content)
+    .patch(`/comments/${commentId}`, { comment: comment })
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 }

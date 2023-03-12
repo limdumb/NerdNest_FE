@@ -32,8 +32,8 @@ const Sort = styled.li<{ borderBtm: boolean }>`
 export const BlogListContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   padding-top: 3em;
+  gap: 3em 10%;
 `;
 const Home = () => {
   const sortArr = [
@@ -41,19 +41,7 @@ const Home = () => {
     { k_name: "최신순", e_name: "newest" },
     { k_name: "내 추천", e_name: "myLike" },
   ];
-  const [blogList, setBlogList] = useState<ArrPostProps>([
-    {
-      memberId: 0,
-      blogId: 0,
-      titleImageUrl: "",
-      blogTitle: "",
-      blogPreview: "",
-      createdAt: "",
-      writer: "",
-      commentCount: 0,
-      likeCount: 0,
-    },
-  ]);
+  const [blogList, setBlogList] = useState<ArrPostProps | null>();
   const [isSortActive, setIsSortActive] = useState(0);
   const [scrollValue, setScrollValue] = useState(1);
   const [searchParams] = useSearchParams();
@@ -66,7 +54,7 @@ const Home = () => {
     const get = async () => {
       setIsLoading(false);
       const result = await getHomeData(tab, scrollValue);
-      setBlogList([...blogList, ...result]);
+      setBlogList(result);
     };
     get();
   }, [searchParams, scrollValue]);
