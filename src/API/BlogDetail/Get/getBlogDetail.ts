@@ -17,6 +17,7 @@ export default function getBlogDetailData(): Promise<BlogDetailProps> {
             commentContent: "댓글1",
             createdAt: "2022.03.06",
             modifiedAt: "2022.03.06",
+            status: "ALIVE",
             parentId: null,
             children: [
               {
@@ -28,6 +29,7 @@ export default function getBlogDetailData(): Promise<BlogDetailProps> {
                 createdAt: "2022.03.06",
                 modifiedAt: "2022.03.06",
                 parentId: 1,
+                status: "ALIVE",
               },
               {
                 commentId: 3,
@@ -38,6 +40,7 @@ export default function getBlogDetailData(): Promise<BlogDetailProps> {
                 createdAt: "2022.03.06",
                 modifiedAt: "2022.03.06",
                 parentId: 1,
+                status: "DEAD",
               },
               {
                 commentId: 7,
@@ -48,6 +51,7 @@ export default function getBlogDetailData(): Promise<BlogDetailProps> {
                 createdAt: "2022.03.06",
                 modifiedAt: "2022.03.06",
                 parentId: 1,
+                status: "ALIVE",
               },
             ],
           },
@@ -60,6 +64,7 @@ export default function getBlogDetailData(): Promise<BlogDetailProps> {
             createdAt: "2022.03.06",
             modifiedAt: "2022.03.06",
             parentId: null,
+            status: "ALIVE",
             children: [
               {
                 commentId: 5,
@@ -70,6 +75,7 @@ export default function getBlogDetailData(): Promise<BlogDetailProps> {
                 createdAt: "2022.03.06",
                 modifiedAt: "2022.03.06",
                 parentId: 4,
+                status: "ALIVE",
               },
               {
                 commentId: 6,
@@ -80,6 +86,7 @@ export default function getBlogDetailData(): Promise<BlogDetailProps> {
                 createdAt: "2022.03.06",
                 modifiedAt: "2022.03.06",
                 parentId: 4,
+                status: "ALIVE",
               },
             ],
           },
