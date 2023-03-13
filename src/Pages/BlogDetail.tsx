@@ -6,8 +6,8 @@ import AddComment from "../Components/BlogDetail/AddComment";
 import Comment from "../Components/BlogDetail/Comment";
 import TextViewer from "../Components/BlogDetail/Common/TextViewer";
 import postLike from "../API/BlogDetail/Post/postLike";
-import "./Style/BlogDetail.css";
 import getBlogDetailData from "../API/BlogDetail/Get/getBlogDetail";
+import "./Style/BlogDetail.css";
 
 export interface BlogDetailProps {
   blogTitle: string;
