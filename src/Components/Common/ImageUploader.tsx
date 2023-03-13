@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FcPlus } from "react-icons/fc";
 import "./Style/imageUploader.css";
 
@@ -6,12 +6,17 @@ interface Props {
   setImageFile: React.Dispatch<React.SetStateAction<File | null>>;
   imageFile: File | null;
   profileImageUrl: string;
+  usage: "Title" | "Profile";
 }
 
 export default function ImageUploader(props: Props) {
   const [previewImage, setPreviewImage] = useState<string | null>(
     props.profileImageUrl
   );
+
+  useEffect(() => {
+    setPreviewImage(props.profileImageUrl);
+  }, [props.profileImageUrl]);
 
   const ref = useRef<HTMLInputElement | null>(null);
   const imageUploadHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +38,11 @@ export default function ImageUploader(props: Props) {
     <>
       <div className="Plus_Container">
         <FcPlus
-          className="Profile_Image_Edit_Icon"
+          className={
+            props.usage === "Title"
+              ? "Title_Image_Add_Icon"
+              : "Profile_Image_Add_Icon"
+          }
           onClick={() => ref.current?.click()}
         />
       </div>
@@ -45,7 +54,12 @@ export default function ImageUploader(props: Props) {
           imageUploadHandler(e);
         }}
       />
-      <img className="Member_Profile_Image" src={`${previewImage}`} />
+      <img
+        className={
+          props.usage === "Title" ? "Thumbnail_Image" : "Member_Profile_Image"
+        }
+        src={`${previewImage}`}
+      />
     </>
   );
 }

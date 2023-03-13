@@ -8,7 +8,11 @@ interface State<T> {
   data: T;
 }
 
-export default function useFetch<T>(endPoint: string, initialValue: T) {
+export default function useFetch<T>(
+  endPoint: string,
+  initialValue: T,
+  accessToken?: string
+) {
   const [fetchData, setFetchData] = useState<State<T>>({
     loading: true,
     error: null,
@@ -16,14 +20,26 @@ export default function useFetch<T>(endPoint: string, initialValue: T) {
   });
 
   useEffect(() => {
-    baseInstance
-      .get(endPoint)
-      .then((response: AxiosResponse<T>) => {
-        setFetchData({ loading: false, error: null, data: response.data });
-      })
-      .catch((error: any) => {
-        setFetchData({ loading: false, error, data: initialValue });
-      });
+    if (!accessToken) {
+      baseInstance
+        .get(endPoint)
+        .then((response: AxiosResponse<T>) => {
+          setFetchData({ loading: false, error: null, data: response.data });
+        })
+        .catch((error: any) => {
+          setFetchData({ loading: false, error, data: initialValue });
+        });
+    } else {
+      baseInstance.defaults.headers.common["Authorization"] = accessToken;
+      baseInstance
+        .get(endPoint)
+        .then((response: AxiosResponse<T>) => {
+          setFetchData({ loading: false, error: null, data: response.data });
+        })
+        .catch((error: any) => {
+          setFetchData({ loading: false, error, data: initialValue });
+        });
+    }
   }, [endPoint]);
   return fetchData;
 }

@@ -31,7 +31,7 @@ function App() {
               <Route path="login" element={<Login />} />
             </Route>
             <Route
-              path="/:nickName/:memberId/:category/:categoryId"
+              path="/:nickName/:memberId"
               element={<Blogs />}
             />
             <Route path="/write" element={<BlogWrite />} />
