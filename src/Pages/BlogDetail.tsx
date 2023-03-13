@@ -81,13 +81,18 @@ const BlogDetail = () => {
       </div>
       <div className="Blog_Detail_Body_Container">
         {blogData && <TextViewer contents={blogData.blogContents} />}
+        <div className="Blog_Detail_Like_Container"></div>
       </div>
       <div></div>
       <div className="Blog_Detail_Comment_Container">
         <h2>{blogData && blogData.commentList.length} Comment</h2>
         <AddComment accessToken={accessToken} blogId={Number(blogId)} />
         {blogData && (
-          <Comment commentList={blogData.commentList} blogId={Number(blogId)} accessToken={accessToken} />
+          <Comment
+            commentList={blogData.commentList}
+            blogId={Number(blogId)}
+            accessToken={accessToken}
+          />
         )}
       </div>
     </div>

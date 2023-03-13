@@ -7,7 +7,7 @@ export default function patchComment(
 ) {
   baseInstance.defaults.headers.common["Authorization"] = accessToken;
   baseInstance
-    .patch(`/comments/${commentId}`, { comment: comment })
+    .patch(`/comments/${commentId}`, { commentContent: comment })
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 }

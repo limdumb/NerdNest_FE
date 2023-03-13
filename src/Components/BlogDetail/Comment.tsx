@@ -45,11 +45,6 @@ const Comment = ({
   const [isCommentEdit, setIsCommentEdit] = useState(false);
   const [isRecomment, setIsRecomment] = useState(false);
   const [commentIdx, setCommentIdx] = useState(0);
-  const content = {
-    blogId: Number(blogId),
-    parentId: commentIdx + 1,
-    commentContent: commentValue,
-  };
 
   return (
     <>
@@ -90,7 +85,10 @@ const Comment = ({
               <div className="Comment_Manage_Container">
                 <button
                   className="isReComment_Btn"
-                  onClick={() => setIsRecomment(!isRecomment)}
+                  onClick={() => {
+                    setIsRecomment(!isRecomment);
+                    setCommentIdx(idx);
+                  }}
                 >
                   {isRecomment ? "답글 취소" : "답글 달기"}
                 </button>
@@ -108,7 +106,7 @@ const Comment = ({
               </div>
             </div>
             <div className="Comment_Input_Container">
-              {isRecomment ? (
+              {isRecomment && commentIdx === idx ? (
                 <>
                   <CommentInput
                     width="50%"
@@ -120,7 +118,14 @@ const Comment = ({
                   ></CommentInput>
                   <CommentCommonBtn
                     onClick={() => {
-                      postComment(content, accessToken);
+                      postComment(
+                        {
+                          blogId: blogId,
+                          parentId: comment.commentId,
+                          commentContent: commentValue,
+                        },
+                        accessToken
+                      );
                       setCommentValue("");
                     }}
                   >

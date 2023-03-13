@@ -40,6 +40,11 @@
   color: var(--fc-400);
 }
 
+.Blog_Detail_Like_Container {
+  display: flex;
+  justify-content: flex-end;
+}
+
 /* AddComment */
 .AddComment_Container {
   width: 100%;

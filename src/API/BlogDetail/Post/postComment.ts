@@ -2,6 +2,7 @@ import { baseInstance } from "../../Instance/Instance";
 
 interface PostCommentContentProps {
   blogId: number | undefined;
+  parentId: number | null;
   commentContent: string | null;
 }
 
