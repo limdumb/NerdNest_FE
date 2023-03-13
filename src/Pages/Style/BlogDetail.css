@@ -40,6 +40,16 @@
   color: var(--fc-400);
 }
 
+.Blog_Detail_Like_Container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Blog_Detail_Like_Container > svg {
+  font-size: var(--font-xxl);
+  color: var(--blue-300);
+}
+
 /* AddComment */
 .AddComment_Container {
   width: 100%;
