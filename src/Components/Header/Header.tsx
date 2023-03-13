@@ -3,9 +3,9 @@ import { RiSearchLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import DropDownTab from "./DropDownTab";
-import "../Style/Header.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { baseInstance } from "../../API/Instance/Instance";
+import "../Style/Header.css";
 
 export const ProfileImage = styled.img`
   width: 35px;
@@ -22,7 +22,7 @@ export default function Header() {
     nickName: "",
   });
   const { profileImageUrl, nickName } = profileData;
-  useEffect(() => {
+  const getProfileCallback = useCallback(() => {
     const getPropfileData = async () => {
       await baseInstance
         .get(`/members/${memberId}`)
@@ -35,7 +35,11 @@ export default function Header() {
         .catch((err) => console.error(err));
     };
     getPropfileData();
-  }, [profileImageUrl]);
+  }, [profileData]);
+
+  useEffect(() => {
+    if (memberId) getProfileCallback();
+  }, []);
 
   return (
     <header className="Header_Wrapper">
