@@ -14,6 +14,7 @@ export interface BlogDetailProps {
   createdAt: string;
   modifiedAt: string;
   blogContents: string;
+  memberId: number;
   commentList: {
     commentId: number;
     parentId: null | number;
@@ -53,6 +54,7 @@ const BlogDetail = () => {
   const { writer, blogId, memberId } = useParams();
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("accessToken");
+  const userMemberId = Number(localStorage.getItem("memberId"));
 
   useEffect(() => {
     const get = async () => {
@@ -80,10 +82,12 @@ const BlogDetail = () => {
               수정날짜: {blogData && blogData.modifiedAt}
             </BlogDetailSpan>
           </div>
-          <div className="Blog_Detail_Title_Manage">
-            <button onClick={() => navigate(`/edit/${blogId}`)}>수정</button>
-            <button>삭제</button>
-          </div>
+          {blogData && userMemberId === blogData.memberId ? (
+            <div className="Blog_Detail_Title_Manage">
+              <button onClick={() => navigate(`/edit/${blogId}`)}>수정</button>
+              <button>삭제</button>
+            </div>
+          ) : null}
         </div>
       </div>
       <div className="Blog_Detail_Body_Container">

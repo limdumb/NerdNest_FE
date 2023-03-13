@@ -80,7 +80,7 @@
   margin-left: 1rem;
 }
 
-svg {
+.Comment_Manage_Container svg {
   color: var(--fc-500);
   font-size: var(--font-md);
   margin-left: 0.5rem;
