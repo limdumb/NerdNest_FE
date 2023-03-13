@@ -38,10 +38,13 @@ export const ErrorSpan = styled.span<{ color?: boolean }>`
 `;
 
 export const OauthList = styled.ul`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--fc-hv-500);
   width: 40%;
   height: 60px;
-  gap: 10px;
+  gap: 30px;
   margin-bottom: 30px;
 `;
 

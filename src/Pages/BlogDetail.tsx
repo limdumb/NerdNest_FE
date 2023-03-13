@@ -59,6 +59,7 @@ const BlogDetail = () => {
       .get(`/blogs/${blogId}`)
       .then((res) => setBlogData(res.data.data));
   }, []);
+  console.log(blogData)
   return (
     <div className="Blog_Detail_Container">
       <div className="Blog_Detail_Title_Container">

@@ -170,8 +170,16 @@ const SignUp = () => {
       </AuthWriteList>
       {/* oauth 들어올 예정 */}
       <OauthList>
-        <div></div>
-        <div></div>
+        <a className="KaKao_Oauth_Button">
+          K
+        </a>
+        <a className="Google_Oauth_Button">
+          <img
+            src={
+              "https://accounts.scdn.co/sso/images/google-icon.1cdc8fce9609d07f0e9d8d0bc4b61f8f.svg"
+            }
+          />
+        </a>
       </OauthList>
       <ButtonWrapper>
         <EventButton

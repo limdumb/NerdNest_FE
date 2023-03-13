@@ -37,7 +37,7 @@ function App() {
             <Route path="/write" element={<BlogWrite />} />
             <Route path="/edit/:blogId" element={<BlogEdit />} />
             <Route
-              path="/:writer/:memberId/:title/:blogId/1"
+              path="/:writer/:memberId/:title/:blogId"
               element={<BlogDetail />}
             />
             <Route path="/search" element={<Search />} />
