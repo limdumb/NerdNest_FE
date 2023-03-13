@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import getHomeData from "../API/Home/Get/getHomeData";
-import { baseInstance } from "../API/Instance/Instance";
 import BlogPost from "../Components/Common/BlogPost";
-import { BlogArrayType } from "./Blogs";
 import "./Style/Home.css";
 
 //PostData Type 미리 지정
@@ -35,7 +33,7 @@ export const BlogListContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding-top: 3em;
-  gap: 3em 10%;
+  gap: 3em 12.5%;
 `;
 const Home = () => {
   const sortArr = [
