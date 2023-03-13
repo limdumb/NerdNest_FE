@@ -7,6 +7,7 @@ import Comment from "../Components/BlogDetail/Comment";
 import TextViewer from "../Components/BlogDetail/Common/TextViewer";
 import postLike from "../API/BlogDetail/Post/postLike";
 import getBlogDetailData from "../API/BlogDetail/Get/getBlogDetail";
+import deleteBlogPost from "../API/BlogDetail/Delete/deleteBlogPost";
 import "./Style/BlogDetail.css";
 
 export interface BlogDetailProps {
@@ -85,7 +86,11 @@ const BlogDetail = () => {
           {blogData && userMemberId === blogData.memberId ? (
             <div className="Blog_Detail_Title_Manage">
               <button onClick={() => navigate(`/edit/${blogId}`)}>수정</button>
-              <button>삭제</button>
+              <button
+                onClick={() => deleteBlogPost(Number(blogId), accessToken)}
+              >
+                삭제
+              </button>
             </div>
           ) : null}
         </div>
