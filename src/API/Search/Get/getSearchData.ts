@@ -9,7 +9,7 @@ export default function getSearchData(
     let result: ArrPostProps = [];
     try {
       const getSearchData = await baseInstance(
-        `/search?keyword=${keyword}?page=${page}`
+        `/search?keyword=${keyword}&page=${page}`
       );
       result = getSearchData.data.blogList;
     } catch (err) {

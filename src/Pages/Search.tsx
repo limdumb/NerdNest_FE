@@ -7,19 +7,7 @@ import getSearchData from "../API/Search/Get/getSearchData";
 import "./Style/Search.css";
 
 const Search = () => {
-  const [blogList, setBlogList] = useState<ArrPostProps>([
-    {
-      memberId: 0,
-      blogId: 0,
-      titleImageUrl: "",
-      blogTitle: "",
-      blogPreview: "",
-      createdAt: "",
-      writer: "",
-      commentCount: 0,
-      likeCount: 0,
-    },
-  ]);
+  const [blogList, setBlogList] = useState<ArrPostProps | null>();
   const [isLoading, setIsLoading] = useState(false);
   const [scrollValue, setScrollValue] = useState(1);
   const [searchParams] = useSearchParams();
@@ -31,7 +19,7 @@ const Search = () => {
     const get = async () => {
       setIsLoading(false);
       const result = await getSearchData(keyword, scrollValue);
-      setBlogList([...blogList, ...result]);
+      setBlogList(result);
     };
     get();
   }, [searchParams, scrollValue]);
