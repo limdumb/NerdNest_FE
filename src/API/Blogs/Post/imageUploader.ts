@@ -14,10 +14,6 @@ export const titleImageUploader = async (
   const formData = new FormData();
   formData.append("image", file);
 
-  if (!file) {
-    throw new Error("파일이 없습니다.");
-  }
-
   try {
     const res = await baseInstance.post("/s3/blog", formData, {
       headers: {

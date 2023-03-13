@@ -18,11 +18,11 @@ export default async function postBlog(params: Params) {
   };
 
   try {
-    await baseInstance.post(`/blogs`, request).then((res) => {
-      if (res.status === 201) {
-        alert("게시물 작성이 완료 되었습니다");
-      }
-    });
+    const response = await baseInstance.post(`/blogs`, request);
+    if (response.status === 201) {
+      alert("게시물 작성이 완료 되었습니다");
+      return response.data.blogId;
+    }
   } catch (err) {
     console.error(err);
   }

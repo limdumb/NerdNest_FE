@@ -16,6 +16,9 @@ interface Props extends CategoryType {
   setRenderState: React.Dispatch<React.SetStateAction<boolean>>;
   renderState: boolean;
   params: Readonly<Params<string>>;
+  setActiveCategoryId:React.Dispatch<React.SetStateAction<string>>;
+  // categoryIndex: number
+  // setCategoryIndex: React.Dispatch<React.SetStateAction<number>>
 }
 
 export default function BlogCategory({
@@ -25,12 +28,19 @@ export default function BlogCategory({
   setNewCategory,
   setRenderState,
   renderState,
+  setActiveCategoryId,
+  // categoryIndex,
+  // setCategoryIndex
+
 }: Props) {
   const [categoryValue, setCategoryValue] = useState<string>("");
   const [nameEditCheck, setNameEditCheck] = useState<boolean>(false);
-  const [categoryIndex, setCategoryIndex] = useState(1);
   const accessToken = localStorage.getItem("accessToken");
-  const lastCategoryId = categoryList[categoryList.length - 1].categoryId + 1;
+  const [categoryIndex, setCategoryIndex] = useState(0);
+  const lastCategoryId =
+    categoryList.length !== 0
+      ? categoryList[categoryList.length - 1].categoryId + 1
+      : 0;
   const params = useParams();
   const navigate = useNavigate();
   const addCategoryHandler = (categoryId: number) => {
@@ -60,95 +70,109 @@ export default function BlogCategory({
 
   return (
     <ul>
-      {categoryList.map((el, index) => {
-        return (
-          <li className="Category_List" key={el.categoryId}>
-            <div className="Category_Contents">
-              <VscFolderOpened className="Folder_Icon" />
-              {nameEditCheck ? (
-                categoryIndex === index ? (
-                  <>
-                    <input
-                      className="Category_Add_Input"
-                      defaultValue={el.categoryName}
-                      onChange={(e) => setCategoryValue(e.target.value)}
-                    />
+      <li className="Category_List">
+        <div className="Category_Contents">
+          <VscFolderOpened className="Folder_Icon" />
+          <button
+            className="Category_Name"
+            onClick={() =>{
+              setActiveCategoryId("0")
+              navigate(`/${params.nickName}/${params.memberId}`)
+            }}
+          >
+            전체
+          </button>
+        </div>
+      </li>
+      {categoryList.length !== 0
+        ? categoryList.map((el, index) => {
+            return (
+              <li className="Category_List" key={el.categoryId}>
+                <div className="Category_Contents">
+                  <VscFolderOpened className="Folder_Icon" />
+                  {nameEditCheck ? (
+                    categoryIndex === index ? (
+                      <>
+                        <input
+                          className="Category_Add_Input"
+                          defaultValue={el.categoryName}
+                          onChange={(e) => setCategoryValue(e.target.value)}
+                        />
+                        <button
+                          className="Category_Submit_Button"
+                          onClick={() => {
+                            if (
+                              el.categoryName !== categoryValue &&
+                              categoryValue.length !== 0
+                            ) {
+                              editCategory(
+                                el.categoryId,
+                                categoryValue,
+                                accessToken
+                              );
+                              editCategoryHandler(el.categoryId, index);
+                            } else {
+                              alert(
+                                "기존 이름과 동일하거나 입력을 하지 않았습니다 변경을 원하지 않으시면 수정버튼을 다시 눌러주세요"
+                              );
+                            }
+                          }}
+                        >
+                          확인
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        className="Category_Name"
+                        onClick={() =>{
+                          setActiveCategoryId(el.categoryId.toString())
+                          navigate(
+                            `/${params.nickName}/${params.memberId}?id=${el.categoryId}`
+                          )
+                        }}
+                      >
+                        {el.categoryName}
+                      </button>
+                    )
+                  ) : (
                     <button
-                      className="Category_Submit_Button"
-                      onClick={() => {
-                        if (
-                          el.categoryName !== categoryValue &&
-                          categoryValue.length !== 0
-                        ) {
-                          editCategory(
+                      className="Category_Name"
+                      onClick={() =>
+                        navigate(
+                          `/${params.nickName}/${params.memberId}?id=${el.categoryId}`
+                        )
+                      }
+                    >
+                      {el.categoryName}
+                    </button>
+                  )}
+                  {editActive ? (
+                    <>
+                      <BsTrashFill
+                        color="gray"
+                        className="Category_Delete_Icon"
+                        onClick={() => {
+                          deleteCategoryHandler(index);
+                          deleteCategory(
                             el.categoryId,
-                            categoryValue,
+                            el.categoryName,
                             accessToken
                           );
-                          editCategoryHandler(el.categoryId, index);
-                        } else {
-                          alert(
-                            "기존 이름과 동일하거나 입력을 하지 않았습니다 변경을 원하지 않으시면 수정버튼을 다시 눌러주세요"
-                          );
-                        }
-                      }}
-                    >
-                      확인
-                    </button>
-                  </>
-                ) : (
-                  <button
-                    className="Category_Name"
-                    onClick={() =>
-                      navigate(
-                        `/${params.nickName}/${params.memberId}/${el.categoryName}/${el.categoryId}`
-                      )
-                    }
-                  >
-                    {el.categoryName}
-                  </button>
-                )
-              ) : (
-                <button
-                  className="Category_Name"
-                  onClick={() =>
-                    navigate(
-                      `/${params.nickName}/${params.memberId}/${el.categoryName}/${el.categoryId}`
-                    )
-                  }
-                >
-                  {el.categoryName}
-                </button>
-              )}
-              {editActive ? (
-                el.categoryName !== "전체" ? (
-                  <>
-                    <BsTrashFill
-                      color="gray"
-                      className="Category_Delete_Icon"
-                      onClick={() => {
-                        deleteCategoryHandler(index);
-                        deleteCategory(
-                          el.categoryId,
-                          el.categoryName,
-                          accessToken
-                        );
-                      }}
-                    />
-                    <HiDotsHorizontal
-                      onClick={(e) => {
-                        console.log(index);
-                        setNameEditCheck(!nameEditCheck);
-                        setCategoryIndex(index);
-                      }}
-                    />
-                  </>
-                ) : null
-              ) : null}
-            </div>
-          </li>
-        );
-      })}
+                        }}
+                      />
+                      <HiDotsHorizontal
+                        onClick={() => {
+                          setNameEditCheck(!nameEditCheck);
+                          setCategoryIndex(index);
+                        }}
+                      />
+                    </>
+                  ) : null}
+                </div>
+              </li>
+            );
+          })
+        : null}
       {editActive ? (
         newCategory ? (
           <div className="Category_Add_Container">

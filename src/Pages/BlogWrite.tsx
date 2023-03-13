@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { CategoryType, MemberType, Wrapper } from "./Blogs";
 import TextEditor from "../Components/BlogWrite/TextEditor";
@@ -40,7 +40,7 @@ const BlogWrite = () => {
     `/category/${memberId}`,
     CateogryInitialValue
   );
-  const allCategoryId = categoryData.data.categoryList[0].categoryId;
+
   const memberData = useFetch<MemberType>(
     `/members/${memberId}`,
     memberInitialValue
@@ -51,7 +51,9 @@ const BlogWrite = () => {
     categoryId: null,
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [categoryId, setCategoryId] = useState<number>(allCategoryId);
+  const [categoryId, setCategoryId] = useState<number>(
+    categoryData.data.categoryList[0].categoryId
+  );
   const accessToken = localStorage.getItem("accessToken");
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -61,6 +63,13 @@ const BlogWrite = () => {
       [e.target.name]: e.target.value,
     }));
   };
+
+  useEffect(() => {
+    if (!categoryData.loading) {
+      setCategoryId(categoryData.data.categoryList[0].categoryId);
+    }
+  });
+
   const navigate = useNavigate();
 
   return (
@@ -104,20 +113,34 @@ const BlogWrite = () => {
         <EventButton
           usage={"write"}
           onClick={async () => {
-            const imageResponse = await titleImageUploader(
-              imageFile as File,
-              accessToken
-            );
-            postBlog({
-              titleImageUrl: imageResponse.imageFileUrl,
-              blogTitle: blogData.blogTitle,
-              blogContent: blogText,
-              categoryId: categoryId,
-              accessToken: accessToken,
-            });
-            navigate(
-              `/${memberData.data.nickName}/${memberId}/전체/${allCategoryId}`
-            );
+            if (imageFile !== null) {
+              const imageResponse = await titleImageUploader(
+                imageFile as File,
+                accessToken
+              );
+              const blogResponse = await postBlog({
+                titleImageUrl: imageResponse.imageFileUrl,
+                blogTitle: blogData.blogTitle,
+                blogContent: blogText,
+                categoryId: categoryId,
+                accessToken: accessToken,
+              });
+              navigate(
+                `/${memberData.data.nickName}/${memberId}/${blogData.blogTitle}/${blogResponse}`
+              );
+            }
+            if (imageFile === null) {
+              const blogResponse = await postBlog({
+                titleImageUrl: "",
+                blogTitle: blogData.blogTitle,
+                blogContent: blogText,
+                categoryId: categoryId,
+                accessToken: accessToken,
+              });
+              navigate(
+                `/${memberData.data.nickName}/${memberId}/${blogData.blogTitle}/${blogResponse}`
+              );
+            }
           }}
         />
       </div>

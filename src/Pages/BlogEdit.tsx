@@ -9,11 +9,11 @@ import CommonInput from "../Components/Common/CommonInput";
 import CategorySelect from "../Components/BlogWrite/CategorySelect";
 import EventButton from "../Components/Common/EventButton";
 import editBlogPost from "../API/BlogWriteEdit/Patch/editBlogPost";
-import { CategoryType } from "./Blogs";
+import { CategoryType, MemberType } from "./Blogs";
 import useFetch from "../Custom Hook/useFetch";
-import "./Style/blogWrite.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ImageUploader from "../Components/Common/ImageUploader";
+import "./Style/blogWrite.css";
 
 interface ExistingDataType {
   titleImageUrl: string;
@@ -24,6 +24,7 @@ interface ExistingDataType {
 
 const BlogWrite = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const memberId = parseInt(localStorage.getItem("memberId") as string);
   const accessToken = localStorage.getItem("accessToken");
   const existingInitialValue: ExistingDataType = {
@@ -40,6 +41,15 @@ const BlogWrite = () => {
     `/category/${memberId}`,
     CateogryInitialValue
   );
+  const memberInitialValue = {
+    profileImageUrl: "",
+    nickName: "",
+    about: "",
+  };
+  const memberData = useFetch<MemberType>(
+    `/members/${memberId}`,
+    memberInitialValue
+  );
 
   const existingData = useFetch<{ data: ExistingDataType }>(
     `/blogs/edit/${params.blogId}`,
@@ -47,26 +57,30 @@ const BlogWrite = () => {
     accessToken as string
   );
 
-  const [blogText, setBlogText] = useState("");
+  const [blogText, setBlogText] = useState(existingData.data.data.blogContent);
   const [blogData, setBlogData] = useState({
     titleImageUrl: existingData.data.data.titleImageUrl,
     blogTitle: existingData.data.data.blogTitle,
-    blogContent: existingData.data.data.blogContent,
   });
+
+  const [categoryId, setCategoryId] = useState<number>(
+    categoryData.data.categoryList[0].categoryId
+  );
 
   useEffect(() => {
     if (!existingData.loading) {
       setBlogData({
         titleImageUrl: existingData.data.data.titleImageUrl,
         blogTitle: existingData.data.data.blogTitle,
-        blogContent: existingData.data.data.blogContent,
       });
+      setBlogText(existingData.data.data.blogContent);
+    }
+
+    if (!categoryData.loading) {
+      setCategoryId(categoryData.data.categoryList[0].categoryId);
     }
   }, [existingData]);
 
-  const [categoryId, setCategoryId] = useState<number>(
-    categoryData.data.categoryList[0].categoryId
-  );
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -104,7 +118,7 @@ const BlogWrite = () => {
       </TitleWriteWrapper>
       <label className="Editor_Label">Body</label>
       <div className="Text_Editor_Container">
-        <TextEditor blogText={blogData.blogContent} setBlogText={setBlogText} />
+        <TextEditor blogText={blogText} setBlogText={setBlogText} />
       </div>
       <div className="Category_Container">
         <span className="Editor_Label">카테고리</span>
@@ -115,7 +129,22 @@ const BlogWrite = () => {
       </div>
       <hr />
       <div className="Submit_Container">
-        <EventButton usage={"edit"} />
+        <EventButton
+          usage={"edit"}
+          onClick={() => {
+            editBlogPost({
+              blogId: parseInt(params.blogId as string),
+              blogTitle: blogData.blogTitle,
+              blogContent: blogText,
+              categoryId: categoryId,
+              accessToken: accessToken,
+              titleImageUrl: blogData.titleImageUrl,
+            });
+            navigate(
+              `/${memberData.data.nickName}/${memberId}/${blogData.blogTitle}/${params.blogId}`
+            );
+          }}
+        />
       </div>
     </WriteWrapper>
   );

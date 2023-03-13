@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MemberProfile from "../Components/Blogs/MemberProfile";
 import BlogRecord from "../Components/Blogs/BlogRecord";
 import BlogPost from "../Components/Blogs/BlogPost";
@@ -10,6 +10,7 @@ import { VscFolderOpened } from "react-icons/vsc";
 import { TiPen } from "react-icons/ti";
 import { HiPlusCircle } from "react-icons/hi";
 import "./Style/blogs.css";
+import getBlogData from "../API/Blogs/Get/getBlogData";
 
 //추후 공용으로 뺄지는 상의예정
 export const Wrapper = styled.div`
@@ -97,7 +98,7 @@ const Blogs = () => {
       },
     ],
   };
-  const categoryData = useFetch<CategoryType>(
+  const fetchCategoryData = useFetch<CategoryType>(
     `/category/${params.memberId}`,
     CateogryInitialValue
   );
@@ -107,37 +108,70 @@ const Blogs = () => {
     memberInitialValue
   );
 
+  const [activeCategoryId, setActiveCategoryId] = useState("");
   const blogData = useFetch<BlogArrayType>(
-    `/blogs/category/${params.categoryId}?page=${pages}`,
+    `/blogs/member/${params.nickName}?categoryid=${activeCategoryId}page=${pages}`,
     blogInitialValue
   );
+
   const memberId = localStorage.getItem("memberId");
   const [editActive, setEditActive] = useState<boolean>(false);
   const [isProfileEdit, setIsProfileEdit] = useState<boolean>(false);
   const [newCategory, setNewCategory] = useState<boolean>(false);
   //랜더링을 위한 임시상태
   const [renderState, setRenderState] = useState<boolean>(false);
-  const [newBlogsData, setNewBlogsData] = useState<BlogType[]>(
-    blogData.data.blogList
+  const [newBlogsData, setNewBlogsData] = useState<BlogArrayType>(
+    blogData.data
   );
+  const [categoryData, setCategoryData] = useState<CategoryType>(
+    fetchCategoryData.data
+  );
+  const [fetchLoading, setFetchLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const getBlogDataFunction = async () => {
+      const result = await getBlogData({
+        pages: pages,
+        nickName: params.nickName,
+        categoryId: activeCategoryId,
+      });
+      setNewBlogsData(result as BlogArrayType);
+      setFetchLoading(false);
+    };
+    if (!fetchLoading) {
+      getBlogDataFunction();
+    }
+  }, [pages, activeCategoryId]);
+
+  useEffect(() => {
+    if (!fetchCategoryData.loading) {
+      setCategoryData({
+        categoryList: fetchCategoryData.data.categoryList.filter((el) => {
+          return el.categoryName !== "전체";
+        }),
+      });
+    }
+  }, [fetchCategoryData.data]);
+
   const [lock, setLock] = useState<boolean>(false);
   const bottomRef = useRef(null);
-  // 카테고리별 받아오는 API로직
-  console.log("Outside of fetch BlogData")
-  console.log(blogData.data.blogList)
+  // console.log("Outside of fetch BlogData");
+  // console.log(blogData.data.blogList);
 
   const fetchBlogData = () => {
-      let newBlogArr = [...newBlogsData, blogData.data.blogList];
-      if (blogData.data.blogList.length === 0) {
-        setLock(true);
-      } else {
-        newBlogArr = newBlogArr.concat(blogData.data.blogList);
-        setNewBlogsData(newBlogArr as BlogType[]);
+    if (blogData.data.blogList.length === 0 && !fetchLoading) {
+      setLock(true);
+    } else {
+      let newBlogArr = [...newBlogsData.blogList].concat(
+        blogData && blogData.data.blogList
+      );
+      newBlogArr = newBlogArr.concat(blogData.data.blogList);
+      setNewBlogsData({ blogList: newBlogArr });
     }
   };
 
   useEffect(() => {
-    fetchBlogData();
+    if (!fetchLoading) fetchBlogData();
   }, [pages]);
 
   useEffect(() => {
@@ -208,7 +242,8 @@ const Blogs = () => {
             </div>
           </div>
           <BlogCategory
-            categoryList={categoryData.data.categoryList}
+            setActiveCategoryId={setActiveCategoryId}
+            categoryList={categoryData.categoryList}
             editActive={editActive}
             newCategory={newCategory}
             setNewCategory={setNewCategory}
