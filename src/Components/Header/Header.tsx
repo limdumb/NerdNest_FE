@@ -1,11 +1,11 @@
 import { TiPencil } from "react-icons/ti";
 import { RiSearchLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import DropDownTab from "./DropDownTab";
-import "../Style/Header.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { baseInstance } from "../../API/Instance/Instance";
+import "../Style/Header.css";
 
 export const ProfileImage = styled.img`
   width: 35px;
@@ -16,13 +16,15 @@ export const ProfileImage = styled.img`
 `;
 
 export default function Header() {
-  const memberId = localStorage.getItem("memberId");
+  const memberId = Number(localStorage.getItem("memberId"));
   const [profileData, setProfileData] = useState({
     profileImageUrl: "",
     nickName: "",
   });
   const { profileImageUrl, nickName } = profileData;
-  useEffect(() => {
+  const navigate = useNavigate();
+
+  const getProfileCallback = useCallback(() => {
     const getPropfileData = async () => {
       await baseInstance
         .get(`/members/${memberId}`)
@@ -35,8 +37,16 @@ export default function Header() {
         .catch((err) => console.error(err));
     };
     getPropfileData();
-  }, [profileImageUrl]);
+  }, [profileData]);
 
+  useEffect(() => {
+    if (memberId) getProfileCallback();
+  }, []);
+
+  const handleWrite = () => {
+    if (memberId) navigate(`write`);
+    else alert("로그인 후 사용해주세요.");
+  };
   return (
     <header className="Header_Wrapper">
       <div className="Header_Container">
@@ -50,9 +60,7 @@ export default function Header() {
               : "Header_ManageContainer"
           }
         >
-          <Link to="/write">
-            <TiPencil className="Pencil icon" />
-          </Link>
+          <TiPencil className="Pencil icon" onClick={handleWrite} />
           <Link to="/search">
             <RiSearchLine className="Search icon" />
           </Link>

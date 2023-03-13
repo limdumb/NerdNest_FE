@@ -92,8 +92,17 @@ const Home = () => {
                 key={idx}
                 borderBtm={idx === isSortActive}
                 onClick={() => {
-                  navigate(`?tab=${sort.e_name}&page=${scrollValue}`);
-                  setIsSortActive(idx);
+                  if (idx === 2) {
+                    if (accessToken) {
+                      navigate(`?tab=${sort.e_name}&page=${scrollValue}`);
+                      setIsSortActive(idx);
+                    } else {
+                      alert("로그인 후 이용해주시길 바랍니다.");
+                    }
+                  } else {
+                    navigate(`?tab=${sort.e_name}&page=${scrollValue}`);
+                    setIsSortActive(idx);
+                  }
                 }}
               >
                 {sort.k_name}
