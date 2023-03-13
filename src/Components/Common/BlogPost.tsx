@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { IoHeartCircle } from "react-icons/io5";
 import { MdOutlineInsertComment } from "react-icons/md";
 import { PostProps } from "../../Pages/Home";
-import "./Style/BlogPost.css";
 import { useNavigate } from "react-router-dom";
+import "./Style/BlogPost.css";
 
 interface SpanStyledProps {
   usage: string;
@@ -62,9 +62,7 @@ const BlogPost = ({ post }: { post: PostProps }) => {
     <>
       <div
         className="Blog_Post_Wrapper"
-        onClick={() =>
-          navigate(`${writer}/${memberId}/${blogTitle}/${blogId}/1`)
-        }
+        onClick={() => navigate(`${writer}/${memberId}/${blogTitle}/${blogId}`)}
       >
         <div className="Blog_Post_Container">
           <div className="Blog_Post_Image_Container">

@@ -16,7 +16,7 @@
 .Blog_Detail_Title_Info {
   display: flex;
   justify-content: space-between;
-  width: 40%;
+  width: 50%;
 }
 
 .Blog_Detail_Title_Manage {
