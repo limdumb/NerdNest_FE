@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import DropDownTab from "./DropDownTab";
 import "../Style/Header.css";
+import { useEffect, useState } from "react";
+import { baseInstance } from "../../API/Instance/Instance";
 
 export const ProfileImage = styled.img`
   width: 35px;
@@ -14,7 +16,27 @@ export const ProfileImage = styled.img`
 `;
 
 export default function Header() {
-  const isMemberId = localStorage.getItem("memberId");
+  const memberId = localStorage.getItem("memberId");
+  const [profileData, setProfileData] = useState({
+    profileImageUrl: "",
+    nickName: "",
+  });
+  const { profileImageUrl, nickName } = profileData;
+  useEffect(() => {
+    const getPropfileData = async () => {
+      await baseInstance
+        .get(`/members/${memberId}`)
+        .then((res) => {
+          setProfileData({
+            profileImageUrl: res.data.profileImageUrl,
+            nickName: res.data.nickName,
+          });
+        })
+        .catch((err) => console.error(err));
+    };
+    getPropfileData();
+  }, [profileImageUrl]);
+
   return (
     <header className="Header_Wrapper">
       <div className="Header_Container">
@@ -23,7 +45,7 @@ export default function Header() {
         </Link>
         <div
           className={
-            isMemberId
+            memberId
               ? "Header_ManageContainer isLogin"
               : "Header_ManageContainer"
           }
@@ -35,13 +57,11 @@ export default function Header() {
             <RiSearchLine className="Search icon" />
           </Link>
           <div className="Header_Login_SignUp_Container">
-            {isMemberId ? (
+            {memberId ? (
               <>
-                <ProfileImage
-                  src="https://images.unsplash.com/photo-1676824469794-9d8deeaf1f2c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-                  alt="memberImage"
-                />
-                <DropDownTab />
+                <ProfileImage src={profileImageUrl} alt="memberImage" />
+                <span className="Header_NickName_Container">{nickName}</span>
+                <DropDownTab memberId={Number(memberId)} nickName={nickName} />
               </>
             ) : (
               <>
