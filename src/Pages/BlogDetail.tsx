@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import getBlogDetailData from "../API/BlogDetail/Get/getBlogDetail";
+import { IoHeartCircle, IoHeartCircleOutline } from "react-icons/io5";
 import { baseInstance } from "../API/Instance/Instance";
 import AddComment from "../Components/BlogDetail/AddComment";
 import Comment from "../Components/BlogDetail/Comment";
 import TextViewer from "../Components/BlogDetail/Common/TextViewer";
 import "./Style/BlogDetail.css";
+import postLike from "../API/BlogDetail/Post/postLike";
 
 export interface BlogDetailProps {
   blogTitle: string;
@@ -48,7 +50,6 @@ const BlogDetailSpan = styled.span<{ usage?: string }>`
 `;
 
 const BlogDetail = () => {
-  //추후 api 데이터 받아올 예정
   const [blogData, setBlogData] = useState<BlogDetailProps>();
   const { writer, blogId } = useParams();
   const navigate = useNavigate();
@@ -81,7 +82,11 @@ const BlogDetail = () => {
       </div>
       <div className="Blog_Detail_Body_Container">
         {blogData && <TextViewer contents={blogData.blogContents} />}
-        <div className="Blog_Detail_Like_Container"></div>
+        <div className="Blog_Detail_Like_Container">
+          <IoHeartCircle
+            onClick={() => postLike(Number(blogId), accessToken)}
+          />
+        </div>
       </div>
       <div></div>
       <div className="Blog_Detail_Comment_Container">

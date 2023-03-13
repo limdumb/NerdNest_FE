@@ -3,7 +3,9 @@ import { useLocation, useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import getHomeData from "../API/Home/Get/getHomeData";
+import { baseInstance } from "../API/Instance/Instance";
 import BlogPost from "../Components/Common/BlogPost";
+import { BlogArrayType } from "./Blogs";
 import "./Style/Home.css";
 
 //PostData Type 미리 지정
@@ -47,13 +49,14 @@ const Home = () => {
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const tab = searchParams.get("tab");
   const interSectRef = useRef<HTMLParagraphElement>(null);
+  const tab = searchParams.get("tab");
+  const accessToken = localStorage.getItem("accessToken");
   useEffect(() => {
     setIsLoading(true);
     const get = async () => {
       setIsLoading(false);
-      const result = await getHomeData(tab, scrollValue);
+      const result = await getHomeData(tab, scrollValue, accessToken);
       setBlogList(result);
     };
     get();
