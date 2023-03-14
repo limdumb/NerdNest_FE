@@ -29,13 +29,16 @@ export default async function editMemberData(params: Params) {
           }
         });
     } catch (err: any) {
-      if (err.response.status === 409) {
-        alert("닉네임이 중복 되었습니다.");
-      } else if (err.response.status === 400) {
-        alert("정보가 잘못 되었습니다 다시 진행해주세요!");
-      }
+      console.log(err);
+      //   if (err.response.status === 409) {
+      //     alert("닉네임이 중복 되었습니다.");
+      //   } else if (err.response.status === 400) {
+      //     alert("정보가 잘못 되었습니다 다시 진행해주세요!");
+      //   }
+      // }
+      // } else {
+      //   alert("닉네임을 입력해주세요!");
+      // }
     }
-  } else {
-    alert("닉네임을 입력해주세요!");
   }
 }

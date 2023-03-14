@@ -64,6 +64,7 @@ const BlogDetail = () => {
     };
     get();
   }, []);
+
   return (
     <div className="Blog_Detail_Container">
       <div className="Blog_Detail_Title_Container">

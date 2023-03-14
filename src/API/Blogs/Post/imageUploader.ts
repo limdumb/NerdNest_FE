@@ -13,7 +13,7 @@ export const titleImageUploader = async (
   baseInstance.defaults.headers.common["Authorization"] = accessToken;
   const formData = new FormData();
   formData.append("image", file);
-
+  
   try {
     const res = await baseInstance.post("/s3/blog", formData, {
       headers: {
