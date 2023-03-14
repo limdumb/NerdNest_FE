@@ -63,6 +63,7 @@ export default function MemberProfile({
                     categoryName: params.categoryName as string
                   });
                   setIsProfileEdit(!isProfileEdit);
+                  console.log(profileImageUrl)
                 } else {
                   alert("닉네임을 입력해주세요!");
                 }
