@@ -21,7 +21,7 @@ const SearchInput = ({ keyword }: { keyword: string | null }) => {
         alert("검색어를 입력해주세요.");
       } else {
         setIsSearch(true);
-        navigate(`/search?keyword=${searchValue}&page=1`);
+        navigate(`/search?keyword=${searchValue}`);
       }
     }
   };
