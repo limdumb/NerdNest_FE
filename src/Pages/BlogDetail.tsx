@@ -16,6 +16,7 @@ export interface BlogDetailProps {
   modifiedAt: string;
   blogContent: string;
   memberId: number;
+  commentCount: number;
   commentList: {
     commentId: number;
     parentId: null | number;
@@ -87,9 +88,7 @@ const BlogDetail = () => {
           {blogData && userMemberId === blogData.memberId ? (
             <div className="Blog_Detail_Title_Manage">
               <button onClick={() => navigate(`/edit/${blogId}`)}>수정</button>
-              <button
-                onClick={() => deleteBlogPost(Number(blogId), accessToken)}
-              >
+              <button onClick={() => deleteBlogPost(Number(blogId))}>
                 삭제
               </button>
             </div>
@@ -100,13 +99,14 @@ const BlogDetail = () => {
         {blogData && <TextViewer contents={blogData.blogContent} />}
         <div className="Blog_Detail_Like_Container">
           <IoHeartCircle
+            cursor={"pointer"}
             onClick={() => postLike(Number(blogId), accessToken)}
           />
         </div>
       </div>
       <div></div>
       <div className="Blog_Detail_Comment_Container">
-        <h2>{blogData && blogData.commentList.length} Comment</h2>
+        <h2>{blogData && blogData.commentCount} Comment</h2>
         <AddComment accessToken={accessToken} blogId={Number(blogId)} />
         {blogData && (
           <Comment
