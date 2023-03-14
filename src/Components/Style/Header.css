@@ -26,8 +26,15 @@
   align-items: center;
 }
 
+.Header_NickName_Container {
+  width: 70px;
+  margin-left: 5px;
+  display: flex;
+  justify-content: center;
+}
+
 .isLogin {
-  width: 13%;
+  width: 21%;
 }
 
 .icon {

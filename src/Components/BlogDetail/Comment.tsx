@@ -8,6 +8,7 @@ import postComment from "../../API/BlogDetail/Post/postComment";
 import { CommentCommonBtn, CommentSpan } from "./Common/Styled/CommentStyled";
 import patchComment from "../../API/BlogDetail/Patch/patchComment";
 import deleteComment from "../../API/BlogDetail/Delete/deleteComment";
+import { useNavigate } from "react-router-dom";
 
 export interface CommentProps {
   commentId: number;
@@ -45,11 +46,8 @@ const Comment = ({
   const [isCommentEdit, setIsCommentEdit] = useState(false);
   const [isRecomment, setIsRecomment] = useState(false);
   const [commentIdx, setCommentIdx] = useState(0);
-  const content = {
-    blogId: Number(blogId),
-    parentId: commentIdx + 1,
-    commentContent: commentValue,
-  };
+  const memberId = Number(localStorage.getItem("memberId"));
+  const navigate = useNavigate();
 
   return (
     <>
@@ -57,8 +55,21 @@ const Comment = ({
         comment.parentId === null ? (
           <div className="Comment_Wrapper" key={comment.commentId}>
             <div className="Comment_Container">
-              <ProfileImage src={comment.profileImageUrl} alt="memberImage" />
-              <CommentSpan usage="write">{comment.nickname} :</CommentSpan>
+              <ProfileImage
+                src={comment.profileImageUrl}
+                alt="memberImage"
+                onClick={() =>
+                  navigate(`/${comment.nickname}/${comment.memberId}`)
+                }
+              />
+              <CommentSpan
+                usage="write"
+                onClick={() =>
+                  navigate(`/${comment.nickname}/${comment.memberId}`)
+                }
+              >
+                {comment.nickname} :
+              </CommentSpan>
               {isCommentEdit && idx === commentIdx ? (
                 <>
                   <CommentInput
@@ -90,25 +101,34 @@ const Comment = ({
               <div className="Comment_Manage_Container">
                 <button
                   className="isReComment_Btn"
-                  onClick={() => setIsRecomment(!isRecomment)}
+                  onClick={() => {
+                    setIsRecomment(!isRecomment);
+                    setCommentIdx(idx);
+                  }}
                 >
                   {isRecomment ? "답글 취소" : "답글 달기"}
                 </button>
-                <GoPencil
-                  className="Pencil_icon"
-                  onClick={() => {
-                    setCommentIdx(idx);
-                    setIsCommentEdit(!isCommentEdit);
-                  }}
-                />
-                <RiDeleteBin6Line
-                  className="Delete_icon"
-                  onClick={() => deleteComment(comment.commentId, accessToken)}
-                />
+                {memberId === comment.memberId ? (
+                  <>
+                    <GoPencil
+                      className="Pencil_icon"
+                      onClick={() => {
+                        setCommentIdx(idx);
+                        setIsCommentEdit(!isCommentEdit);
+                      }}
+                    />
+                    <RiDeleteBin6Line
+                      className="Delete_icon"
+                      onClick={() =>
+                        deleteComment(comment.commentId, accessToken)
+                      }
+                    />{" "}
+                  </>
+                ) : null}
               </div>
             </div>
             <div className="Comment_Input_Container">
-              {isRecomment ? (
+              {isRecomment && commentIdx === idx ? (
                 <>
                   <CommentInput
                     width="50%"
@@ -120,7 +140,14 @@ const Comment = ({
                   ></CommentInput>
                   <CommentCommonBtn
                     onClick={() => {
-                      postComment(content, accessToken);
+                      postComment(
+                        {
+                          blogId: blogId,
+                          parentId: comment.commentId,
+                          commentContent: commentValue,
+                        },
+                        accessToken
+                      );
                       setCommentValue("");
                     }}
                   >

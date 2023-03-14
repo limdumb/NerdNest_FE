@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import getHomeData from "../API/Home/Get/getHomeData";
@@ -33,7 +33,7 @@ export const BlogListContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding-top: 3em;
-  gap: 3em 10%;
+  gap: 3em 12.5%;
 `;
 const Home = () => {
   const sortArr = [
@@ -47,13 +47,14 @@ const Home = () => {
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const tab = searchParams.get("tab");
   const interSectRef = useRef<HTMLParagraphElement>(null);
+  const tab = searchParams.get("tab");
+  const accessToken = localStorage.getItem("accessToken");
   useEffect(() => {
     setIsLoading(true);
     const get = async () => {
       setIsLoading(false);
-      const result = await getHomeData(tab, scrollValue);
+      const result = await getHomeData(tab, scrollValue, accessToken);
       setBlogList(result);
     };
     get();
@@ -91,8 +92,17 @@ const Home = () => {
                 key={idx}
                 borderBtm={idx === isSortActive}
                 onClick={() => {
-                  navigate(`?tab=${sort.e_name}&page=${scrollValue}`);
-                  setIsSortActive(idx);
+                  if (idx === 2) {
+                    if (accessToken) {
+                      navigate(`?tab=${sort.e_name}&page=${scrollValue}`);
+                      setIsSortActive(idx);
+                    } else {
+                      alert("로그인 후 이용해주시길 바랍니다.");
+                    }
+                  } else {
+                    navigate(`?tab=${sort.e_name}&page=${scrollValue}`);
+                    setIsSortActive(idx);
+                  }
                 }}
               >
                 {sort.k_name}

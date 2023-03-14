@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import getBlogDetailData from "../API/BlogDetail/Get/getBlogDetail";
-import { baseInstance } from "../API/Instance/Instance";
+import { IoHeartCircle, IoHeartCircleOutline } from "react-icons/io5";
 import AddComment from "../Components/BlogDetail/AddComment";
 import Comment from "../Components/BlogDetail/Comment";
 import TextViewer from "../Components/BlogDetail/Common/TextViewer";
+import postLike from "../API/BlogDetail/Post/postLike";
+import getBlogDetailData from "../API/BlogDetail/Get/getBlogDetail";
+import deleteBlogPost from "../API/BlogDetail/Delete/deleteBlogPost";
 import "./Style/BlogDetail.css";
 
 export interface BlogDetailProps {
@@ -13,6 +15,7 @@ export interface BlogDetailProps {
   createdAt: string;
   modifiedAt: string;
   blogContents: string;
+  memberId: number;
   commentList: {
     commentId: number;
     parentId: null | number;
@@ -48,16 +51,18 @@ const BlogDetailSpan = styled.span<{ usage?: string }>`
 `;
 
 const BlogDetail = () => {
-  //추후 api 데이터 받아올 예정
   const [blogData, setBlogData] = useState<BlogDetailProps>();
-  const { writer, blogId } = useParams();
+  const { writer, blogId, memberId } = useParams();
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("accessToken");
+  const userMemberId = Number(localStorage.getItem("memberId"));
 
   useEffect(() => {
-    baseInstance
-      .get(`/blogs/${blogId}`)
-      .then((res) => setBlogData(res.data.data));
+    const get = async () => {
+      const result = await getBlogDetailData(Number(blogId));
+      setBlogData(result);
+    };
+    get();
   }, []);
 
   return (
@@ -66,7 +71,12 @@ const BlogDetail = () => {
         <h1>{blogData && blogData.blogTitle}</h1>
         <div className="Blog_Detail_Title_IM_Container">
           <div className="Blog_Detail_Title_Info">
-            <BlogDetailSpan usage="nickName">{writer}</BlogDetailSpan>
+            <BlogDetailSpan
+              usage="nickName"
+              onClick={() => navigate(`/${writer}/${memberId}`)}
+            >
+              {writer}
+            </BlogDetailSpan>
             <BlogDetailSpan>
               작성날짜: {blogData && blogData.createdAt}
             </BlogDetailSpan>
@@ -74,21 +84,36 @@ const BlogDetail = () => {
               수정날짜: {blogData && blogData.modifiedAt}
             </BlogDetailSpan>
           </div>
-          <div className="Blog_Detail_Title_Manage">
-            <button onClick={() => navigate(`/edit/${blogId}`)}>수정</button>
-            <button>삭제</button>
-          </div>
+          {blogData && userMemberId === blogData.memberId ? (
+            <div className="Blog_Detail_Title_Manage">
+              <button onClick={() => navigate(`/edit/${blogId}`)}>수정</button>
+              <button
+                onClick={() => deleteBlogPost(Number(blogId), accessToken)}
+              >
+                삭제
+              </button>
+            </div>
+          ) : null}
         </div>
       </div>
       <div className="Blog_Detail_Body_Container">
         {blogData && <TextViewer contents={blogData.blogContents} />}
+        <div className="Blog_Detail_Like_Container">
+          <IoHeartCircle
+            onClick={() => postLike(Number(blogId), accessToken)}
+          />
+        </div>
       </div>
       <div></div>
       <div className="Blog_Detail_Comment_Container">
         <h2>{blogData && blogData.commentList.length} Comment</h2>
         <AddComment accessToken={accessToken} blogId={Number(blogId)} />
         {blogData && (
-          <Comment commentList={blogData.commentList} blogId={Number(blogId)} accessToken={accessToken} />
+          <Comment
+            commentList={blogData.commentList}
+            blogId={Number(blogId)}
+            accessToken={accessToken}
+          />
         )}
       </div>
     </div>

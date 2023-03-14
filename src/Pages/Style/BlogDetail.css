@@ -16,7 +16,7 @@
 .Blog_Detail_Title_Info {
   display: flex;
   justify-content: space-between;
-  width: 40%;
+  width: 50%;
 }
 
 .Blog_Detail_Title_Manage {
@@ -38,6 +38,16 @@
 .Pencil_icon:hover,
 .Delete_icon:hover {
   color: var(--fc-400);
+}
+
+.Blog_Detail_Like_Container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Blog_Detail_Like_Container > svg {
+  font-size: var(--font-xxl);
+  color: var(--blue-300);
 }
 
 /* AddComment */
@@ -70,7 +80,7 @@
   margin-left: 1rem;
 }
 
-svg {
+.Comment_Manage_Container svg {
   color: var(--fc-500);
   font-size: var(--font-md);
   margin-left: 0.5rem;
