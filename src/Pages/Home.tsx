@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import getHomeData from "../API/Home/Get/getHomeData";
 import BlogPost from "../Components/Common/BlogPost";
+import useIntersectionObserver from "../Custom Hook/useIntersectionObserver";
 import "./Style/Home.css";
 
-//PostData Type 미리 지정
 export interface PostProps {
   memberId: number;
   blogId: number;
@@ -41,46 +41,44 @@ const Home = () => {
     { k_name: "최신순", e_name: "newest" },
     { k_name: "내 추천", e_name: "myLike" },
   ];
-  const [blogList, setBlogList] = useState<ArrPostProps | null>();
+  const [blogList, setBlogList] = useState<ArrPostProps | null>([]);
   const [isSortActive, setIsSortActive] = useState(0);
-  const [scrollValue, setScrollValue] = useState(1);
+  const [page, setPage] = useState(1);
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const interSectRef = useRef<HTMLParagraphElement>(null);
   const tab = searchParams.get("tab");
   const accessToken = localStorage.getItem("accessToken");
+  const [isFinished, setIsFinished] = useState(false);
   useEffect(() => {
     setIsLoading(true);
     const get = async () => {
       setIsLoading(false);
-      const result = await getHomeData(tab, scrollValue, accessToken);
+      const result = await getHomeData(tab, page, accessToken);
+      if (result.length === 0) {
+        setIsFinished(true);
+      } else {
+        setBlogList((prev) => prev!.concat(result));
+      }
+    };
+    get();
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const get = async () => {
+      setIsLoading(false);
+      const result = await getHomeData(tab, page, accessToken);
       setBlogList(result);
     };
     get();
-  }, [searchParams, scrollValue]);
+  }, [tab]);
 
-  const options = {
-    root: null,
-    rootMargin: "20px",
-    threshold: 1,
+  const onIntersect: IntersectionObserverCallback = ([{ isIntersecting }]) => {
+    if (isIntersecting) return setPage((page) => page + 1);
   };
 
-  const handleObserver = useCallback(
-    (entries: IntersectionObserverEntry[]) => {
-      const target = entries[0];
-      if (target.isIntersecting) {
-        setScrollValue(scrollValue + 1);
-      }
-    },
-    [scrollValue]
-  );
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(handleObserver, options);
-    if (interSectRef.current) observer.observe(interSectRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const { setTarget } = useIntersectionObserver({ onIntersect });
 
   return (
     <>
@@ -94,13 +92,13 @@ const Home = () => {
                 onClick={() => {
                   if (idx === 2) {
                     if (accessToken) {
-                      navigate(`?tab=${sort.e_name}&page=${scrollValue}`);
+                      navigate(`?tab=${sort.e_name}`);
                       setIsSortActive(idx);
                     } else {
                       alert("로그인 후 이용해주시길 바랍니다.");
                     }
                   } else {
-                    navigate(`?tab=${sort.e_name}&page=${scrollValue}`);
+                    navigate(`?tab=${sort.e_name}`);
                     setIsSortActive(idx);
                   }
                 }}
@@ -118,11 +116,9 @@ const Home = () => {
           </BlogListContainer>
         </div>
       </section>
-      {isLoading ? (
-        <p className="Home_Loading_Container" ref={interSectRef}>
-          Loading...
-        </p>
-      ) : null}
+      <div className="Home_Loading_Container" ref={setTarget}>
+        Loading...
+      </div>
     </>
   );
 };
