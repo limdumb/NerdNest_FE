@@ -11,6 +11,7 @@ import {
   ButtonWrapper,
 } from "./Login";
 import { useNavigate } from "react-router-dom";
+import { KakaoOauthButton } from "../Components/AuthPage/OauthButton";
 import "./Style/signUp.css";
 
 interface SignUpType {
@@ -170,9 +171,7 @@ const SignUp = () => {
       </AuthWriteList>
       {/* oauth 들어올 예정 */}
       <OauthList>
-        <a className="KaKao_Oauth_Button">
-          K
-        </a>
+        <KakaoOauthButton/>
         <a className="Google_Oauth_Button">
           <img
             src={

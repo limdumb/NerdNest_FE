@@ -11,7 +11,7 @@ export const AuthContent = styled(Wrapper)`
   width: 625px;
   height: 670px;
   padding: 20px 10px;
-  background-color: var(--fc-300);
+  background-color: #ffffffcd;
   margin-bottom: 40px;
   border-radius: var(--br-l);
   border: 1px solid black;
@@ -41,7 +41,6 @@ export const OauthList = styled.ul`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--fc-hv-500);
   width: 40%;
   height: 60px;
   gap: 30px;
