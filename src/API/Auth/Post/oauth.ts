@@ -1,6 +1,5 @@
 import axios from "axios";
 import { NavigateFunction } from "react-router-dom";
-import { baseInstance } from "../../Instance/Instance";
 
 interface Params {
   navigate: NavigateFunction;

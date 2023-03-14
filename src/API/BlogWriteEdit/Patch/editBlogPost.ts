@@ -1,4 +1,4 @@
-import { baseInstance } from "../../Instance/Instance";
+import { tokenInstance } from "../../Instance/Instance";
 import { Params } from "../Post/postBlog";
 
 interface EditParams extends Params {
@@ -6,7 +6,6 @@ interface EditParams extends Params {
 }
 
 export default async function editBlogPost(params: EditParams) {
-  baseInstance.defaults.headers.common["Authorization"] = params.accessToken;
   const request = {
     blogId:params.blogId,
     blogTitle: params.blogTitle,
@@ -15,7 +14,7 @@ export default async function editBlogPost(params: EditParams) {
     titleImageUrl: params.titleImageUrl
   };
   try {
-    const response = await baseInstance.patch(
+    const response = await tokenInstance.patch(
       `blogs/edit/${params.blogId}`,
       request
     );

@@ -1,9 +1,8 @@
 //토큰필요
-import { baseInstance } from "../../Instance/Instance";
+import { tokenInstance } from "../../Instance/Instance";
 export default async function logout(accessToken: string | null) {
-  baseInstance.defaults.headers.common["Authorization"] = accessToken;
   try {
-    await baseInstance.post("/logout").then((res) => {
+    await tokenInstance.post("/logout").then((res) => {
       if (res.status === 200) {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
