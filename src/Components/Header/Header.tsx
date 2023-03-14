@@ -72,7 +72,11 @@ export default function Header() {
           <div className="Header_Login_SignUp_Container">
             {memberId ? (
               <>
-                <ProfileImage src={profileImageUrl} alt="memberImage" />
+                <ProfileImage
+                  src={profileImageUrl}
+                  alt="memberImage"
+                  onClick={() => navigate(`/${nickName}/${memberId}`)}
+                />
                 <span className="Header_NickName_Container">{nickName}</span>
                 <DropDownTab memberId={Number(memberId)} nickName={nickName} />
               </>
