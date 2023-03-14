@@ -16,6 +16,7 @@ export interface BlogDetailProps {
   modifiedAt: string;
   blogContent: string;
   memberId: number;
+  commentCount: number;
   commentList: {
     commentId: number;
     parentId: null | number;
@@ -105,7 +106,7 @@ const BlogDetail = () => {
       </div>
       <div></div>
       <div className="Blog_Detail_Comment_Container">
-        <h2>{blogData && blogData.commentList.length} Comment</h2>
+        <h2>{blogData && blogData.commentCount} Comment</h2>
         <AddComment accessToken={accessToken} blogId={Number(blogId)} />
         {blogData && (
           <Comment
