@@ -23,7 +23,7 @@ export default async function editMemberData(params: Params) {
           if (res.status === 200) {
             alert("수정이 완료 되었습니다!");
             params.navigate(
-              `/${params.nickName}/${params.memberId}/전체/${params.categoryId}`
+              `/${params.nickName}/${params.memberId}`
             );
             window.location.reload();
           }

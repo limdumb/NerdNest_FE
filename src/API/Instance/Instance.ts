@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const accessToken = localStorage.getItem("accessToken");
-const refrashToken = localStorage.getItem("refrashToken");
+const refrashToken = localStorage.getItem("refreshToken");
 
 export const baseInstance = axios.create({
   baseURL: "http://15.164.185.150:8080",
@@ -25,10 +25,12 @@ baseInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    if (error.message === "Access Token Expiration") {
+    if (error.response.data.message === "Access Token Expiration") {
       const originalRequest = error.config;
-      const res = await axios.post("http://15.164.185.150:8080/reissue", {
-        refreshToken: refrashToken,
+      const res = await axios.post("http://15.164.185.150:8080/reissue", "",{
+        headers: {
+          Refresh: refrashToken,
+        }
       });
       if (res.status === 200) {
         const newAccessToken = res.data.accessToken;
@@ -52,10 +54,12 @@ tokenInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    if (error.message === "Access Token Expiration") {
+    if (error.response.data.message === "Access Token Expiration") {
       const originalRequest = error.config;
-      const res = await axios.post("http://15.164.185.150:8080/reissue", {
-        refreshToken: refrashToken,
+      const res = await axios.post("http://15.164.185.150:8080/reissue", "", {
+        headers: {
+          Refresh: refrashToken,
+        }
       });
       if (res.status === 200) {
         const newAccessToken = res.data.accessToken;
