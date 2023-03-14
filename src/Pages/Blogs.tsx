@@ -110,7 +110,7 @@ const Blogs = () => {
 
   const [activeCategoryId, setActiveCategoryId] = useState("");
   const blogData = useFetch<BlogArrayType>(
-    `/blogs/member/${params.nickName}?categoryid=${activeCategoryId}page=${pages}`,
+    `/blogs/member/${params.nickName}?categoryid=${activeCategoryId}&page=${pages}`,
     blogInitialValue
   );
 

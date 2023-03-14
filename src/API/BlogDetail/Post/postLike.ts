@@ -1,4 +1,4 @@
-import { baseInstance } from "../../Instance/Instance";
+import { tokenInstance } from "../../Instance/Instance";
 
 export default function postLike(blogId: number, accessToken: string | null) {
   if (accessToken) {
@@ -10,4 +10,3 @@ export default function postLike(blogId: number, accessToken: string | null) {
   } else {
     alert("로그인 후 사용해주세요.");
   }
-}
