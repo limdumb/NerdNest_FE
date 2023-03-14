@@ -65,6 +65,7 @@ const BlogDetail = () => {
     };
     get();
   }, []);
+
   return (
     <div className="Blog_Detail_Container">
       <div className="Blog_Detail_Title_Container">
@@ -88,7 +89,7 @@ const BlogDetail = () => {
             <div className="Blog_Detail_Title_Manage">
               <button onClick={() => navigate(`/edit/${blogId}`)}>수정</button>
               <button
-                onClick={() => deleteBlogPost(Number(blogId), accessToken)}
+                onClick={() => deleteBlogPost(Number(blogId))}
               >
                 삭제
               </button>

@@ -120,7 +120,7 @@ const Comment = ({
                     <RiDeleteBin6Line
                       className="Delete_icon"
                       onClick={() =>
-                        deleteComment(comment.commentId, accessToken)
+                        deleteComment(comment.commentId)
                       }
                     />
                   </>

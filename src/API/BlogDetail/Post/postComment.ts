@@ -1,4 +1,4 @@
-import { baseInstance } from "../../Instance/Instance";
+import { tokenInstance } from "../../Instance/Instance";
 
 interface PostCommentContentProps {
   blogId: number | undefined;
@@ -11,8 +11,7 @@ export default function postComment(
   accessToken: string | null
 ) {
   if (accessToken) {
-    baseInstance.defaults.headers.common["Authorization"] = accessToken;
-    baseInstance
+    tokenInstance
       .post(`/comments`, content)
       .then((res) => console.log(res))
       .catch((err) => console.error(err));

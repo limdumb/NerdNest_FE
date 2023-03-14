@@ -1,4 +1,4 @@
-import { baseInstance } from "../../Instance/Instance";
+import { tokenInstance } from "../../Instance/Instance";
 
 export interface TitleImageUploadResponse {
   imageFileId: number;
@@ -10,12 +10,11 @@ export const titleImageUploader = async (
   file: File,
   accessToken: string | null
 ): Promise<TitleImageUploadResponse> => {
-  baseInstance.defaults.headers.common["Authorization"] = accessToken;
   const formData = new FormData();
   formData.append("image", file);
-
+  
   try {
-    const res = await baseInstance.post("/s3/blog", formData, {
+    const res = await tokenInstance.post("/s3/blog", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -35,12 +34,11 @@ export const profileImageUploader = async (
   file: File,
   accessToken: string | null
 ) => {
-  baseInstance.defaults.headers.common["Authorization"] = accessToken;
   const formData = new FormData();
   formData.append("image", file);
   if (file) {
     try {
-      const res = await baseInstance.post("/s3/member", formData, {
+      const res = await tokenInstance.post("/s3/member", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

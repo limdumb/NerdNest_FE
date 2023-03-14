@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { baseInstance } from "../API/Instance/Instance";
+import { baseInstance, tokenInstance } from "../API/Instance/Instance";
 
 interface State<T> {
   loading: boolean;
@@ -30,8 +30,7 @@ export default function useFetch<T>(
           setFetchData({ loading: false, error, data: initialValue });
         });
     } else {
-      baseInstance.defaults.headers.common["Authorization"] = accessToken;
-      baseInstance
+      tokenInstance
         .get(endPoint)
         .then((response: AxiosResponse<T>) => {
           setFetchData({ loading: false, error: null, data: response.data });

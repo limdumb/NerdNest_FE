@@ -1,9 +1,8 @@
-import { baseInstance } from "../../Instance/Instance";
+import { tokenInstance } from "../../Instance/Instance";
 
 export default function postLike(blogId: number, accessToken: string | null) {
   if (accessToken) {
-    baseInstance.defaults.headers.common["Authorization"] = accessToken;
-    baseInstance
+    tokenInstance
       .post(`/blogs/${blogId}/likes`)
       .then((res) => console.log(res))
       .catch((err) => console.error(err));
