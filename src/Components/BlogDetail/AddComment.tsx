@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 import postComment from "../../API/BlogDetail/Post/postComment";
 import EventButton from "../Common/EventButton";
 import CommentInput from "./Common/CommentInput";
