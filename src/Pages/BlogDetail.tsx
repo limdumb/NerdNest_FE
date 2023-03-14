@@ -14,7 +14,7 @@ export interface BlogDetailProps {
   blogTitle: string;
   createdAt: string;
   modifiedAt: string;
-  blogContents: string;
+  blogContent: string;
   memberId: number;
   commentList: {
     commentId: number;
@@ -97,7 +97,7 @@ const BlogDetail = () => {
         </div>
       </div>
       <div className="Blog_Detail_Body_Container">
-        {blogData && <TextViewer contents={blogData.blogContents} />}
+        {blogData && <TextViewer contents={blogData.blogContent} />}
         <div className="Blog_Detail_Like_Container">
           <IoHeartCircle
             onClick={() => postLike(Number(blogId), accessToken)}

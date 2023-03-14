@@ -1,8 +1,12 @@
 import { tokenInstance } from "../../Instance/Instance";
 
 export default function postLike(blogId: number, accessToken: string | null) {
-  tokenInstance
-    .post(`/blogs/${blogId}/likes`)
-    .then((res) => console.log(res))
-    .catch((err) => console.error(err));
-}
+  if (accessToken) {
+    baseInstance.defaults.headers.common["Authorization"] = accessToken;
+    baseInstance
+      .post(`/blogs/${blogId}/likes`)
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
+  } else {
+    alert("로그인 후 사용해주세요.");
+  }
