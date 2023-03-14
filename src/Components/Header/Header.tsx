@@ -45,12 +45,15 @@ export default function Header() {
 
   const handleWrite = () => {
     if (memberId) navigate(`write`);
-    else alert("로그인 후 사용해주세요.");
+    else {
+      alert("로그인 후 사용해주세요.");
+      navigate(`auth/login`);
+    }
   };
   return (
     <header className="Header_Wrapper">
       <div className="Header_Container">
-        <Link to="/?tab=newest&page=1">
+        <Link to="/?tab=newest">
           <div className="Header_LogoContainer" />
         </Link>
         <div
@@ -60,7 +63,9 @@ export default function Header() {
               : "Header_ManageContainer"
           }
         >
-          <TiPencil className="Pencil icon" onClick={handleWrite} />
+          <a>
+            <TiPencil className="Pencil icon" onClick={handleWrite} />
+          </a>
           <Link to="/search">
             <RiSearchLine className="Search icon" />
           </Link>
