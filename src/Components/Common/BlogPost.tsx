@@ -62,9 +62,7 @@ const BlogPost = ({ post }: { post: PostProps }) => {
     <>
       <div
         className="Blog_Post_Wrapper"
-        onClick={() =>
-          navigate(`${writer}/${memberId}/${blogTitle}/${blogId}`)
-        }
+        onClick={() => navigate(`${writer}/${memberId}/${blogTitle}/${blogId}`)}
       >
         <div className="Blog_Post_Container">
           <div className="Blog_Post_Image_Container">

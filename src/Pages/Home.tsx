@@ -21,6 +21,11 @@ export interface PostProps {
 
 export interface ArrPostProps extends Array<PostProps> {}
 
+export interface GetHomeDataProps {
+  blogList: PostProps[];
+  nextPage: boolean;
+}
+
 const Sort = styled.li<{ borderBtm: boolean }>`
   color: var(--fc-500);
   font-weight: var(--fw-bold);
@@ -45,40 +50,45 @@ const Home = () => {
   const [isSortActive, setIsSortActive] = useState(0);
   const [page, setPage] = useState(1);
   const [searchParams] = useSearchParams();
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
+  const [isNextPage, setIsNextPage] = useState(true);
   const tab = searchParams.get("tab");
   const accessToken = localStorage.getItem("accessToken");
-  const [isFinished, setIsFinished] = useState(false);
-  useEffect(() => {
-    setIsLoading(true);
-    const get = async () => {
-      setIsLoading(false);
-      const result = await getHomeData(tab, page, accessToken);
-      if (result.length === 0) {
-        setIsFinished(true);
-      } else {
-        setBlogList((prev) => prev!.concat(result));
-      }
-    };
-    get();
-  }, []);
+  const { targetRef, isIntersecting } = useIntersectionObserver();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setIsLoading(true);
     const get = async () => {
-      setIsLoading(false);
       const result = await getHomeData(tab, page, accessToken);
-      setBlogList(result);
+      setBlogList(result.blogList);
     };
     get();
   }, [tab]);
 
-  const onIntersect: IntersectionObserverCallback = ([{ isIntersecting }]) => {
-    if (isIntersecting) return setPage((page) => page + 1);
+  const intersectCallback = () => {
+    if (isIntersecting) {
+      setPage((page) => page + 1);
+    }
   };
 
-  const { setTarget } = useIntersectionObserver({ onIntersect });
+  useEffect(() => {
+    intersectCallback();
+  }, [isIntersecting]);
+
+  useEffect(() => {
+    if (isIntersecting) {
+      const get = async () => {
+        if (isNextPage) {
+          const result = await getHomeData(tab, page, accessToken);
+          if (!result.nextPage) {
+            setIsNextPage(false);
+            console.log("요청");
+          }
+          setBlogList((prev) => prev!.concat(result.blogList));
+        }
+      };
+      get();
+    }
+  }, [page]);
 
   return (
     <>
@@ -90,6 +100,8 @@ const Home = () => {
                 key={idx}
                 borderBtm={idx === isSortActive}
                 onClick={() => {
+                  setPage(1);
+                  setIsNextPage(true);
                   if (idx === 2) {
                     if (accessToken) {
                       navigate(`?tab=${sort.e_name}`);
@@ -116,9 +128,11 @@ const Home = () => {
           </BlogListContainer>
         </div>
       </section>
-      <div className="Home_Loading_Container" ref={setTarget}>
-        Loading...
-      </div>
+      {isNextPage ? (
+        <div className="Home_Loading_Container" ref={targetRef}>
+          Loading...
+        </div>
+      ) : null}
     </>
   );
 };
