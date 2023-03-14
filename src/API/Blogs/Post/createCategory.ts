@@ -1,14 +1,13 @@
-import { baseInstance } from "../../Instance/Instance";
+import { tokenInstance } from "../../Instance/Instance";
 
 export default async function createCategory(
   categoryName: string,
   accessToken: string | null
 ) {
-  baseInstance.defaults.headers.common["Authorization"] = accessToken;
   if (categoryName.length !== 0) {
     if(categoryName !== "전체"){
       try {
-        await baseInstance
+        await tokenInstance
           .post("/category", { categoryName: categoryName })
           .then((res) => {
             if (res.status === 201) alert("카테고리가 생성 되었습니다.");

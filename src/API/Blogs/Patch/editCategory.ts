@@ -1,4 +1,4 @@
-import { baseInstance } from "../../Instance/Instance";
+import { tokenInstance } from "../../Instance/Instance";
 
 export default async function editCategory(
   categoryId: number,
@@ -6,8 +6,7 @@ export default async function editCategory(
   accessToken: string | null
 ) {
   try {
-    baseInstance.defaults.headers.common["Authorization"] = accessToken;
-    await baseInstance
+    await tokenInstance
       .patch(`category/${categoryId}`, { categoryName: categoryName })
       .then((res) => {
         if (res.data.code === 200) {
