@@ -85,7 +85,7 @@ const BlogDetail = () => {
               수정날짜: {blogData && blogData.modifiedAt}
             </BlogDetailSpan>
           </div>
-          {blogData && userMemberId === blogData.memberId ? (
+          {blogData && userMemberId === Number(memberId) ? (
             <div className="Blog_Detail_Title_Manage">
               <button onClick={() => navigate(`/edit/${blogId}`)}>수정</button>
               <button onClick={() => deleteBlogPost(Number(blogId))}>
