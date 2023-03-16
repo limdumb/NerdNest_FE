@@ -76,7 +76,7 @@ export default function BlogCategory({
           <button
             className="Category_Name"
             onClick={() =>{
-              setActiveCategoryId(categoryList[0].categoryId)
+              setActiveCategoryId(0)
               navigate(`/${params.nickName}/${params.memberId}`)
             }}
           >
@@ -137,11 +137,12 @@ export default function BlogCategory({
                   ) : (
                     <button
                       className="Category_Name"
-                      onClick={() =>
+                      onClick={() =>{
+                        setActiveCategoryId(el.categoryId);
                         navigate(
                           `/${params.nickName}/${params.memberId}?id=${el.categoryId}`
                         )
-                      }
+                      }}
                     >
                       {el.categoryName}
                     </button>

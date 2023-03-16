@@ -57,6 +57,7 @@ export interface MemberType {
 }
 
 export interface BlogArrayType {
+  nextPage: boolean;
   blogList: {
     blogId: number;
     titleImageUrl: string;
@@ -68,16 +69,6 @@ export interface BlogArrayType {
   }[];
 }
 
-interface BlogType {
-  blogId: number;
-  titleImageUrl: string;
-  blogTitle: string;
-  createdAt: string;
-  modifiedAt: string;
-  commentCount: number;
-  likeCount: number;
-}
-
 const Blogs = () => {
   const params = useParams();
   const [pages, setPages] = useState<number>(1);
@@ -86,6 +77,7 @@ const Blogs = () => {
   };
   const memberInitialValue = { profileImageUrl: "", nickName: "", about: "" };
   const blogInitialValue: BlogArrayType = {
+    nextPage: true,
     blogList: [
       {
         blogId: 0,
@@ -98,6 +90,7 @@ const Blogs = () => {
       },
     ],
   };
+
   const fetchCategoryData = useFetch<CategoryType>(
     `/category/${params.memberId}`,
     CateogryInitialValue
@@ -128,20 +121,21 @@ const Blogs = () => {
   );
   const [fetchLoading, setFetchLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    const getBlogDataFunction = async () => {
-      const result = await getBlogData({
-        pages: pages,
-        nickName: params.nickName,
-        categoryId: activeCategoryId,
-      });
-      setNewBlogsData(result as BlogArrayType);
-      setFetchLoading(false);
-    };
-    if (!fetchLoading) {
-      getBlogDataFunction();
-    }
-  }, [pages, activeCategoryId]);
+  // useEffect(() => {
+  //   const getBlogDataFunction = async () => {
+  //     const result = await getBlogData({
+  //       pages: pages,
+  //       nickName: params.nickName,
+  //       categoryId: activeCategoryId,
+  //     });
+  //     setNewBlogsData(result as BlogArrayType);
+  //     setFetchLoading(false);
+  //   };
+
+  //   if (!fetchLoading) {
+  //     getBlogDataFunction();
+  //   }
+  // }, [pages, activeCategoryId]);
 
   useEffect(() => {
     if (!fetchCategoryData.loading) {
@@ -157,21 +151,35 @@ const Blogs = () => {
   const bottomRef = useRef(null);
   // console.log("Outside of fetch BlogData");
   // console.log(blogData.data.blogList);
-console.log(blogData.data)
   const fetchBlogData = () => {
-    if (blogData.data.blogList.length === 0 && !fetchLoading) {
+    if (!blogData.data.nextPage && !fetchLoading) {
       setLock(true);
     } else {
       let newBlogArr = [...newBlogsData.blogList].concat(
         blogData && blogData.data.blogList
       );
       newBlogArr = newBlogArr.concat(blogData.data.blogList);
-      setNewBlogsData({ blogList: newBlogArr });
+      setNewBlogsData({ blogList: newBlogArr, nextPage: false });
     }
   };
+  /* 
+    [ Default로 1Page를 불러왔다 라는 가정 하에 코드구현 ]
+    1. 웹 페이지를 내렸을때 맨 밑을 감지한다
+    2. 감지 되었을때
+  */
 
   useEffect(() => {
-    if (!fetchLoading) fetchBlogData();
+    if (!blogData.loading) {
+      getBlogData({
+        pages: pages,
+        nickName: params.nickName,
+        categoryId: activeCategoryId,
+      });
+      setNewBlogsData({
+        blogList: blogData.data.blogList,
+        nextPage: blogData.data.nextPage,
+      });
+    }
   }, [pages]);
 
   useEffect(() => {
@@ -181,9 +189,13 @@ console.log(blogData.data)
           return;
         }
         setPages(pages + 1);
+        console.log("감지!");
       }
     });
-    if (bottomRef.current) observer.observe(bottomRef.current);
+    if (bottomRef.current) {
+      observer.observe(bottomRef.current);
+    }
+
     return () => {
       if (bottomRef.current) observer.unobserve(bottomRef.current);
     };
@@ -253,10 +265,11 @@ console.log(blogData.data)
           />
         </CategoryWrapper>
         <BlogPostWrapper>
-          <BlogPost blogList={blogData.data.blogList} />
+          <BlogPost blogList={blogData.data.blogList} nextPage={false} />
         </BlogPostWrapper>
       </div>
-      {blogData.loading ? <div ref={bottomRef}>loading...</div> : null}
+      {/* 조건 */}
+      <div ref={bottomRef}>loading...</div>
     </BlogWrapper>
   );
 };

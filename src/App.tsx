@@ -11,7 +11,8 @@ import styled from "styled-components";
 import AuthPage from "./Pages/AuthPage";
 import Header from "./Components/Header/Header";
 import "./App.css";
-import OauthPage from "./Pages/OauthPage";
+import KakaoOauthPage from "./Pages/KaKaoOauthPage";
+import GoogleOauthPage from "./Pages/GoogleOauthPage";
 
 const RootContainer = styled.div`
   width: 1200px;
@@ -26,7 +27,8 @@ function App() {
         <Header />
         <RootContainer>
           <Routes>
-            <Route path="/oauth/kakao/login" element={<OauthPage />} />
+            <Route path="/oauth/kakao/login" element={<KakaoOauthPage />} />
+            <Route path="/oauth/google/login" element={<GoogleOauthPage />} />
             <Route path="/" element={<Home />} />
             <Route path="/auth" element={<AuthPage />}>
               <Route path="signup" element={<SignUp />} />
