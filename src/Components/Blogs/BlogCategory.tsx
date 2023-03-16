@@ -16,7 +16,7 @@ interface Props extends CategoryType {
   setRenderState: React.Dispatch<React.SetStateAction<boolean>>;
   renderState: boolean;
   params: Readonly<Params<string>>;
-  setActiveCategoryId:React.Dispatch<React.SetStateAction<string>>;
+  setActiveCategoryId:React.Dispatch<React.SetStateAction<number>>;
   // categoryIndex: number
   // setCategoryIndex: React.Dispatch<React.SetStateAction<number>>
 }
@@ -76,7 +76,7 @@ export default function BlogCategory({
           <button
             className="Category_Name"
             onClick={() =>{
-              setActiveCategoryId("0")
+              setActiveCategoryId(categoryList[0].categoryId)
               navigate(`/${params.nickName}/${params.memberId}`)
             }}
           >
@@ -125,7 +125,7 @@ export default function BlogCategory({
                       <button
                         className="Category_Name"
                         onClick={() =>{
-                          setActiveCategoryId(el.categoryId.toString())
+                          setActiveCategoryId(el.categoryId)
                           navigate(
                             `/${params.nickName}/${params.memberId}?id=${el.categoryId}`
                           )

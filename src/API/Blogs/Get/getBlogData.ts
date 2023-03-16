@@ -5,7 +5,7 @@ import { baseInstance } from "../../Instance/Instance";
 interface Params {
   pages: number;
   nickName: string | undefined;
-  categoryId: string;
+  categoryId: number;
 }
 
 export default async function getBlogData(params: Params) {

@@ -9,8 +9,8 @@ import { useParams } from "react-router-dom";
 import { VscFolderOpened } from "react-icons/vsc";
 import { TiPen } from "react-icons/ti";
 import { HiPlusCircle } from "react-icons/hi";
-import "./Style/blogs.css";
 import getBlogData from "../API/Blogs/Get/getBlogData";
+import "./Style/blogs.css";
 
 //추후 공용으로 뺄지는 상의예정
 export const Wrapper = styled.div`
@@ -108,7 +108,7 @@ const Blogs = () => {
     memberInitialValue
   );
 
-  const [activeCategoryId, setActiveCategoryId] = useState("");
+  const [activeCategoryId, setActiveCategoryId] = useState(0);
   const blogData = useFetch<BlogArrayType>(
     `/blogs/member/${params.nickName}?categoryid=${activeCategoryId}&page=${pages}`,
     blogInitialValue
@@ -157,7 +157,7 @@ const Blogs = () => {
   const bottomRef = useRef(null);
   // console.log("Outside of fetch BlogData");
   // console.log(blogData.data.blogList);
-
+console.log(blogData.data)
   const fetchBlogData = () => {
     if (blogData.data.blogList.length === 0 && !fetchLoading) {
       setLock(true);
