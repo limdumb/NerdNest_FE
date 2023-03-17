@@ -94,6 +94,7 @@
 
 .Comment_content_container {
   display: flex;
+  align-items: center;
   margin-left: 10px;
   width: 800px;
 }
