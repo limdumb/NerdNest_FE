@@ -60,6 +60,7 @@ const Home = () => {
     const get = async () => {
       const result = await getHomeData(tab, page, accessToken);
       setBlogList(result.blogList);
+      setIsNextPage(result.nextPage);
     };
     get();
   }, [tab]);
@@ -80,8 +81,7 @@ const Home = () => {
         if (isNextPage) {
           const result = await getHomeData(tab, page, accessToken);
           if (!result.nextPage) {
-            setIsNextPage(false);
-            console.log("요청");
+            setIsNextPage(result.nextPage);
           }
           setBlogList((prev) => prev!.concat(result.blogList));
         }
