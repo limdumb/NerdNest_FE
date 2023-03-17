@@ -31,50 +31,54 @@ export default function BlogPost(props: BlogArrayType) {
   const params = useParams();
   return (
     <ul>
-      {props.blogList && props.blogList.length !== 0
-        ? props.blogList.map((post, index) => {
-            return (
-              <li
-                className="Blog_Post"
-                key={index}
-                onClick={() =>
-                  navigate(
-                    `/${params.nickName}/${params.memberId}/${post.blogTitle}/${post.blogId}`
-                  )
-                }
-              >
-                <BlogPostContainer>
-                  <BlogPostImage src={`${post.titleImageUrl}`} />
-                  <BlogContetnsContainer>
-                    <h1 className="Blog_Title">{post.blogTitle}</h1>
-                    <div className="Comment_Like_Container">
-                      <div className="Like_Container">
-                        <span className="Like_Comment_Contetns">
-                          {post.likeCount}
-                        </span>
-                        <IoHeartCircle
-                          color="var(--blue-400)"
-                          fontSize="var(--font-xxl)"
-                        />
-                      </div>
-                      <div className="Comment_Container">
-                        <span className="Like_Comment_Contetns">
-                          {post.commentCount}
-                        </span>
-                        <MdOutlineInsertComment
-                          color="var(--blue-400)"
-                          fontSize="var(--font-xxl)"
-                        />
-                      </div>
-                      <span></span>
+      {props.blogList && props.blogList.length !== 0 ? (
+        props.blogList.map((post, index) => {
+          return (
+            <li
+              className="Blog_Post"
+              key={index}
+              onClick={() =>
+                navigate(
+                  `/${params.nickName}/${params.memberId}/${post.blogTitle}/${post.blogId}`
+                )
+              }
+            >
+              <BlogPostContainer>
+                <BlogPostImage src={`${post.titleImageUrl}`} />
+                <BlogContetnsContainer>
+                  <h1 className="Blog_Title">{post.blogTitle}</h1>
+                  <div className="Comment_Like_Container">
+                    <div className="Like_Container">
+                      <span className="Like_Comment_Contetns">
+                        {post.likeCount}
+                      </span>
+                      <IoHeartCircle
+                        color="var(--blue-400)"
+                        fontSize="var(--font-xxl)"
+                      />
                     </div>
-                    <h4>{post.createdAt}</h4>
-                  </BlogContetnsContainer>
-                </BlogPostContainer>
-              </li>
-            );
-          })
-        : null}
+                    <div className="Comment_Container">
+                      <span className="Like_Comment_Contetns">
+                        {post.commentCount}
+                      </span>
+                      <MdOutlineInsertComment
+                        color="var(--blue-400)"
+                        fontSize="var(--font-xxl)"
+                      />
+                    </div>
+                  </div>
+                  <h4>{post.createdAt}</h4>
+                </BlogContetnsContainer>
+              </BlogPostContainer>
+            </li>
+          );
+        })
+      ) : (
+        <div className="None_Blog_List_Container">
+          <img className="" src={`${process.env.PUBLIC_URL}/message.svg`} />
+          <h2>작성자가 게시물을 작성하지 않았습니다 🐰</h2>
+        </div>
+      )}
     </ul>
   );
 }

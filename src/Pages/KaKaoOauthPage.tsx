@@ -11,9 +11,9 @@ export default function OauthPage() {
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.refreshToken);
       navigate("/");
+      window.location.reload()
     });
   }, []);
 
-  // handleCallback();
   return <div>loading...</div>;
 }

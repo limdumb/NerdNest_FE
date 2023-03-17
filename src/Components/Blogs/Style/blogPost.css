@@ -26,3 +26,9 @@
   font-size: var(--font-xl);
   font-weight: var(--fw-bold);
 }
+
+.None_Blog_List_Container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

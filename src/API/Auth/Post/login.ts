@@ -24,16 +24,6 @@ export default async function login(params: Params) {
     email: params.email,
     password: params.password,
   };
-
-  await baseInstance.post<LoginResponseType>("/login", request).then((res) => {
-    if (res.status === 200) {
-      localStorage.setItem("memberId", `${res.data.memberId}`);
-      localStorage.setItem("accessToken", res.data.accessToken);
-      localStorage.setItem("refreshToken", res.data.refreshToken);
-      params.navigate("/");
-      window.location.reload();
-    }
-  });
   try {
     await baseInstance
       .post<LoginResponseType>("/login", request)
@@ -43,12 +33,13 @@ export default async function login(params: Params) {
           localStorage.setItem("accessToken", res.data.accessToken);
           localStorage.setItem("refreshToken", res.data.refreshToken);
           params.navigate("/");
+          window.location.reload();
         }
       });
   } catch (err: any) {
-    console.log(err);
-    if (err.response.status === 401) {
+    if (err.response.data.status === 401) {
       alert("로그인 정보가 잘못 되었습니다!");
     }
+    console.log(err);
   }
 }
