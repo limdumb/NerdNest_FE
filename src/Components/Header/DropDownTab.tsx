@@ -25,7 +25,7 @@ const DropDownTab = ({
           <li
             className="DropDownTab_Logout Menu"
             onClick={() => {
-              logout(accessToken);
+              logout();
             }}
           >
             로그아웃

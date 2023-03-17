@@ -54,11 +54,7 @@ const ReComment = ({
                   <CommentCommonBtn
                     usage="edit"
                     onClick={() =>
-                      patchComment(
-                        recomment.commentId,
-                        editRecomment,
-                        accessToken
-                      )
+                      patchComment(recomment.commentId, editRecomment)
                     }
                   >
                     완료

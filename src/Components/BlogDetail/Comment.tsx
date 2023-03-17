@@ -88,7 +88,7 @@ const Comment = ({
                   <CommentCommonBtn
                     usage="edit"
                     onClick={() =>
-                      patchComment(comment.commentId, commentValue, accessToken)
+                      patchComment(comment.commentId, commentValue)
                     }
                   >
                     완료
@@ -119,9 +119,7 @@ const Comment = ({
                     />
                     <RiDeleteBin6Line
                       className="Delete_icon"
-                      onClick={() =>
-                        deleteComment(comment.commentId)
-                      }
+                      onClick={() => deleteComment(comment.commentId)}
                     />
                   </>
                 ) : null}

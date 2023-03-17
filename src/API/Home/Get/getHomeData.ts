@@ -10,7 +10,9 @@ export default function getHomeData(
     let result: GetHomeDataProps = { blogList: [], nextPage: false };
     try {
       if (tab === null) {
-        const getHomeData = await baseInstance(`/home/blogs?tab=newest&page=${page}`);
+        const getHomeData = await baseInstance(
+          `/home/blogs?tab=newest&page=${page}`
+        );
         result = getHomeData.data;
       }
       if (tab === "myLike") {

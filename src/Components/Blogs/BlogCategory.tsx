@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { VscFolderOpened } from "react-icons/vsc";
 import { CategoryType } from "../../Pages/Blogs";
 import createCategory from "../../API/Blogs/Post/createCategory";
 import deleteCategory from "../../API/Blogs/Delete/deleteCategory";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { BsTrashFill } from "react-icons/bs";
-import "./Style/blogCategory.css";
 import editCategory from "../../API/Blogs/Patch/editCategory";
 import { Params, useNavigate, useParams } from "react-router-dom";
+import "./Style/blogCategory.css";
 
 interface Props extends CategoryType {
   newCategory: boolean;
@@ -16,9 +16,7 @@ interface Props extends CategoryType {
   setRenderState: React.Dispatch<React.SetStateAction<boolean>>;
   renderState: boolean;
   params: Readonly<Params<string>>;
-  setActiveCategoryId:React.Dispatch<React.SetStateAction<number>>;
-  // categoryIndex: number
-  // setCategoryIndex: React.Dispatch<React.SetStateAction<number>>
+  setActiveCategoryId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function BlogCategory({
@@ -29,20 +27,18 @@ export default function BlogCategory({
   setRenderState,
   renderState,
   setActiveCategoryId,
-  // categoryIndex,
-  // setCategoryIndex
-
 }: Props) {
+  const params = useParams();
+  const navigate = useNavigate();
+
   const [categoryValue, setCategoryValue] = useState<string>("");
   const [nameEditCheck, setNameEditCheck] = useState<boolean>(false);
-  const accessToken = localStorage.getItem("accessToken");
   const [categoryIndex, setCategoryIndex] = useState(0);
   const lastCategoryId =
     categoryList.length !== 0
       ? categoryList[categoryList.length - 1].categoryId + 1
       : 0;
-  const params = useParams();
-  const navigate = useNavigate();
+
   const addCategoryHandler = (categoryId: number) => {
     if (categoryValue !== "전체") {
       setNewCategory(!newCategory);
@@ -75,9 +71,9 @@ export default function BlogCategory({
           <VscFolderOpened className="Folder_Icon" />
           <button
             className="Category_Name"
-            onClick={() =>{
-              setActiveCategoryId(0)
-              navigate(`/${params.nickName}/${params.memberId}`)
+            onClick={() => {
+              setActiveCategoryId(0);
+              navigate(`/${params.nickName}/${params.memberId}`);
             }}
           >
             전체
@@ -105,11 +101,7 @@ export default function BlogCategory({
                               el.categoryName !== categoryValue &&
                               categoryValue.length !== 0
                             ) {
-                              editCategory(
-                                el.categoryId,
-                                categoryValue,
-                                accessToken
-                              );
+                              editCategory(el.categoryId, categoryValue);
                               editCategoryHandler(el.categoryId, index);
                             } else {
                               alert(
@@ -124,11 +116,11 @@ export default function BlogCategory({
                     ) : (
                       <button
                         className="Category_Name"
-                        onClick={() =>{
-                          setActiveCategoryId(el.categoryId)
+                        onClick={() => {
+                          setActiveCategoryId(el.categoryId);
                           navigate(
                             `/${params.nickName}/${params.memberId}?id=${el.categoryId}`
-                          )
+                          );
                         }}
                       >
                         {el.categoryName}
@@ -137,11 +129,11 @@ export default function BlogCategory({
                   ) : (
                     <button
                       className="Category_Name"
-                      onClick={() =>{
+                      onClick={() => {
                         setActiveCategoryId(el.categoryId);
                         navigate(
                           `/${params.nickName}/${params.memberId}?id=${el.categoryId}`
-                        )
+                        );
                       }}
                     >
                       {el.categoryName}
@@ -154,11 +146,7 @@ export default function BlogCategory({
                         className="Category_Delete_Icon"
                         onClick={() => {
                           deleteCategoryHandler(index);
-                          deleteCategory(
-                            el.categoryId,
-                            el.categoryName,
-                            accessToken
-                          );
+                          deleteCategory(el.categoryId, el.categoryName);
                         }}
                       />
                       <HiDotsHorizontal
@@ -186,7 +174,7 @@ export default function BlogCategory({
             <button
               className="Category_Submit_Button"
               onClick={() => {
-                createCategory(categoryValue, accessToken);
+                createCategory(categoryValue);
                 addCategoryHandler(lastCategoryId);
               }}
             >

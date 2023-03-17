@@ -67,7 +67,7 @@ const BlogWrite = () => {
     if (!categoryData.loading) {
       setCategoryId(categoryData.data.categoryList[0].categoryId);
     }
-  },[]);
+  }, []);
 
   const navigate = useNavigate();
 
@@ -129,7 +129,7 @@ const BlogWrite = () => {
                 titleImageUrl: "",
                 blogTitle: blogData.blogTitle,
                 blogContent: blogText,
-                categoryId: categoryId
+                categoryId: categoryId,
               });
               navigate(
                 `/${memberData.data.nickName}/${memberId}/${blogData.blogTitle}/${blogResponse}`

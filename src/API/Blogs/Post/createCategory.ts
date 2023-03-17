@@ -2,7 +2,6 @@ import { tokenInstance } from "../../Instance/Instance";
 
 export default async function createCategory(
   categoryName: string,
-  accessToken: string | null
 ) {
   if (categoryName.length !== 0) {
     if(categoryName !== "전체"){

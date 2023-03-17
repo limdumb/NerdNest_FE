@@ -46,9 +46,6 @@ baseInstance.interceptors.response.use(
   }
 );
 
-// originalRequest._retry는 다시 요청을 했는지 확인하는것 하지만 사용하지 않은 이유는
-// 백앤드에서 토큰 만료에 대한 확실한 메세지값을 주었기 떄문에 따로 더블체크는 하지않을예정
-
 tokenInstance.interceptors.response.use(
   (response) => {
     return response;
