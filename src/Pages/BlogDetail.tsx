@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { IoHeartCircle, IoHeartCircleOutline } from "react-icons/io5";
+import { IoHeartCircle } from "react-icons/io5";
 import AddComment from "../Components/BlogDetail/AddComment";
 import Comment from "../Components/BlogDetail/Comment";
 import TextViewer from "../Components/BlogDetail/Common/TextViewer";
@@ -85,7 +85,7 @@ const BlogDetail = () => {
               수정날짜: {blogData && blogData.modifiedAt}
             </BlogDetailSpan>
           </div>
-          {blogData && userMemberId === blogData.memberId ? (
+          {blogData && userMemberId === Number(memberId) ? (
             <div className="Blog_Detail_Title_Manage">
               <button onClick={() => navigate(`/edit/${blogId}`)}>수정</button>
               <button onClick={() => deleteBlogPost(Number(blogId))}>

@@ -13,7 +13,12 @@ export default function postComment(
   if (accessToken) {
     tokenInstance
       .post(`/comments`, content)
-      .then((res) => console.log(res))
+      .then((res) => {
+        if (res.status === 201) {
+          alert("작성이 완료되었습니다.");
+          window.location.reload();
+        }
+      })
       .catch((err) => console.error(err));
   } else {
     alert("로그인 후 사용해주세요.");
