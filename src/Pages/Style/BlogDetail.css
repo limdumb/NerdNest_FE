@@ -74,6 +74,11 @@
   margin-bottom: 0.5rem;
 }
 
+.Comment_Profile_Container {
+  display: flex;
+  align-items: center;
+}
+
 .Comment_Manage_Container {
   display: flex;
   align-items: center;
@@ -85,6 +90,12 @@
   font-size: var(--font-md);
   margin-left: 0.5rem;
   cursor: pointer;
+}
+
+.Comment_content_container {
+  display: flex;
+  margin-left: 10px;
+  width: 800px;
 }
 
 .Comment_Input_Container {
