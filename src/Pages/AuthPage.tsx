@@ -21,7 +21,7 @@ export default function AuthPage() {
       <div className="Auth_Tab_Container">
         <AuthTab />
       </div>
-      <Outlet/>
+      <Outlet />
     </Container>
   );
 }

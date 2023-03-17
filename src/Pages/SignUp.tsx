@@ -1,6 +1,6 @@
 import signUp from "../API/Auth/Post/signUp";
 import nickNameCheck from "../API/Auth/Get/nickNameCheck";
-import React, { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import CommonInput from "../Components/Common/CommonInput";
 import EventButton from "../Components/Common/EventButton";
 import {
@@ -11,7 +11,10 @@ import {
   ButtonWrapper,
 } from "./Login";
 import { useNavigate } from "react-router-dom";
-import { GoogleOauthButton, KakaoOauthButton } from "../Components/AuthPage/OauthButton";
+import {
+  GoogleOauthButton,
+  KakaoOauthButton,
+} from "../Components/AuthPage/OauthButton";
 import "./Style/signUp.css";
 
 interface SignUpType {
@@ -169,10 +172,9 @@ const SignUp = () => {
           <ErrorSpan>{passwordCheckMessage}</ErrorSpan>
         </li>
       </AuthWriteList>
-      {/* oauth 들어올 예정 */}
       <OauthList>
-        <KakaoOauthButton/>
-        <GoogleOauthButton/>
+        <KakaoOauthButton />
+        <GoogleOauthButton />
       </OauthList>
       <ButtonWrapper>
         <EventButton

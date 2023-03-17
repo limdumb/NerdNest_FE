@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import MemberProfile from "../Components/Blogs/MemberProfile";
-import BlogRecord from "../Components/Blogs/BlogRecord";
 import BlogPost from "../Components/Blogs/BlogPost";
 import BlogCategory from "../Components/Blogs/BlogCategory";
 import styled from "styled-components";
@@ -133,9 +132,9 @@ const Blogs = () => {
       });
       setBlogData({ blogList: response.blogList, nextPage: response.nextPage });
     };
-    changeCategoryBlogData()
+    changeCategoryBlogData();
   }, [query]);
-console.log(blogData)
+  console.log(blogData);
   useEffect(() => {
     if (!fetchCategoryData.loading) {
       setCategoryData({
