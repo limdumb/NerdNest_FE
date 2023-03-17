@@ -1,0 +1,37 @@
+.NickName_Dubble_Check {
+  height: 44px;
+  position: relative;
+  bottom: 44px;
+  left: 543px;
+  width: 60px;
+  background-color: white;
+  border: 1px solid gray;
+  border-top-right-radius: var(--br-m);
+  border-bottom-right-radius: var(--br-m);
+  font-weight: var(--fw-midium);
+  font-size: var(--font-sm);
+}
+
+.KaKao_Oauth_Button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border-color: #fee500;
+  background-color: #fee500;
+  font-size: 23px;
+  color: hsl(0deg 33% 17%);
+  font-weight: bold;
+  margin-bottom: 3.1px;
+  border-radius: 2px;
+  box-shadow: 0px 1px 1px hsl(0deg 0% 0% / 0.25) ;
+}
+
+.Google_Oauth_Button{
+  width: 46px;
+  height: 46px;
+  background-color: #fdfdff;
+  margin-bottom: 3px;
+}

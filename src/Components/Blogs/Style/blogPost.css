@@ -1,0 +1,34 @@
+.Comment_Like_Container {
+  display: flex;
+}
+
+.Blog_Title {
+  height: 95px;
+}
+
+.Comment_Container {
+  display: flex;
+  margin-left: 10px;
+}
+
+.Like_Container {
+  display: flex;
+}
+
+.Blog_Post {
+  cursor: pointer;
+}
+
+.Like_Comment_Contetns{
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+  font-size: var(--font-xl);
+  font-weight: var(--fw-bold);
+}
+
+.None_Blog_List_Container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

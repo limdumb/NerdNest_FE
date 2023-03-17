@@ -1,0 +1,25 @@
+.Uploard_Input{
+  display: none;
+}
+
+.Title_Image_Add_Icon{
+  position: relative;
+  top: -10px;
+  left: 120px;
+  font-size: 30px;
+  z-index: 100000;
+}
+
+.Profile_Image_Add_Icon{
+  position: relative;
+  top: 25px;
+  left: 50px;
+  font-size: 30px;
+  z-index: 100000;
+}
+
+.Thumbnail_Image{
+  width: 150px;
+  height: 150px;
+  margin-bottom: 10px;
+}
