@@ -2,7 +2,6 @@ import { tokenInstance } from "../../Instance/Instance";
 
 export default function deleteBlogPost(
   blogId: number,
-  accessToken: string | null
 ) {
   tokenInstance
     .delete(`/blogs/${blogId}`)

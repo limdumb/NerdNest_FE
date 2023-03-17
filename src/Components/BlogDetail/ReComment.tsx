@@ -79,9 +79,7 @@ const ReComment = ({
                   />
                   <RiDeleteBin6Line
                     className="Delete_icon"
-                    onClick={() =>
-                      deleteComment(recomment.commentId, accessToken)
-                    }
+                    onClick={() => deleteComment(recomment.commentId)}
                   />
                 </div>
               ) : null}

@@ -120,9 +120,9 @@ const Comment = ({
                     <RiDeleteBin6Line
                       className="Delete_icon"
                       onClick={() =>
-                        deleteComment(comment.commentId, accessToken)
+                        deleteComment(comment.commentId)
                       }
-                    />{" "}
+                    />
                   </>
                 ) : null}
               </div>
@@ -134,7 +134,11 @@ const Comment = ({
                     width="50%"
                     value={commentValue}
                     onChange={(e) => setCommentValue(e.target.value)}
-                    placeholder="댓글을 입력해주세요."
+                    placeholder={
+                      memberId
+                        ? "댓글을 입력해주세요."
+                        : "로그인 후 사용해주세요."
+                    }
                     marginLeft="7rem"
                     marginBottom="1.5rem"
                   ></CommentInput>
