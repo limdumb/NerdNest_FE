@@ -224,7 +224,7 @@ const Blogs = () => {
           <BlogPost blogList={blogData && blogData.blogList} nextPage={false} />
         </BlogPostWrapper>
       </div>
-      {loading ? <div>loading...</div> : null}
+      {loading && blogData.blogList.length >= 8 ? <div>loading...</div> : null}
       {blogData.blogList.length >= 8 ? <div ref={bottomRef} /> : null}
     </BlogWrapper>
   );

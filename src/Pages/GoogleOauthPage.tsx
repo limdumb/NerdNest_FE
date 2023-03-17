@@ -11,6 +11,7 @@ export default function GoogleOauthPage() {
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.refreshToken);
       navigate("/");
+      window.location.reload()
     });
   }, []);
   return <div>loading...</div>;
