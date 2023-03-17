@@ -8,11 +8,9 @@ export interface TitleImageUploadResponse {
 
 export const titleImageUploader = async (
   file: File,
-  accessToken: string | null
 ): Promise<TitleImageUploadResponse> => {
   const formData = new FormData();
   formData.append("image", file);
-  
   try {
     const res = await tokenInstance.post("/s3/blog", formData, {
       headers: {
@@ -25,14 +23,12 @@ export const titleImageUploader = async (
       imageFileUrl: res.data.imageFileUrl,
     };
   } catch (err) {
-    console.error(err)
     throw new Error("서버 에러가 발생했습니다.");
   }
 };
 
 export const profileImageUploader = async (
   file: File,
-  accessToken: string | null
 ) => {
   const formData = new FormData();
   formData.append("image", file);

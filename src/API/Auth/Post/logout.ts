@@ -1,5 +1,6 @@
 //토큰필요
 import { tokenInstance } from "../../Instance/Instance";
+
 export default async function logout(accessToken: string | null) {
   try {
     await tokenInstance.post("/logout").then((res) => {

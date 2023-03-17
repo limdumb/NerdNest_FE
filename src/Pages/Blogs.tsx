@@ -9,8 +9,8 @@ import { useParams } from "react-router-dom";
 import { VscFolderOpened } from "react-icons/vsc";
 import { TiPen } from "react-icons/ti";
 import { HiPlusCircle } from "react-icons/hi";
-import "./Style/blogs.css";
 import getBlogData from "../API/Blogs/Get/getBlogData";
+import "./Style/blogs.css";
 
 //추후 공용으로 뺄지는 상의예정
 export const Wrapper = styled.div`
@@ -57,6 +57,7 @@ export interface MemberType {
 }
 
 export interface BlogArrayType {
+  nextPage: boolean;
   blogList: {
     blogId: number;
     titleImageUrl: string;
@@ -68,36 +69,19 @@ export interface BlogArrayType {
   }[];
 }
 
-interface BlogType {
-  blogId: number;
-  titleImageUrl: string;
-  blogTitle: string;
-  createdAt: string;
-  modifiedAt: string;
-  commentCount: number;
-  likeCount: number;
-}
-
 const Blogs = () => {
   const params = useParams();
   const [pages, setPages] = useState<number>(1);
   const CateogryInitialValue = {
     categoryList: [{ categoryId: 0, categoryName: "" }],
   };
+
   const memberInitialValue = { profileImageUrl: "", nickName: "", about: "" };
   const blogInitialValue: BlogArrayType = {
-    blogList: [
-      {
-        blogId: 0,
-        titleImageUrl: "",
-        blogTitle: "",
-        createdAt: "",
-        modifiedAt: "",
-        commentCount: 0,
-        likeCount: 0,
-      },
-    ],
+    nextPage: true,
+    blogList: [],
   };
+
   const fetchCategoryData = useFetch<CategoryType>(
     `/category/${params.memberId}`,
     CateogryInitialValue
@@ -107,42 +91,51 @@ const Blogs = () => {
     `/members/${params.memberId}`,
     memberInitialValue
   );
+  const [activeCategoryId, setActiveCategoryId] = useState(0);
 
-  const [activeCategoryId, setActiveCategoryId] = useState("");
-  const blogData = useFetch<BlogArrayType>(
-    `/blogs/member/${params.nickName}?categoryid=${activeCategoryId}&page=${pages}`,
-    blogInitialValue
-  );
-
+  const query = new URLSearchParams(window.location.search).get("id");
   const memberId = localStorage.getItem("memberId");
   const [editActive, setEditActive] = useState<boolean>(false);
   const [isProfileEdit, setIsProfileEdit] = useState<boolean>(false);
   const [newCategory, setNewCategory] = useState<boolean>(false);
-  //랜더링을 위한 임시상태
   const [renderState, setRenderState] = useState<boolean>(false);
-  const [newBlogsData, setNewBlogsData] = useState<BlogArrayType>(
-    blogData.data
-  );
+  const [blogData, setBlogData] = useState<BlogArrayType>(blogInitialValue);
   const [categoryData, setCategoryData] = useState<CategoryType>(
     fetchCategoryData.data
   );
-  const [fetchLoading, setFetchLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const getblogDataResponse = async () => {
+    setLoading(true);
+    const response = await getBlogData({
+      pages: pages,
+      nickName: params.nickName,
+      categoryId: activeCategoryId,
+    });
+    setLoading(false);
+    const newData = [...blogData.blogList, ...response.blogList];
+    setBlogData({ blogList: newData, nextPage: response.nextPage });
+  };
 
   useEffect(() => {
-    const getBlogDataFunction = async () => {
-      const result = await getBlogData({
+    if (blogData.nextPage) {
+      getblogDataResponse();
+    }
+  }, [pages]);
+
+  useEffect(() => {
+    setPages(1);
+    const changeCategoryBlogData = async () => {
+      const response = await getBlogData({
         pages: pages,
         nickName: params.nickName,
         categoryId: activeCategoryId,
       });
-      setNewBlogsData(result as BlogArrayType);
-      setFetchLoading(false);
+      setBlogData({ blogList: response.blogList, nextPage: response.nextPage });
     };
-    if (!fetchLoading) {
-      getBlogDataFunction();
-    }
-  }, [pages, activeCategoryId]);
-
+    changeCategoryBlogData()
+  }, [query]);
+console.log(blogData)
   useEffect(() => {
     if (!fetchCategoryData.loading) {
       setCategoryData({
@@ -152,42 +145,21 @@ const Blogs = () => {
       });
     }
   }, [fetchCategoryData.data]);
-
-  const [lock, setLock] = useState<boolean>(false);
   const bottomRef = useRef(null);
-  // console.log("Outside of fetch BlogData");
-  // console.log(blogData.data.blogList);
-
-  const fetchBlogData = () => {
-    if (blogData.data.blogList.length === 0 && !fetchLoading) {
-      setLock(true);
-    } else {
-      let newBlogArr = [...newBlogsData.blogList].concat(
-        blogData && blogData.data.blogList
-      );
-      newBlogArr = newBlogArr.concat(blogData.data.blogList);
-      setNewBlogsData({ blogList: newBlogArr });
-    }
-  };
-
-  useEffect(() => {
-    if (!fetchLoading) fetchBlogData();
-  }, [pages]);
-
+  console.log(categoryData.categoryList);
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        if (lock === true) {
-          return;
-        }
         setPages(pages + 1);
       }
     });
-    if (bottomRef.current) observer.observe(bottomRef.current);
+    if (bottomRef.current) {
+      observer.observe(bottomRef.current);
+    }
     return () => {
       if (bottomRef.current) observer.unobserve(bottomRef.current);
     };
-  }, [newBlogsData]);
+  }, [blogData]);
 
   return (
     <BlogWrapper>
@@ -203,9 +175,6 @@ const Blogs = () => {
             isProfileEdit={isProfileEdit}
           />
         </MemberProfileWrapper>
-        <BlogRecordWrapper>
-          <BlogRecord />
-        </BlogRecordWrapper>
       </div>
       <div className="Blog_Information_Container">
         <CategoryWrapper>
@@ -253,10 +222,11 @@ const Blogs = () => {
           />
         </CategoryWrapper>
         <BlogPostWrapper>
-          <BlogPost blogList={blogData.data.blogList} />
+          <BlogPost blogList={blogData && blogData.blogList} nextPage={false} />
         </BlogPostWrapper>
       </div>
-      {blogData.loading ? <div ref={bottomRef}>loading...</div> : null}
+      {loading ? <div>loading...</div> : null}
+      {blogData.blogList.length >= 8 ? <div ref={bottomRef} /> : null}
     </BlogWrapper>
   );
 };

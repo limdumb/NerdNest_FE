@@ -11,7 +11,7 @@ interface State<T> {
 export default function useFetch<T>(
   endPoint: string,
   initialValue: T,
-  accessToken?: string
+  accessToken?: string,
 ) {
   const [fetchData, setFetchData] = useState<State<T>>({
     loading: true,

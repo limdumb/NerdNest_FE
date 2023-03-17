@@ -53,7 +53,7 @@ export default function MemberProfile({
                   memberEditValue.nickName.length !== 0 &&
                   memberEditValue.nickName.length > 2
                 ) {
-                  profileImageUploader(imageFile as File, accessToken);
+                  profileImageUploader(imageFile as File);
                   editMemberData({
                     nickName: memberEditValue.nickName,
                     about: memberEditValue.about,
