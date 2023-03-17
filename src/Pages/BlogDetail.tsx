@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { IoHeartCircle, IoHeartCircleOutline } from "react-icons/io5";
+import { IoHeartCircle } from "react-icons/io5";
 import AddComment from "../Components/BlogDetail/AddComment";
 import Comment from "../Components/BlogDetail/Comment";
 import TextViewer from "../Components/BlogDetail/Common/TextViewer";
