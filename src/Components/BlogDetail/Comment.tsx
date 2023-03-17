@@ -55,48 +55,52 @@ const Comment = ({
         comment.parentId === null ? (
           <div className="Comment_Wrapper" key={comment.commentId}>
             <div className="Comment_Container">
-              <ProfileImage
-                src={comment.profileImageUrl}
-                alt="memberImage"
-                onClick={() =>
-                  navigate(`/${comment.nickname}/${comment.memberId}`)
-                }
-              />
-              <CommentSpan
-                usage="write"
-                onClick={() =>
-                  navigate(`/${comment.nickname}/${comment.memberId}`)
-                }
-              >
-                {comment.nickname} :
-              </CommentSpan>
-              {isCommentEdit && idx === commentIdx ? (
-                <>
-                  <CommentInput
-                    width="30%"
-                    height="40px"
-                    marginLeft="1rem"
-                    defaultValue={comment.commentContent}
-                    onChange={(e) => setCommentValue(e.target.value)}
-                  />
-                  <CommentCommonBtn
-                    usage="edit"
-                    onClick={() => setIsCommentEdit(false)}
-                  >
-                    취소
-                  </CommentCommonBtn>
-                  <CommentCommonBtn
-                    usage="edit"
-                    onClick={() =>
-                      patchComment(comment.commentId, commentValue)
-                    }
-                  >
-                    완료
-                  </CommentCommonBtn>
-                </>
-              ) : (
-                <CommentSpan>{comment.commentContent}</CommentSpan>
-              )}
+              <div className="Comment_Profile_Container">
+                <ProfileImage
+                  src={comment.profileImageUrl}
+                  alt="memberImage"
+                  onClick={() =>
+                    navigate(`/${comment.nickname}/${comment.memberId}`)
+                  }
+                />
+                <CommentSpan
+                  usage="write"
+                  onClick={() =>
+                    navigate(`/${comment.nickname}/${comment.memberId}`)
+                  }
+                >
+                  {comment.nickname} :
+                </CommentSpan>
+              </div>
+              <div className="Comment_content_container">
+                {isCommentEdit && idx === commentIdx ? (
+                  <>
+                    <CommentInput
+                      width="30%"
+                      height="40px"
+                      marginLeft="1rem"
+                      defaultValue={comment.commentContent}
+                      onChange={(e) => setCommentValue(e.target.value)}
+                    />
+                    <CommentCommonBtn
+                      usage="edit"
+                      onClick={() => setIsCommentEdit(false)}
+                    >
+                      취소
+                    </CommentCommonBtn>
+                    <CommentCommonBtn
+                      usage="edit"
+                      onClick={() =>
+                        patchComment(comment.commentId, commentValue)
+                      }
+                    >
+                      완료
+                    </CommentCommonBtn>
+                  </>
+                ) : (
+                  <CommentSpan>{comment.commentContent}</CommentSpan>
+                )}
+              </div>
               <CommentSpan usage="date">{comment.createdAt}</CommentSpan>
               <div className="Comment_Manage_Container">
                 <button
@@ -106,7 +110,9 @@ const Comment = ({
                     setCommentIdx(idx);
                   }}
                 >
-                  {isRecomment ? "답글 취소" : "답글 달기"}
+                  {isRecomment && commentIdx === idx
+                    ? "답글 취소"
+                    : "답글 달기"}
                 </button>
                 {memberId === comment.memberId ? (
                   <>
