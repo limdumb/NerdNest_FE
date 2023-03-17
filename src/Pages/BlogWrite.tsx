@@ -54,7 +54,6 @@ const BlogWrite = () => {
   const [categoryId, setCategoryId] = useState<number>(
     categoryData.data.categoryList[0].categoryId
   );
-  const accessToken = localStorage.getItem("accessToken");
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.persist();
@@ -68,7 +67,7 @@ const BlogWrite = () => {
     if (!categoryData.loading) {
       setCategoryId(categoryData.data.categoryList[0].categoryId);
     }
-  });
+  },[]);
 
   const navigate = useNavigate();
 
@@ -114,16 +113,12 @@ const BlogWrite = () => {
           usage={"write"}
           onClick={async () => {
             if (imageFile !== null) {
-              const imageResponse = await titleImageUploader(
-                imageFile as File,
-                accessToken
-              );
+              const imageResponse = await titleImageUploader(imageFile as File);
               const blogResponse = await postBlog({
                 titleImageUrl: imageResponse.imageFileUrl,
                 blogTitle: blogData.blogTitle,
                 blogContent: blogText,
                 categoryId: categoryId,
-                accessToken: accessToken,
               });
               navigate(
                 `/${memberData.data.nickName}/${memberId}/${blogData.blogTitle}/${blogResponse}`
@@ -134,8 +129,7 @@ const BlogWrite = () => {
                 titleImageUrl: "",
                 blogTitle: blogData.blogTitle,
                 blogContent: blogText,
-                categoryId: categoryId,
-                accessToken: accessToken,
+                categoryId: categoryId
               });
               navigate(
                 `/${memberData.data.nickName}/${memberId}/${blogData.blogTitle}/${blogResponse}`

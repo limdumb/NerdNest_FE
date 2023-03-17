@@ -4,7 +4,6 @@ export interface Params {
   blogTitle: string;
   blogContent: string;
   categoryId: number | null;
-  accessToken: string | null;
   titleImageUrl: string;
 }
 

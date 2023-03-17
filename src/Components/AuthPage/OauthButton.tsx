@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const KakaoOauthButton = () => {
@@ -28,7 +27,7 @@ export const KakaoOauthButton = () => {
 export const GoogleOauthButton = () => {
   const navigate = useNavigate();
   const handleGoogleLogin = async () => {
-    const googleLoginUrl = "http://15.164.185.150:8080/oauth2/authorization/kakao"
+    const googleLoginUrl = "http://ec2-15-164-185-150.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google"
     window.location.href = googleLoginUrl
   }
   return (

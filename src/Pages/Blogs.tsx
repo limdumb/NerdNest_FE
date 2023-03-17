@@ -75,20 +75,11 @@ const Blogs = () => {
   const CateogryInitialValue = {
     categoryList: [{ categoryId: 0, categoryName: "" }],
   };
+
   const memberInitialValue = { profileImageUrl: "", nickName: "", about: "" };
   const blogInitialValue: BlogArrayType = {
     nextPage: true,
-    blogList: [
-      {
-        blogId: 0,
-        titleImageUrl: "",
-        blogTitle: "",
-        createdAt: "",
-        modifiedAt: "",
-        commentCount: 0,
-        likeCount: 0,
-      },
-    ],
+    blogList: [],
   };
 
   const fetchCategoryData = useFetch<CategoryType>(
@@ -100,43 +91,51 @@ const Blogs = () => {
     `/members/${params.memberId}`,
     memberInitialValue
   );
-
   const [activeCategoryId, setActiveCategoryId] = useState(0);
-  const blogData = useFetch<BlogArrayType>(
-    `/blogs/member/${params.nickName}?categoryid=${activeCategoryId}&page=${pages}`,
-    blogInitialValue
-  );
 
+  const query = new URLSearchParams(window.location.search).get("id");
   const memberId = localStorage.getItem("memberId");
   const [editActive, setEditActive] = useState<boolean>(false);
   const [isProfileEdit, setIsProfileEdit] = useState<boolean>(false);
   const [newCategory, setNewCategory] = useState<boolean>(false);
-  //랜더링을 위한 임시상태
   const [renderState, setRenderState] = useState<boolean>(false);
-  const [newBlogsData, setNewBlogsData] = useState<BlogArrayType>(
-    blogData.data
-  );
+  const [blogData, setBlogData] = useState<BlogArrayType>(blogInitialValue);
   const [categoryData, setCategoryData] = useState<CategoryType>(
     fetchCategoryData.data
   );
-  const [fetchLoading, setFetchLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   const getBlogDataFunction = async () => {
-  //     const result = await getBlogData({
-  //       pages: pages,
-  //       nickName: params.nickName,
-  //       categoryId: activeCategoryId,
-  //     });
-  //     setNewBlogsData(result as BlogArrayType);
-  //     setFetchLoading(false);
-  //   };
+  const getblogDataResponse = async () => {
+    setLoading(true);
+    const response = await getBlogData({
+      pages: pages,
+      nickName: params.nickName,
+      categoryId: activeCategoryId,
+    });
+    setLoading(false);
+    const newData = [...blogData.blogList, ...response.blogList];
+    setBlogData({ blogList: newData, nextPage: response.nextPage });
+  };
 
-  //   if (!fetchLoading) {
-  //     getBlogDataFunction();
-  //   }
-  // }, [pages, activeCategoryId]);
+  useEffect(() => {
+    if (blogData.nextPage) {
+      getblogDataResponse();
+    }
+  }, [pages]);
 
+  useEffect(() => {
+    setPages(1);
+    const changeCategoryBlogData = async () => {
+      const response = await getBlogData({
+        pages: pages,
+        nickName: params.nickName,
+        categoryId: activeCategoryId,
+      });
+      setBlogData({ blogList: response.blogList, nextPage: response.nextPage });
+    };
+    changeCategoryBlogData()
+  }, [query]);
+console.log(blogData)
   useEffect(() => {
     if (!fetchCategoryData.loading) {
       setCategoryData({
@@ -146,60 +145,21 @@ const Blogs = () => {
       });
     }
   }, [fetchCategoryData.data]);
-
-  const [lock, setLock] = useState<boolean>(false);
   const bottomRef = useRef(null);
-  // console.log("Outside of fetch BlogData");
-  // console.log(blogData.data.blogList);
-  const fetchBlogData = () => {
-    if (!blogData.data.nextPage && !fetchLoading) {
-      setLock(true);
-    } else {
-      let newBlogArr = [...newBlogsData.blogList].concat(
-        blogData && blogData.data.blogList
-      );
-      newBlogArr = newBlogArr.concat(blogData.data.blogList);
-      setNewBlogsData({ blogList: newBlogArr, nextPage: false });
-    }
-  };
-  /* 
-    [ Default로 1Page를 불러왔다 라는 가정 하에 코드구현 ]
-    1. 웹 페이지를 내렸을때 맨 밑을 감지한다
-    2. 감지 되었을때
-  */
-
-  useEffect(() => {
-    if (!blogData.loading) {
-      getBlogData({
-        pages: pages,
-        nickName: params.nickName,
-        categoryId: activeCategoryId,
-      });
-      setNewBlogsData({
-        blogList: blogData.data.blogList,
-        nextPage: blogData.data.nextPage,
-      });
-    }
-  }, [pages]);
-
+  console.log(categoryData.categoryList);
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        if (lock === true) {
-          return;
-        }
         setPages(pages + 1);
-        console.log("감지!");
       }
     });
     if (bottomRef.current) {
       observer.observe(bottomRef.current);
     }
-
     return () => {
       if (bottomRef.current) observer.unobserve(bottomRef.current);
     };
-  }, [newBlogsData]);
+  }, [blogData]);
 
   return (
     <BlogWrapper>
@@ -215,9 +175,6 @@ const Blogs = () => {
             isProfileEdit={isProfileEdit}
           />
         </MemberProfileWrapper>
-        <BlogRecordWrapper>
-          <BlogRecord />
-        </BlogRecordWrapper>
       </div>
       <div className="Blog_Information_Container">
         <CategoryWrapper>
@@ -265,11 +222,11 @@ const Blogs = () => {
           />
         </CategoryWrapper>
         <BlogPostWrapper>
-          <BlogPost blogList={blogData.data.blogList} nextPage={false} />
+          <BlogPost blogList={blogData && blogData.blogList} nextPage={false} />
         </BlogPostWrapper>
       </div>
-      {/* 조건 */}
-      <div ref={bottomRef}>loading...</div>
+      {loading ? <div>loading...</div> : null}
+      {blogData.blogList.length >= 8 ? <div ref={bottomRef} /> : null}
     </BlogWrapper>
   );
 };

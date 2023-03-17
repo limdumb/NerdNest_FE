@@ -137,7 +137,6 @@ const BlogWrite = () => {
               blogTitle: blogData.blogTitle,
               blogContent: blogText,
               categoryId: categoryId,
-              accessToken: accessToken,
               titleImageUrl: blogData.titleImageUrl,
             });
             navigate(

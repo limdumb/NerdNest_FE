@@ -5,6 +5,10 @@ import EventButton from "../Components/Common/EventButton";
 import { Wrapper } from "./Blogs";
 import login from "../API/Auth/Post/login";
 import { useNavigate } from "react-router-dom";
+import {
+  GoogleOauthButton,
+  KakaoOauthButton,
+} from "../Components/AuthPage/OauthButton";
 
 export const AuthContent = styled(Wrapper)`
   align-items: center;
@@ -113,10 +117,9 @@ const Login = () => {
           />
         </li>
       </AuthWriteList>
-      {/* oauth 들어올 예정 */}
       <OauthList>
-        <div></div>
-        <div></div>
+        <KakaoOauthButton />
+        <GoogleOauthButton />
       </OauthList>
       <ButtonWrapper>
         <EventButton
