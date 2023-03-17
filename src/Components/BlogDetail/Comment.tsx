@@ -110,7 +110,9 @@ const Comment = ({
                     setCommentIdx(idx);
                   }}
                 >
-                  {isRecomment ? "답글 취소" : "답글 달기"}
+                  {isRecomment && commentIdx === idx
+                    ? "답글 취소"
+                    : "답글 달기"}
                 </button>
                 {memberId === comment.memberId ? (
                   <>
