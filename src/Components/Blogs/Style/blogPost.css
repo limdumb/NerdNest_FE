@@ -9,10 +9,12 @@
 .Comment_Container {
   display: flex;
   margin-left: 10px;
+  margin-bottom: 0px;
 }
 
 .Like_Container {
   display: flex;
+  align-items: center;
 }
 
 .Blog_Post {
