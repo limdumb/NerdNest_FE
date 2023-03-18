@@ -1,18 +1,19 @@
+import useFetch from "../Custom Hook/useFetch";
+import { CategoryType, MemberType } from "./Blogs";
 import { ChangeEvent, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import EventButton from "../Components/Common/EventButton";
+import CommonInput from "../Components/Common/CommonInput";
+import TextEditor from "../Components/BlogWrite/TextEditor";
+import ImageUploader from "../Components/Common/ImageUploader";
+import editBlogPost from "../API/BlogWriteEdit/Patch/editBlogPost";
+import CategorySelect from "../Components/BlogWrite/CategorySelect";
+import { titleImageUploader } from "../API/Blogs/Post/imageUploader";
 import {
   WriteWrapper,
   ImageUploaderWrapper,
   TitleWriteWrapper,
 } from "./BlogWrite";
-import TextEditor from "../Components/BlogWrite/TextEditor";
-import CommonInput from "../Components/Common/CommonInput";
-import CategorySelect from "../Components/BlogWrite/CategorySelect";
-import EventButton from "../Components/Common/EventButton";
-import editBlogPost from "../API/BlogWriteEdit/Patch/editBlogPost";
-import { CategoryType, MemberType } from "./Blogs";
-import useFetch from "../Custom Hook/useFetch";
-import { useNavigate, useParams } from "react-router-dom";
-import ImageUploader from "../Components/Common/ImageUploader";
 import "./Style/blogWrite.css";
 
 interface ExistingDataType {
@@ -131,17 +132,31 @@ const BlogWrite = () => {
       <div className="Submit_Container">
         <EventButton
           usage={"edit"}
-          onClick={() => {
-            editBlogPost({
-              blogId: parseInt(params.blogId as string),
-              blogTitle: blogData.blogTitle,
-              blogContent: blogText,
-              categoryId: categoryId,
-              titleImageUrl: blogData.titleImageUrl,
-            });
-            navigate(
-              `/${memberData.data.nickName}/${memberId}/${blogData.blogTitle}/${params.blogId}`
-            );
+          onClick={async () => {
+            if(imageFile !== null){
+              const imageResponse = await titleImageUploader(imageFile as File)
+              editBlogPost({
+                blogId: parseInt(params.blogId as string),
+                blogTitle: blogData.blogTitle,
+                blogContent: blogText,
+                categoryId: categoryId,
+                titleImageUrl: imageResponse.imageFileUrl,
+              });
+              navigate(
+                `/${memberData.data.nickName}/${memberId}/${blogData.blogTitle}/${params.blogId}`
+              );
+            } else {
+              editBlogPost({
+                blogId: parseInt(params.blogId as string),
+                blogTitle: blogData.blogTitle,
+                blogContent: blogText,
+                categoryId: categoryId,
+                titleImageUrl: blogData.titleImageUrl,
+              });
+              navigate(
+                `/${memberData.data.nickName}/${memberId}/${blogData.blogTitle}/${params.blogId}`
+              );
+            }
           }}
         />
       </div>

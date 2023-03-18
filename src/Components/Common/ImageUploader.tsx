@@ -48,6 +48,7 @@ export default function ImageUploader(props: Props) {
       </div>
       <input
         className="Uploard_Input"
+        accept="image/jpg"
         ref={ref}
         type={"file"}
         onChange={(e) => {
