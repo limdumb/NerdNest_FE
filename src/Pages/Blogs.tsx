@@ -134,7 +134,7 @@ const Blogs = () => {
     };
     changeCategoryBlogData();
   }, [query]);
-  console.log(blogData);
+
   useEffect(() => {
     if (!fetchCategoryData.loading) {
       setCategoryData({
@@ -145,7 +145,7 @@ const Blogs = () => {
     }
   }, [fetchCategoryData.data]);
   const bottomRef = useRef(null);
-  console.log(categoryData.categoryList);
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {

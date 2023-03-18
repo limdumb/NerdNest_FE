@@ -1,12 +1,9 @@
-import login from "./login";
 import { baseInstance } from "../../Instance/Instance";
-import { NavigateFunction } from "react-router-dom";
 
 interface Params {
   email: string;
   nickName: string;
   password: string;
-  navigate: NavigateFunction;
 }
 
 export default async function signUp(params: Params) {
@@ -16,19 +13,13 @@ export default async function signUp(params: Params) {
     password: params.password,
   };
   try {
-    await baseInstance.post("/signup", request).then((res) => {
-      if (res.status === 201) {
+    const result = await baseInstance.post("/signup", request)
+      if (result.status === 201) {
         alert("회원가입이 완료 되었습니다!");
-        login({
-          email: params.email,
-          password: params.password,
-          navigate: params.navigate,
-        });
-      }
-    });
-  } catch (err) {
-    if (err) {
-      alert("정보가 잘못 되었습니다!");
-    }
+    };
+    return result.status
+  } catch (err: any) {
+    console.error(err)
+    if(err.response.status === 409) alert("중복된 이메일 입니다")
   }
 }
