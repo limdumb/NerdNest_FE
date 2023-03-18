@@ -187,11 +187,13 @@ const SignUp = () => {
               password: signUpValue.password,
             });
             if(successCode === 201){
-             login({
+             const loginSuccess = await login({
                email: signUpValue.email,
                password: signUpValue.password
              })
-             navigate("/")
+             if(loginSuccess === 200){
+              navigate("/")
+             }
             }
           }}
           disabled={allCheck}
