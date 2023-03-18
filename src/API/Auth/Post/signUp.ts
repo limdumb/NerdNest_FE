@@ -1,6 +1,4 @@
-import login from "./login";
 import { baseInstance } from "../../Instance/Instance";
-import { NavigateFunction } from "react-router-dom";
 
 interface Params {
   email: string;

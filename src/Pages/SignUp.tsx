@@ -186,14 +186,14 @@ const SignUp = () => {
               nickName: signUpValue.nickName,
               password: signUpValue.password,
             });
-            if(successCode === 201){
-             const loginSuccess = await login({
-               email: signUpValue.email,
-               password: signUpValue.password
-             })
-             if(loginSuccess === 200){
-              navigate("/")
-             }
+            if (successCode === 201) {
+              const loginSuccess = await login({
+                email: signUpValue.email,
+                password: signUpValue.password,
+              });
+              if (loginSuccess === 200) {
+                navigate("/");
+              }
             }
           }}
           disabled={allCheck}
