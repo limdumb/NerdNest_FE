@@ -10,9 +10,9 @@ import SignUp from "./Pages/SignUp";
 import styled from "styled-components";
 import AuthPage from "./Pages/AuthPage";
 import Header from "./Components/Header/Header";
-import "./App.css";
 import KakaoOauthPage from "./Pages/KaKaoOauthPage";
 import GoogleOauthPage from "./Pages/GoogleOauthPage";
+import "./App.css";
 
 const RootContainer = styled.div`
   width: 1200px;
