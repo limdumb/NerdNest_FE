@@ -125,12 +125,12 @@ const Login = () => {
         <EventButton
           usage="login"
           disabled={!emailRegex.test(loginValue.email)}
-          onClick={() => {
-            login({
+          onClick={async () => {
+            const successCode = await login({
               email: loginValue.email,
               password: loginValue.password,
-              navigate: navigate,
             });
+            if (successCode === 200) navigate("/");
           }}
         />
       </ButtonWrapper>

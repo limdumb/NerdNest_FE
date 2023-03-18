@@ -16,6 +16,7 @@ import {
   KakaoOauthButton,
 } from "../Components/AuthPage/OauthButton";
 import "./Style/signUp.css";
+import login from "../API/Auth/Post/login";
 
 interface SignUpType {
   email: string;
@@ -179,13 +180,19 @@ const SignUp = () => {
       <ButtonWrapper>
         <EventButton
           usage="signUp"
-          onClick={() => {
-            signUp({
+          onClick={async () => {
+            const successCode = await signUp({
               email: signUpValue.email,
               nickName: signUpValue.nickName,
               password: signUpValue.password,
-              navigate: navigate,
             });
+            if(successCode === 201){
+             login({
+               email: signUpValue.email,
+               password: signUpValue.password
+             })
+             navigate("/")
+            }
           }}
           disabled={allCheck}
         />
