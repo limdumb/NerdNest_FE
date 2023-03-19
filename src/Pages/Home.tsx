@@ -20,7 +20,7 @@ export interface PostProps {
 
 export interface ArrPostProps extends Array<PostProps> {}
 
-export interface GetHomeDataProps {
+export interface GetBlogDataProps {
   blogList: PostProps[];
   nextPage: boolean;
 }
@@ -45,21 +45,20 @@ const Home = () => {
     { k_name: "최신순", e_name: "newest" },
     { k_name: "내 추천", e_name: "myLike" },
   ];
-  const [blogData, setBlogData] = useState<GetHomeDataProps>({
+  const [blogData, setBlogData] = useState<GetBlogDataProps>({
     blogList: [],
     nextPage: false,
   });
   const [isSortActive, setIsSortActive] = useState(0);
   const [page, setPage] = useState(1);
   const [searchParams] = useSearchParams();
-  const [isLoading, setIsLoading] = useState(false);
   const accessToken = localStorage.getItem("accessToken");
   const navigate = useNavigate();
   const tab = searchParams.get("tab");
   const sectionRef = useRef(null);
 
   const getData = async () => {
-    const res = await getHomeData(tab, page, accessToken);
+    const res = await getHomeData(tab, page);
     setBlogData({
       blogList: [...blogData.blogList, ...res.blogList],
       nextPage: res.nextPage,
@@ -74,7 +73,7 @@ const Home = () => {
 
   useEffect(() => {
     const getTabHomeData = async () => {
-      const res = await getHomeData(tab, page, accessToken);
+      const res = await getHomeData(tab, page);
       setBlogData({ blogList: res.blogList, nextPage: res.nextPage });
     };
     getTabHomeData();

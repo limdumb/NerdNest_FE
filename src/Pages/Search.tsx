@@ -1,69 +1,79 @@
 import SearchInput from "../Components/Search/SearchInput";
-import { useEffect, useState } from "react";
-import { ArrPostProps, BlogListContainer } from "./Home";
+import { useEffect, useRef, useState } from "react";
+import { GetBlogDataProps, BlogListContainer } from "./Home";
 import BlogPost from "../Components/Common/BlogPost";
 import { useSearchParams } from "react-router-dom";
 import getSearchData from "../API/Search/Get/getSearchData";
-import useIntersectionObserver from "../Custom Hook/useIntersectionObserver";
 import "./Style/Search.css";
 
 const Search = () => {
-  const [blogList, setBlogList] = useState<ArrPostProps | null>([]);
+  const [searchData, setSearchData] = useState<GetBlogDataProps>({
+    blogList: [],
+    nextPage: false,
+  });
   const [page, setPage] = useState(1);
   const [searchParams] = useSearchParams();
-  const [isNextPage, setIsNextPage] = useState(true);
   const keyword = searchParams.get("keyword");
-  const { targetRef, isIntersecting } = useIntersectionObserver();
+  const sectionRef = useRef(null);
 
-  useEffect(() => {
-    const get = async () => {
-      const result = await getSearchData(keyword, page);
-      setBlogList(result.blogList);
-    };
-    get();
-  }, []);
-
-  const intersectCallback = () => {
-    if (isIntersecting) {
-      setPage((page) => page + 1);
-    }
+  const getData = async () => {
+    const res = await getSearchData(keyword, page);
+    setSearchData({
+      blogList: [...searchData.blogList, ...res.blogList],
+      nextPage: res.nextPage,
+    });
   };
 
   useEffect(() => {
-    intersectCallback();
-  }, [isIntersecting]);
+    if (keyword !== null) {
+      const getTabHomeData = async () => {
+        const res = await getSearchData(keyword, page);
+        setSearchData({ blogList: res.blogList, nextPage: res.nextPage });
+      };
+      getTabHomeData();
+    }
+  }, [keyword]);
 
   useEffect(() => {
-    if (isIntersecting) {
-      const get = async () => {
-        if (isNextPage) {
-          const result = await getSearchData(keyword, page);
-          if (!result.nextPage) {
-            setIsNextPage(false);
-            console.log("요청");
-          }
-          setBlogList((prev) => prev!.concat(result.blogList));
-        }
-      };
-      get();
-    }
+    if (searchData.nextPage) getData();
   }, [page]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((page) => page + 1);
+        }
+      },
+      { threshold: 1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => {
+      observer.disconnect();
+    };
+  }, [searchData.nextPage]);
 
   return (
     <>
       <div className="Search_Wrapper">
         <div className="Search_Container">
-          {<SearchInput keyword={keyword} />}
+          {<SearchInput keyword={keyword} blogList={searchData.blogList} />}
+          {searchData.blogList.length > 0 ? (
+            <div className="Search_Result_Container">
+              "{keyword}"에 대한 {searchData.blogList.length}개의 검색
+              결과입니다.
+            </div>
+          ) : null}
           <BlogListContainer>
-            {blogList &&
-              blogList.map((post) => (
+            {searchData &&
+              searchData.blogList.map((post) => (
                 <BlogPost key={post.blogId} post={post} />
               ))}
           </BlogListContainer>
         </div>
       </div>
-      {isNextPage ? (
-        <div className="Home_Loading_Container" ref={targetRef}>
+      {searchData.nextPage ? (
+        <div className="Home_Loading_Container" ref={sectionRef}>
           Loading...
         </div>
       ) : null}

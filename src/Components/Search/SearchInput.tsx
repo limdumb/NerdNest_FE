@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { ArrPostProps } from "../../Pages/Home";
 
-const SearchInput = ({ keyword }: { keyword: string | null }) => {
+const SearchInput = ({
+  keyword,
+  blogList,
+}: {
+  keyword: string | null;
+  blogList: ArrPostProps;
+}) => {
   const [searchValue, setSerachValue] = useState("");
   const [isSearch, setIsSearch] = useState(false);
   const navigate = useNavigate();
@@ -38,11 +45,6 @@ const SearchInput = ({ keyword }: { keyword: string | null }) => {
           placeholder="검색어를 입력하세요."
         />
       </div>
-      {isSearch || searchValue !== "" ? (
-        <div className="Search_Result_Container">
-          "{keyword}"에 대한 몇개의 검색 결과입니다.
-        </div>
-      ) : null}
     </>
   );
 };
