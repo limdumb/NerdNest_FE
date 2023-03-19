@@ -12,8 +12,8 @@ const Search = () => {
   const [page, setPage] = useState(1);
   const [searchParams] = useSearchParams();
   const [isNextPage, setIsNextPage] = useState(true);
-  const keyword = searchParams.get("keyword");
   const { targetRef, isIntersecting } = useIntersectionObserver();
+  const keyword = searchParams.get("keyword");
 
   useEffect(() => {
     const get = async () => {
