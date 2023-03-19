@@ -88,7 +88,12 @@ const BlogDetail = () => {
           {blogData && userMemberId === Number(memberId) ? (
             <div className="Blog_Detail_Title_Manage">
               <button onClick={() => navigate(`/edit/${blogId}`)}>수정</button>
-              <button onClick={() => deleteBlogPost(Number(blogId))}>
+              <button
+                onClick={() => {
+                  deleteBlogPost(Number(blogId));
+                  navigate('/');
+                }}
+              >
                 삭제
               </button>
             </div>
