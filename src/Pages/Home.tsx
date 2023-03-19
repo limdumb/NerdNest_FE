@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import getHomeData from "../API/Home/Get/getHomeData";
 import BlogPost from "../Components/Common/BlogPost";
-import useIntersectionObserver from "../Custom Hook/useIntersectionObserver";
 import "./Style/Home.css";
 
 export interface PostProps {
@@ -46,49 +45,55 @@ const Home = () => {
     { k_name: "최신순", e_name: "newest" },
     { k_name: "내 추천", e_name: "myLike" },
   ];
-  const [blogList, setBlogList] = useState<ArrPostProps | null>([]);
+  const [blogData, setBlogData] = useState<GetHomeDataProps>({
+    blogList: [],
+    nextPage: false,
+  });
   const [isSortActive, setIsSortActive] = useState(0);
   const [page, setPage] = useState(1);
   const [searchParams] = useSearchParams();
-  const [isNextPage, setIsNextPage] = useState(true);
-  const tab = searchParams.get("tab");
+  const [isLoading, setIsLoading] = useState(false);
   const accessToken = localStorage.getItem("accessToken");
-  const { targetRef, isIntersecting } = useIntersectionObserver();
   const navigate = useNavigate();
+  const tab = searchParams.get("tab");
+  const sectionRef = useRef(null);
 
-  useEffect(() => {
-    const get = async () => {
-      const result = await getHomeData(tab, page, accessToken);
-      setBlogList(result.blogList);
-      setIsNextPage(result.nextPage);
-    };
-    get();
-  }, [tab]);
-
-  const intersectCallback = () => {
-    if (isIntersecting) {
-      setPage((page) => page + 1);
-    }
+  const getData = async () => {
+    const res = await getHomeData(tab, page, accessToken);
+    setBlogData({
+      blogList: [...blogData.blogList, ...res.blogList],
+      nextPage: res.nextPage,
+    });
   };
 
   useEffect(() => {
-    intersectCallback();
-  }, [isIntersecting]);
-
-  useEffect(() => {
-    if (isIntersecting) {
-      const get = async () => {
-        if (isNextPage) {
-          const result = await getHomeData(tab, page, accessToken);
-          if (!result.nextPage) {
-            setIsNextPage(result.nextPage);
-          }
-          setBlogList((prev) => prev!.concat(result.blogList));
-        }
-      };
-      get();
+    if (blogData.nextPage) {
+      getData();
     }
   }, [page]);
+
+  useEffect(() => {
+    const getTabHomeData = async () => {
+      const res = await getHomeData(tab, page, accessToken);
+      setBlogData({ blogList: res.blogList, nextPage: res.nextPage });
+    };
+    getTabHomeData();
+  }, [tab]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((page) => page + 1);
+        }
+      },
+      { threshold: 1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => {
+      observer.disconnect();
+    };
+  }, [blogData.nextPage]);
 
   return (
     <>
@@ -101,7 +106,6 @@ const Home = () => {
                 borderBtm={idx === isSortActive}
                 onClick={() => {
                   setPage(1);
-                  setIsNextPage(true);
                   if (idx === 2) {
                     if (accessToken) {
                       navigate(`?tab=${sort.e_name}`);
@@ -120,19 +124,21 @@ const Home = () => {
             ))}
           </ul>
           <BlogListContainer>
-            {blogList && blogList.length !== 0
-              ? blogList.map((post) => (
+            {blogData && blogData.blogList.length !== 0
+              ? blogData.blogList.map((post) => (
                   <BlogPost key={post.blogId} post={post} />
                 ))
               : null}
           </BlogListContainer>
         </div>
       </section>
-      {isNextPage ? (
-        <div className="Home_Loading_Container" ref={targetRef}>
-          Loading...
-        </div>
-      ) : null}
+      <div>
+        {blogData.nextPage ? (
+          <div className="Home_Loading_Container" ref={sectionRef}>
+            Loading...
+          </div>
+        ) : null}
+      </div>
     </>
   );
 };
