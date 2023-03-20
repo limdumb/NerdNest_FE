@@ -13,6 +13,7 @@ import Header from "./Components/Header/Header";
 import KakaoOauthPage from "./Pages/KaKaoOauthPage";
 import GoogleOauthPage from "./Pages/GoogleOauthPage";
 import "./App.css";
+import InvalidPage from "./Components/Common/InvalidPage";
 
 const RootContainer = styled.div`
   width: 1200px;
@@ -42,6 +43,7 @@ function App() {
               element={<BlogDetail />}
             />
             <Route path="/search" element={<Search />} />
+            <Route path="*" element={<InvalidPage />} />
           </Routes>
         </RootContainer>
       </BrowserRouter>
