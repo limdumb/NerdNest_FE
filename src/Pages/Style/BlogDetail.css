@@ -74,6 +74,11 @@
   margin-bottom: 0.5rem;
 }
 
+.Comment_Profile_Container {
+  display: flex;
+  align-items: center;
+}
+
 .Comment_Manage_Container {
   display: flex;
   align-items: center;
@@ -85,6 +90,13 @@
   font-size: var(--font-md);
   margin-left: 0.5rem;
   cursor: pointer;
+}
+
+.Comment_content_container {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  width: 800px;
 }
 
 .Comment_Input_Container {
@@ -109,8 +121,8 @@
   align-items: center;
   width: 100%;
   margin-top: 0.5rem;
-  padding-left: 6.5rem;
-  padding-bottom: 1.5rem;
+  padding-left: 5rem;
+  padding-bottom: 1rem;
 }
 
 .Recomment_Btn {

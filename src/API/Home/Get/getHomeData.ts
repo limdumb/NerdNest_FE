@@ -1,13 +1,12 @@
-import { GetHomeDataProps } from "../../../Pages/Home";
-import { baseInstance } from "../../Instance/Instance";
+import { GetBlogDataProps } from "../../../Pages/Home";
+import { baseInstance, tokenInstance } from "../../Instance/Instance";
 
 export default function getHomeData(
   tab: string | null,
   page: number,
-  accessToken?: string | null
-): Promise<GetHomeDataProps> {
+): Promise<GetBlogDataProps> {
   return new Promise(async (resolve, reject) => {
-    let result: GetHomeDataProps = { blogList: [], nextPage: false };
+    let result: GetBlogDataProps = { blogList: [], nextPage: false };
     try {
       if (tab === null) {
         const getHomeData = await baseInstance(
@@ -16,8 +15,7 @@ export default function getHomeData(
         result = getHomeData.data;
       }
       if (tab === "myLike") {
-        baseInstance.defaults.headers.common["Authorization"] = accessToken;
-        const getHomeData = await baseInstance(
+        const getHomeData = await tokenInstance(
           `/home/blogs/mylikes?page=${page}`
         );
         result = getHomeData.data;
