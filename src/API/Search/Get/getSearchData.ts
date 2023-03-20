@@ -1,12 +1,12 @@
-import { GetHomeDataProps } from "../../../Pages/Home";
+import { GetBlogDataProps } from "../../../Pages/Home";
 import { baseInstance } from "../../Instance/Instance";
 
 export default function getSearchData(
   keyword: string | null,
   page: number
-): Promise<GetHomeDataProps> {
+): Promise<GetBlogDataProps> {
   return new Promise(async (resolve, reject) => {
-    let result: GetHomeDataProps = { blogList: [], nextPage: false };
+    let result: GetBlogDataProps = { blogList: [], nextPage: false };
     try {
       const getSearchData = await baseInstance(
         `/search?keyword=${keyword}&page=${page}`

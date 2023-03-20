@@ -37,8 +37,6 @@ export default function MemberProfile({
     nickName = e.target.value;
     about = e.target.value;
   };
-
-  const accessToken = localStorage.getItem("accessToken");
   const navigate = useNavigate();
   
   return (
