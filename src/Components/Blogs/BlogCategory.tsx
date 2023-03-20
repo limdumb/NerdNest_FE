@@ -34,10 +34,6 @@ export default function BlogCategory({
   const [categoryValue, setCategoryValue] = useState<string>("");
   const [nameEditCheck, setNameEditCheck] = useState<boolean>(false);
   const [categoryIndex, setCategoryIndex] = useState(0);
-  const lastCategoryId =
-    categoryList.length !== 0
-      ? categoryList[categoryList.length - 1].categoryId + 1
-      : 0;
 
   const addCategoryHandler = (categoryId: number) => {
     if (categoryValue !== "전체") {
@@ -173,9 +169,9 @@ export default function BlogCategory({
             />
             <button
               className="Category_Submit_Button"
-              onClick={() => {
-                createCategory(categoryValue);
-                addCategoryHandler(lastCategoryId);
+              onClick={async () => {
+                const categoryId = await createCategory(categoryValue);
+                addCategoryHandler(categoryId as number);
               }}
             >
               확인

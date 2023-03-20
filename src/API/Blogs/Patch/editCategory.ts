@@ -8,7 +8,7 @@ export default async function editCategory(
     await tokenInstance
       .patch(`category/${categoryId}`, { categoryName: categoryName })
       .then((res) => {
-        if (res.data.code === 200) {
+        if (res.status === 200) {
           alert("카테고리가 수정 되었습니다!");
         }
       });
