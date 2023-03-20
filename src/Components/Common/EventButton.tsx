@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes } from "react";
 import styled from "styled-components";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  usage: "login" | "signUp" | "write" | "edit";
+  usage: string;
 }
 
 const CommonButton = styled.button<ButtonProps>`
@@ -52,7 +52,9 @@ export default function EventButton(props: ButtonProps) {
         ? "수정"
         : props.usage === "signUp"
         ? "회원가입"
-        : "작성"}
+        : props.usage === "write"
+        ? "작성"
+        : props.usage}
     </CommonButton>
   );
 }
