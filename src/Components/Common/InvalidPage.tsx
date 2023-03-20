@@ -23,8 +23,8 @@ const InvalidPage = () => {
           <p>이용에 불편을 드려 죄송합니다.</p>
         </div>
         <div className="InvalidPage_Btn_Container">
-          <EventButton usage="이전" onClick={() => navigate(-1)} />
-          <EventButton usage="홈" onClick={() => navigate("/")} />
+          <EventButton usage="이전으로" onClick={() => navigate(-1)} />
+          <EventButton usage="홈으로" onClick={() => navigate("/")} />
         </div>
       </div>
     </div>
