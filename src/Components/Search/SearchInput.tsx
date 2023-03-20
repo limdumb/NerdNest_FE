@@ -1,17 +1,9 @@
 import React, { useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import { ArrPostProps } from "../../Pages/Home";
 
-const SearchInput = ({
-  keyword,
-  blogList,
-}: {
-  keyword: string | null;
-  blogList: ArrPostProps;
-}) => {
+const SearchInput = () => {
   const [searchValue, setSerachValue] = useState("");
-  const [isSearch, setIsSearch] = useState(false);
   const navigate = useNavigate();
 
   const handleSearchValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +19,6 @@ const SearchInput = ({
       if (searchValue === "") {
         alert("검색어를 입력해주세요.");
       } else {
-        setIsSearch(true);
         navigate(`/search?keyword=${searchValue}`);
       }
     }

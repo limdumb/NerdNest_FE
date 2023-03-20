@@ -15,7 +15,7 @@ const CommonButton = styled.button<ButtonProps>`
       ? "160px"
       : props.usage === "write"
       ? "80px"
-      : "80px"};
+      : "120px"};
   height: 41px;
   border-radius: 15px;
   font-size: 18px;

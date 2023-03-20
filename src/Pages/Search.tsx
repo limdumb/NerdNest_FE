@@ -5,6 +5,7 @@ import BlogPost from "../Components/Common/BlogPost";
 import { useSearchParams } from "react-router-dom";
 import getSearchData from "../API/Search/Get/getSearchData";
 import "./Style/Search.css";
+import InvalidBlog from "../Components/Common/InvalidBlog";
 
 const Search = () => {
   const [searchData, setSearchData] = useState<GetBlogDataProps>({
@@ -13,22 +14,27 @@ const Search = () => {
   });
   const [page, setPage] = useState(1);
   const [searchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
   const keyword = searchParams.get("keyword");
   const sectionRef = useRef(null);
 
   const getData = async () => {
+    setIsLoading(true);
     const res = await getSearchData(keyword, page);
     setSearchData({
       blogList: [...searchData.blogList, ...res.blogList],
       nextPage: res.nextPage,
     });
+    setIsLoading(false);
   };
 
   useEffect(() => {
     if (keyword !== null) {
+      setIsLoading(true);
       const getTabHomeData = async () => {
         const res = await getSearchData(keyword, page);
         setSearchData({ blogList: res.blogList, nextPage: res.nextPage });
+        setIsLoading(false);
       };
       getTabHomeData();
     }
@@ -57,7 +63,7 @@ const Search = () => {
     <>
       <div className="Search_Wrapper">
         <div className="Search_Container">
-          {<SearchInput keyword={keyword} blogList={searchData.blogList} />}
+          {<SearchInput />}
           {searchData.blogList.length > 0 ? (
             <div className="Search_Result_Container">
               "{keyword}"에 대한 {searchData.blogList.length}개의 검색
@@ -69,6 +75,9 @@ const Search = () => {
               searchData.blogList.map((post) => (
                 <BlogPost key={post.blogId} post={post} />
               ))}
+            {isLoading && searchData.blogList.length === 0 ? (
+              <InvalidBlog />
+            ) : null}
           </BlogListContainer>
         </div>
       </div>
