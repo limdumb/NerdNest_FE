@@ -2,7 +2,7 @@ import { useState } from "react";
 import { RxTriangleDown } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
 import logout from "../../API/Auth/Post/logout";
-import "../Style/DropDownTab.css";
+import "./Style/DropDownTab.css";
 
 const DropDownTab = ({
   memberId,

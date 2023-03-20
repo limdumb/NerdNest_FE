@@ -5,7 +5,7 @@ import styled from "styled-components";
 import DropDownTab from "./DropDownTab";
 import { useCallback, useEffect, useState } from "react";
 import { baseInstance } from "../../API/Instance/Instance";
-import "../Style/Header.css";
+import "./Style/Header.css";
 
 export const ProfileImage = styled.img`
   width: 35px;
@@ -54,7 +54,9 @@ export default function Header() {
     <header className="Header_Wrapper">
       <div className="Header_Container">
         <Link to="/">
-          <div className="Header_LogoContainer" />
+          <div className="Header_LogoContainer">
+            <img src={process.env.PUBLIC_URL + "/HeaderLogo.svg"} />
+          </div>
         </Link>
         <div
           className={
