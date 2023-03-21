@@ -133,8 +133,8 @@ const BlogWrite = () => {
         <EventButton
           usage={"edit"}
           onClick={async () => {
-            if(imageFile !== null){
-              const imageResponse = await titleImageUploader(imageFile as File)
+            if (imageFile !== null) {
+              const imageResponse = await titleImageUploader(imageFile as File);
               editBlogPost({
                 blogId: parseInt(params.blogId as string),
                 blogTitle: blogData.blogTitle,

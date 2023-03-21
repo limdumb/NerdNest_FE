@@ -21,7 +21,7 @@
   cursor: pointer;
 }
 
-.Like_Comment_Contetns{
+.Like_Comment_Contetns {
   display: flex;
   align-items: center;
   margin-right: 4px;
@@ -29,7 +29,7 @@
   font-weight: var(--fw-bold);
 }
 
-.None_Blog_List_Container{
+.None_Blog_List_Container {
   display: flex;
   flex-direction: column;
   align-items: center;

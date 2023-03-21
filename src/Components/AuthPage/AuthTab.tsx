@@ -8,8 +8,6 @@ const TabLinkList = styled.li`
 `;
 
 export default function AuthTab() {
-  const [isTabActive, setIsTabActive] = useState(1);
-
   const AuthArr = [
     {
       tabTitle: "로그인",
@@ -26,11 +24,7 @@ export default function AuthTab() {
       {AuthArr.map((el, index) => {
         return (
           <Link key={index} to={el.tabNavigate}>
-            <TabLinkList
-              onClick={() => setIsTabActive(index)}
-            >
-              {el.tabTitle}
-            </TabLinkList>
+            <TabLinkList>{el.tabTitle}</TabLinkList>
           </Link>
         );
       })}

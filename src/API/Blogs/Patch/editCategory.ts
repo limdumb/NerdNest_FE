@@ -2,7 +2,7 @@ import { tokenInstance } from "../../Instance/Instance";
 
 export default async function editCategory(
   categoryId: number,
-  categoryName: string,
+  categoryName: string
 ) {
   try {
     await tokenInstance

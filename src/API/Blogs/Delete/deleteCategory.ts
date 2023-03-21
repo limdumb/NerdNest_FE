@@ -2,7 +2,7 @@ import { tokenInstance } from "../../Instance/Instance";
 
 export default async function deleteCategory(
   categoryId: number,
-  categoryName: string,
+  categoryName: string
 ) {
   try {
     await tokenInstance.delete(`/category/${categoryId}`).then((res) => {

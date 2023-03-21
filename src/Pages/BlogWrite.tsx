@@ -70,7 +70,7 @@ const BlogWrite = () => {
   }, []);
 
   const navigate = useNavigate();
-console.log()
+  console.log();
   return (
     <WriteWrapper>
       <ImageUploaderWrapper>

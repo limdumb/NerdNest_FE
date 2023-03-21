@@ -17,14 +17,16 @@ export default async function login(params: Params) {
     password: params.password,
   };
   try {
-    const result = await baseInstance
-      .post<LoginResponseType>("/login", request)
-      if(result.status === 200){
-        localStorage.setItem("memberId", `${result.data.memberId}`);
-        localStorage.setItem("accessToken", result.data.accessToken);
-        localStorage.setItem("refreshToken", result.data.refreshToken);
-      }
-      return result.status
+    const result = await baseInstance.post<LoginResponseType>(
+      "/login",
+      request
+    );
+    if (result.status === 200) {
+      localStorage.setItem("memberId", `${result.data.memberId}`);
+      localStorage.setItem("accessToken", result.data.accessToken);
+      localStorage.setItem("refreshToken", result.data.refreshToken);
+    }
+    return result.status;
   } catch (err: any) {
     if (err.response.data.status === 401) {
       alert("로그인 정보가 잘못 되었습니다!");

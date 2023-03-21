@@ -7,11 +7,11 @@ interface EditParams extends Params {
 
 export default async function editBlogPost(params: EditParams) {
   const request = {
-    blogId:params.blogId,
+    blogId: params.blogId,
     blogTitle: params.blogTitle,
     blogContent: params.blogContent,
     categoryId: params.categoryId,
-    titleImageUrl: params.titleImageUrl
+    titleImageUrl: params.titleImageUrl,
   };
   try {
     const response = await tokenInstance.patch(
