@@ -27,10 +27,10 @@ baseInstance.interceptors.response.use(
   async (error) => {
     if (error.response.data.message === "Access Token Expiration") {
       const originalRequest = error.config;
-      const res = await axios.post("http://15.164.185.150:8080/reissue", "",{
+      const res = await axios.post("http://15.164.185.150:8080/reissue", "", {
         headers: {
           Refresh: refrashToken,
-        }
+        },
       });
       if (res.status === 200) {
         const newAccessToken = res.data.accessToken;
@@ -39,7 +39,7 @@ baseInstance.interceptors.response.use(
         localStorage.setItem("accessToken", newAccessToken);
         localStorage.setItem("memberId", res.data.memberId);
         localStorage.setItem("refrashToken", res.data.refrashToken);
-        return axios(originalRequest); // 반환된 처리를 다시진행하게 만드는것
+        return axios(originalRequest);
       }
     }
     return Promise.reject(error);
@@ -56,7 +56,7 @@ tokenInstance.interceptors.response.use(
       const res = await axios.post("http://15.164.185.150:8080/reissue", "", {
         headers: {
           Refresh: refrashToken,
-        }
+        },
       });
       if (res.status === 200) {
         const newAccessToken = res.data.accessToken;
@@ -65,7 +65,7 @@ tokenInstance.interceptors.response.use(
         localStorage.setItem("accessToken", newAccessToken);
         localStorage.setItem("memberId", res.data.memberId);
         localStorage.setItem("refrashToken", res.data.refrashToken);
-        return axios(originalRequest); // 반환된 처리를 다시진행하게 만드는것
+        return axios(originalRequest);
       }
     }
     return Promise.reject(error);

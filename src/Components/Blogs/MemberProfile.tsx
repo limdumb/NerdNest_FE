@@ -38,7 +38,7 @@ export default function MemberProfile({
     about = e.target.value;
   };
   const navigate = useNavigate();
-  
+
   return (
     <>
       <div>
@@ -46,22 +46,25 @@ export default function MemberProfile({
           isProfileEdit ? (
             <TiPen
               className="Member_Profile_Edit"
-              onClick={() => {
+              onClick={async () => {
                 if (
                   memberEditValue.nickName.length !== 0 &&
                   memberEditValue.nickName.length > 2
                 ) {
                   profileImageUploader(imageFile as File);
-                  editMemberData({
+                  const successCode = await editMemberData({
                     nickName: memberEditValue.nickName,
                     about: memberEditValue.about,
                     memberId: parseInt(memberId),
-                    navigate: navigate,
                     categoryId: parseInt(params.categoryId as string),
-                    categoryName: params.categoryName as string
+                    categoryName: params.categoryName as string,
                   });
-                  setIsProfileEdit(!isProfileEdit);
-                  console.log(profileImageUrl)
+                  if (successCode === 200) {
+                    navigate(`/${memberEditValue.nickName}/${memberId}`);
+                    alert("프로필이 변경 되었습니다.");
+                    window.location.reload();
+                    setIsProfileEdit(!isProfileEdit);
+                  }
                 } else {
                   alert("닉네임을 입력해주세요!");
                 }

@@ -18,7 +18,7 @@ interface InputProps {
 
 interface Props extends InputProps {
   label?: "닉네임" | "H1" | "비밀번호 확인" | "비밀번호";
-  name?: string
+  name?: string;
 }
 
 const Input = styled.input<InputProps>`
@@ -36,9 +36,7 @@ export default function CommonInput(props: Props) {
   return (
     <div className="Input_Container">
       <label className="Input_Label">
-        {props.type === "email"
-          ? "이메일"
-          : props.label}
+        {props.type === "email" ? "이메일" : props.label}
       </label>
       <Input
         name={props.name}

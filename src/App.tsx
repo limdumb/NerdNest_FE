@@ -12,8 +12,8 @@ import AuthPage from "./Pages/AuthPage";
 import Header from "./Components/Header/Header";
 import KakaoOauthPage from "./Pages/KaKaoOauthPage";
 import GoogleOauthPage from "./Pages/GoogleOauthPage";
-import "./App.css";
 import InvalidPage from "./Components/Common/InvalidPage";
+import "./App.css";
 
 const RootContainer = styled.div`
   width: 1200px;

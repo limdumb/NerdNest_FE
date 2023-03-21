@@ -7,7 +7,7 @@ export interface TitleImageUploadResponse {
 }
 
 export const titleImageUploader = async (
-  file: File,
+  file: File
 ): Promise<TitleImageUploadResponse> => {
   const formData = new FormData();
   formData.append("image", file);
@@ -27,9 +27,7 @@ export const titleImageUploader = async (
   }
 };
 
-export const profileImageUploader = async (
-  file: File,
-) => {
+export const profileImageUploader = async (file: File) => {
   const formData = new FormData();
   formData.append("image", file);
   if (file) {

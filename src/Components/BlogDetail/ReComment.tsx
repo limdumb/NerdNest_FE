@@ -11,7 +11,6 @@ import { CommentCommonBtn, CommentSpan } from "./Common/Styled/CommentStyled";
 const ReComment = ({
   commentList,
   parentId,
-  accessToken,
 }: {
   commentList: CommentListProps;
   parentId: number;
