@@ -64,14 +64,14 @@
 
 /* Comment */
 .Comment_Wrapper {
-  border-bottom: 1px solid var(--blue-300);
-  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--fc-500);
+  padding: 1rem 0;
 }
 
-.Comment_Container {
+.Comment_Box {
   display: flex;
   align-items: center;
-  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .Comment_Profile_Container {
@@ -92,11 +92,11 @@
   cursor: pointer;
 }
 
-.Comment_content_container {
+.Comment_Content_Container {
   display: flex;
   align-items: center;
-  margin-left: 10px;
-  width: 800px;
+  margin: 1rem 0;
+  word-break: break-all;
 }
 
 .Comment_Input_Container {
@@ -119,19 +119,5 @@
 .ReComment_Container {
   display: flex;
   align-items: center;
-  width: 100%;
-  margin-top: 0.5rem;
   padding-left: 5rem;
-  padding-bottom: 1rem;
-}
-
-.Recomment_Btn {
-  position: relative;
-  bottom: 1.3rem;
-  left: 33.2rem;
-  width: 60px;
-  height: 30px;
-  background-color: var(--blue-200);
-  color: var(--fc-300);
-  border-radius: var(--br-m);
 }
