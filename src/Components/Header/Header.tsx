@@ -24,24 +24,22 @@ export default function Header() {
   const { profileImageUrl, nickName } = profileData;
   const navigate = useNavigate();
 
-  const getProfileCallback = useCallback(() => {
-    const getPropfileData = async () => {
-      await baseInstance
-        .get(`/members/${memberId}`)
-        .then((res) => {
-          setProfileData({
-            profileImageUrl: res.data.profileImageUrl,
-            nickName: res.data.nickName,
-          });
-        })
-        .catch((err) => console.error(err));
-    };
-    getPropfileData();
-  }, [profileData]);
-
   useEffect(() => {
-    if (memberId) getProfileCallback();
-  }, []);
+    if (memberId) {
+      const getPropfileData = async () => {
+        await baseInstance
+          .get(`/members/${memberId}`)
+          .then((res) => {
+            setProfileData({
+              profileImageUrl: res.data.profileImageUrl,
+              nickName: res.data.nickName,
+            });
+          })
+          .catch((err) => console.error(err));
+      };
+      getPropfileData();
+    }
+  }, [memberId]);
 
   const handleWrite = () => {
     if (memberId) navigate(`write`);
