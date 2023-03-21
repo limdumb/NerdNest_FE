@@ -21,11 +21,9 @@ export default function ImageUploader(props: Props) {
   const ref = useRef<HTMLInputElement | null>(null);
   const imageUploadHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedImage = e.target.files && e.target.files[0];
-    //10MB제한
     if (e.target.files && e.target.files[0].size > 10485760) {
       alert("이미지 파일의 크기는 10Mb입니다!");
     }
-    // image정보가 있다면
     if (selectedImage) {
       setPreviewImage(
         URL.createObjectURL(e.target.files && (e.target.files[0] as any))

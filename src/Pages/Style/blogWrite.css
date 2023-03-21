@@ -1,20 +1,20 @@
-.Text_Editor_Container{
- margin-bottom: 40px; 
+.Text_Editor_Container {
+  margin-bottom: 40px;
 }
 
-.Editor_Label{
+.Editor_Label {
   margin-bottom: 5px;
   font-size: 15px;
   font-weight: var(--fw-bold);
 }
 
-.Category_Container{
+.Category_Container {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
 }
 
-.Submit_Container{
+.Submit_Container {
   margin-top: 20px;
   display: flex;
   justify-content: flex-end;

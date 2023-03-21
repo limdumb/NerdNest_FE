@@ -91,7 +91,7 @@ const BlogDetail = () => {
               <button
                 onClick={() => {
                   deleteBlogPost(Number(blogId));
-                  navigate('/');
+                  navigate("/");
                 }}
               >
                 삭제

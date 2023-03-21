@@ -5,10 +5,12 @@ export default async function createCategory(categoryName: string) {
   if (categoryName.length !== 0) {
     if (categoryName !== "전체") {
       try {
-        const response:AxiosResponse<{ categoryId: number; categoryName: string }> =
-          await tokenInstance.post("/category", {
-            categoryName: categoryName,
-          });
+        const response: AxiosResponse<{
+          categoryId: number;
+          categoryName: string;
+        }> = await tokenInstance.post("/category", {
+          categoryName: categoryName,
+        });
 
         if (response.status === 201) {
           alert("카테고리가 생성 되었습니다.");

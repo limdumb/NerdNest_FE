@@ -3,7 +3,7 @@ import { baseInstance, tokenInstance } from "../../Instance/Instance";
 
 export default function getHomeData(
   tab: string | null,
-  page: number,
+  page: number
 ): Promise<GetBlogDataProps> {
   return new Promise(async (resolve, reject) => {
     let result: GetBlogDataProps = { blogList: [], nextPage: false };

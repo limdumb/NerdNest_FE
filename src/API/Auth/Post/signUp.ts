@@ -13,13 +13,13 @@ export default async function signUp(params: Params) {
     password: params.password,
   };
   try {
-    const result = await baseInstance.post("/signup", request)
-      if (result.status === 201) {
-        alert("회원가입이 완료 되었습니다!");
-    };
-    return result.status
+    const result = await baseInstance.post("/signup", request);
+    if (result.status === 201) {
+      alert("회원가입이 완료 되었습니다!");
+    }
+    return result.status;
   } catch (err: any) {
-    console.error(err)
-    if(err.response.status === 409) alert("중복된 이메일 입니다")
+    console.error(err);
+    if (err.response.status === 409) alert("중복된 이메일 입니다");
   }
 }

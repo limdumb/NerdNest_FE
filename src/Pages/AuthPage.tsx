@@ -14,7 +14,10 @@ const Container = styled.div`
 export default function AuthPage() {
   return (
     <Container>
-      <img className="Auth_Logo_Image" src={process.env.PUBLIC_URL + "/LoginLogo.svg"} />
+      <img
+        className="Auth_Logo_Image"
+        src={process.env.PUBLIC_URL + "/LoginLogo.svg"}
+      />
       <div className="Auth_Tab_Container">
         <AuthTab />
       </div>

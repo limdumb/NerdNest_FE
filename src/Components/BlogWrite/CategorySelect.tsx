@@ -10,7 +10,7 @@ interface Props {
 
 export default function CategorySelect(props: Props) {
   const ChoiceCategoryHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value)
+    console.log(e.target.value);
     props.setCategoryId(parseInt(e.target.value));
   };
 
