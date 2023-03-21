@@ -27,41 +27,45 @@ const ReComment = ({
         recommentList.children.map((recomment, idx) =>
           recomment.parentId === parentId ? (
             <div className="ReComment_Container" key={recomment.commentId}>
-              <CommentSpan
-                usage="write"
-                onClick={() =>
-                  navigate(`/${recomment.nickname}/${recomment.memberId}`)
-                }
-              >
-                ⌙ {recomment.nickname}:
-              </CommentSpan>
-              {isEditRecomment && recommentIdx === idx ? (
-                <>
-                  <CommentInput
-                    width="30%"
-                    height="40px"
-                    marginLeft="1rem"
-                    defaultValue={recomment.commentContent}
-                    onChange={(e) => setEditRecomment(e.target.value)}
-                  />
-                  <CommentCommonBtn
-                    usage="edit"
-                    onClick={() => setIsEditRecomment(false)}
-                  >
-                    취소
-                  </CommentCommonBtn>
-                  <CommentCommonBtn
-                    usage="edit"
-                    onClick={() =>
-                      patchComment(recomment.commentId, editRecomment)
-                    }
-                  >
-                    완료
-                  </CommentCommonBtn>
-                </>
-              ) : (
-                <CommentSpan>{recomment.commentContent}</CommentSpan>
-              )}
+              <div className="Comment_Profile_Container">
+                <CommentSpan
+                  usage="write"
+                  onClick={() =>
+                    navigate(`/${recomment.nickname}/${recomment.memberId}`)
+                  }
+                >
+                  ⌙ {recomment.nickname} :
+                </CommentSpan>
+              </div>
+              <div className="Comment_Content_Container">
+                {isEditRecomment && recommentIdx === idx ? (
+                  <>
+                    <CommentInput
+                      width="100%"
+                      height="100px"
+                      marginLeft="1rem"
+                      defaultValue={recomment.commentContent}
+                      onChange={(e) => setEditRecomment(e.target.value)}
+                    />
+                    <CommentCommonBtn
+                      usage="edit"
+                      onClick={() => setIsEditRecomment(false)}
+                    >
+                      취소
+                    </CommentCommonBtn>
+                    <CommentCommonBtn
+                      usage="edit"
+                      onClick={() =>
+                        patchComment(recomment.commentId, editRecomment)
+                      }
+                    >
+                      완료
+                    </CommentCommonBtn>
+                  </>
+                ) : (
+                  <CommentSpan>{recomment.commentContent}</CommentSpan>
+                )}
+              </div>
               <CommentSpan usage="date">{recomment.createdAt}</CommentSpan>
               {memberId === recomment.memberId ? (
                 <div className="Comment_Manage_Container">

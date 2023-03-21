@@ -54,7 +54,7 @@ const Comment = ({
       {commentList.map((comment: CommentProps, idx) =>
         comment.parentId === null ? (
           <div className="Comment_Wrapper" key={comment.commentId}>
-            <div className="Comment_Container">
+            <div className="Comment_Box">
               <div className="Comment_Profile_Container">
                 <ProfileImage
                   src={comment.profileImageUrl}
@@ -72,12 +72,12 @@ const Comment = ({
                   {comment.nickname} :
                 </CommentSpan>
               </div>
-              <div className="Comment_content_container">
+              <div className="Comment_Content_Container">
                 {isCommentEdit && idx === commentIdx ? (
                   <>
                     <CommentInput
-                      width="30%"
-                      height="40px"
+                      width="100%"
+                      height="120px"
                       marginLeft="1rem"
                       defaultValue={comment.commentContent}
                       onChange={(e) => setCommentValue(e.target.value)}
