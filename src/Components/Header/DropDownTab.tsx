@@ -13,7 +13,7 @@ const DropDownTab = ({
 }) => {
   const [isTab, setIsTab] = useState(false);
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem("accessToken");
+
   return (
     <>
       <RxTriangleDown
@@ -32,7 +32,10 @@ const DropDownTab = ({
           </li>
           <li
             className="DropDownTab_MyBlog Menu"
-            onClick={() => navigate(`/${nickName}/${memberId}`)}
+            onClick={() => {
+              navigate(`/${nickName}/${memberId}`);
+              setIsTab(!isTab);
+            }}
           >
             내 블로그
           </li>
