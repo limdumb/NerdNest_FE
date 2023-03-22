@@ -51,8 +51,11 @@ tokenInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    if (error.response.data.message === "Access Token Expiration") {
-      const originalRequest = error.config;
+    const originalRequest = error.config;
+    if (
+      originalRequest._retry &&
+      error.response.data.message === "Access Token Expiration"
+    ) {
       const res = await axios.post("http://15.164.185.150:8080/reissue", "", {
         headers: {
           Refresh: refrashToken,
