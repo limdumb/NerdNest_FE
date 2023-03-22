@@ -1,11 +1,18 @@
+<h2>🙇‍♂️ Intro 🙇‍</h2>
+
+<h2>🙆🏻 팀원소개 🙆🏻</h2>
 <h2>🛠️ 기술스택</h2>
+<h2>🛠️ 기술스택</h2>
+
+
+<h2>🛠️ 기술스택 🛠️</h2>
 <strong>📖 Language 📖<strong>
 <p>
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=white"/>
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typeScript&logoColor=white"/>
 </p>
 
-<strong>📖 Development tool 📖<strong>
+<strong>👔 Development tool 👔<strong>
 <p>
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=white"/>
 <p>
