@@ -11,7 +11,6 @@ import { HiPlusCircle } from "react-icons/hi";
 import getBlogData from "../API/Blogs/Get/getBlogData";
 import "./Style/blogs.css";
 
-//추후 공용으로 뺄지는 상의예정
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
