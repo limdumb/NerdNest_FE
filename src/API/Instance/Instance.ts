@@ -26,7 +26,6 @@ baseInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    console.log(error.response.data.message)
     if (error.response.data.message === "Access Token Expiration") {
       const originalRequest = error.config;
       const res = await axios.post("http://15.164.185.150:8080/reissue", "", {
@@ -54,7 +53,6 @@ tokenInstance.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    console.log(error.response.data.message)
     if (
       error.response.data.message === "Access Token Expiration"
     ) {
