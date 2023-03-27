@@ -76,7 +76,7 @@ const Blogs = () => {
 
   const memberInitialValue = { profileImageUrl: "", nickName: "", about: "" };
   const blogInitialValue: BlogArrayType = {
-    nextPage: true,
+    nextPage: false,
     blogList: [],
   };
 

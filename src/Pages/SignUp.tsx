@@ -47,7 +47,6 @@ const SignUp = () => {
   const passwordRegex =
     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[a-zA-Z\d!@#$%^&*()_+]{6,10}$/;
 
-  //모든조건이 부합하는지에 대한 Boolean 값
   const allCheck = !(
     emailRegex.test(signUpValue.email) &&
     nickNameRegex.test(signUpValue.nickName) &&
@@ -56,7 +55,6 @@ const SignUp = () => {
     duplicationCheck
   );
 
-  //추후 CustomHook or Function으로 나눌에정
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSignUpValue(() => ({
       ...signUpValue,
