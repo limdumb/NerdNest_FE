@@ -9,6 +9,7 @@ import { VscFolderOpened } from "react-icons/vsc";
 import { TiPen } from "react-icons/ti";
 import { HiPlusCircle } from "react-icons/hi";
 import getBlogData from "../API/Blogs/Get/getBlogData";
+import BlogRecord from "../Components/Blogs/BlogRecord";
 import "./Style/blogs.css";
 
 //추후 공용으로 뺄지는 상의예정
@@ -67,6 +68,9 @@ export interface BlogArrayType {
     likeCount: number;
   }[];
 }
+interface RecordType {
+  blogRecord: { blogId: number; blogRecord: number }[];
+}
 
 const Blogs = () => {
   const params = useParams();
@@ -90,6 +94,17 @@ const Blogs = () => {
     `/members/${params.memberId}`,
     memberInitialValue
   );
+
+  const year = new Date().getFullYear();
+
+  const recordInitialValue: RecordType = {
+    blogRecord: [{ blogId: 0, blogRecord: 0 }],
+  };
+  const recordData = useFetch<RecordType>(
+    `/records/${params.memberId}?year=${year}`,
+    recordInitialValue
+  );
+
   const [activeCategoryId, setActiveCategoryId] = useState(0);
 
   const query = new URLSearchParams(window.location.search).get("id");
@@ -174,6 +189,11 @@ const Blogs = () => {
             isProfileEdit={isProfileEdit}
           />
         </MemberProfileWrapper>
+        <BlogRecord
+        loading={recordData.loading}
+          memberId={params.memberId}
+          blogRecord={recordData.data.blogRecord}
+        />
       </div>
       <div className="Blog_Information_Container">
         <CategoryWrapper>

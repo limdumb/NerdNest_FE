@@ -1,0 +1,12 @@
+.Blog_Record_Container {
+  width: 720px;
+  height: 101px;
+  padding-left: 2px;
+  padding-right: 2px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: black;
+}
