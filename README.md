@@ -4,7 +4,7 @@
 
 |임경인 (팀장, FE) |정세민(FE)
 :-----------------------------:|:-----------------------------:|
-|<img src='https://user-images.githubusercontent.com/99936345/228133608-5f4159f3-8640-4a60-8afc-eba7b609a9b6.png' width='150' height='160'>|<img src='https://user-images.githubusercontent.com/99936345/226788150-15e5bd2d-bb82-42e6-ba7d-3f4270bdf8c3.png' width='150' height='160'/>
+|<img src='https://user-images.githubusercontent.com/99936345/228133608-5f4159f3-8640-4a60-8afc-eba7b609a9b6.png' width='150' height='160'>|<img src='https://user-images.githubusercontent.com/99936345/228134159-9e017459-b183-4429-afaf-a49f55e8e55f.png' width='150' height='160'/>
 |<a href="https://velog.io/@limdumb"><img src="https://img.shields.io/badge/Velog-3DDC84?style=flat-square&logo=Blogger&logoColor=white"/></a> <a href="https://github.com/limdumb"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/></a>        |<a href="https://velog.io/@alsgood4007"><img src="https://img.shields.io/badge/Velog-3DDC84?style=flat-square&logo=Blogger&logoColor=white"/></a> <a href="https://github.com/MINSE97"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/></a>
 
 |나혜리 (BE) |이동우 (BE)
