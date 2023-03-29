@@ -39,8 +39,10 @@ const MemberProfileWrapper = styled(Wrapper)`
 `;
 
 const BlogRecordWrapper = styled(Wrapper)`
-  padding-top: 40px;
-  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
 `;
 
 export interface CategoryType {
@@ -189,11 +191,14 @@ const Blogs = () => {
             isProfileEdit={isProfileEdit}
           />
         </MemberProfileWrapper>
-        <BlogRecord
-        loading={recordData.loading}
-          memberId={params.memberId}
-          blogRecord={recordData.data.blogRecord}
-        />
+        <BlogRecordWrapper>
+          <BlogRecord
+            loading={recordData.loading}
+            memberId={params.memberId}
+            blogRecord={recordData.data.blogRecord}
+            year={year}
+          />
+        </BlogRecordWrapper>
       </div>
       <div className="Blog_Information_Container">
         <CategoryWrapper>

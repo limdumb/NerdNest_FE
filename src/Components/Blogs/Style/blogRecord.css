@@ -1,12 +1,39 @@
-.Blog_Record_Container {
-  width: 720px;
+.Blog_Record_Body_Container {
+  display: flex;
+  width: 100%;
+}
+
+.Blog_Record_Table_Container {
+  width: 680px;
   height: 101px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
   padding-left: 2px;
   padding-right: 2px;
   border-radius: 4px;
+}
+
+.Blog_Record_Month_Container {
+  width: 97%;
+  display: flex;
+}
+
+.Blog_Record_Month_Content {
+  font-size: var(--font-sm);
+  margin-right: 2rem;
+  font-weight: var(--fw-bold);
+}
+
+.Blog_Record_Day_Container {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  align-items: center;
-  background-color: black;
+  justify-content: space-evenly;
+  padding: 3px 0;
+}
+
+.Blog_Record_Day_Content {
+  font-size: var(--font-xs);
+  font-weight: var(--fw-bold);
 }
