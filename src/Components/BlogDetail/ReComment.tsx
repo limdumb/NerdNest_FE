@@ -41,7 +41,7 @@ const ReComment = ({
                 {isEditRecomment && recommentIdx === idx ? (
                   <>
                     <CommentInput
-                      width="100%"
+                      width="500px"
                       height="100px"
                       marginLeft="1rem"
                       defaultValue={recomment.commentContent}
