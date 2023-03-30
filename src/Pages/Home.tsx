@@ -42,15 +42,14 @@ export const BlogListContainer = styled.div`
 `;
 const Home = () => {
   const sortArr = [
-    { k_name: "추천순", e_name: "likes" },
     { k_name: "최신순", e_name: "newest" },
+    { k_name: "추천순", e_name: "likes" },
     { k_name: "내 추천", e_name: "myLike" },
   ];
   const [blogData, setBlogData] = useState<GetBlogDataProps>({
     blogList: [],
     nextPage: false,
   });
-  const [isSortActive, setIsSortActive] = useState(0);
   const [page, setPage] = useState(1);
   const [searchParams] = useSearchParams();
   const accessToken = localStorage.getItem("accessToken");
@@ -103,19 +102,17 @@ const Home = () => {
             {sortArr.map((sort, idx) => (
               <Sort
                 key={idx}
-                borderBtm={idx === isSortActive}
+                borderBtm={sort.e_name === tab}
                 onClick={() => {
                   setPage(1);
                   if (idx === 2) {
                     if (accessToken) {
                       navigate(`?tab=${sort.e_name}`);
-                      setIsSortActive(idx);
                     } else {
                       alert("로그인 후 이용해주시길 바랍니다.");
                     }
                   } else {
                     navigate(`?tab=${sort.e_name}`);
-                    setIsSortActive(idx);
                   }
                 }}
               >
