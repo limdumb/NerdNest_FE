@@ -4,8 +4,8 @@
 }
 
 .Blog_Record_Table_Container {
-  width: 680px;
-  height: 101px;
+  width: 880px;
+  height: 141px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,6 +15,15 @@
   border-radius: 4px;
 }
 
+.Blog_Record_Year_Container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+  font-weight: var(--fw-bold);
+  font-size: var(--font-xl);
+}
+
 .Blog_Record_Month_Container {
   width: 97%;
   display: flex;
@@ -22,7 +31,7 @@
 
 .Blog_Record_Month_Content {
   font-size: var(--font-sm);
-  margin-right: 2rem;
+  margin-right: 3rem;
   font-weight: var(--fw-bold);
 }
 

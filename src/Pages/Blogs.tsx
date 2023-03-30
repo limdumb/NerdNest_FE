@@ -96,7 +96,7 @@ const Blogs = () => {
     memberInitialValue
   );
 
-  const year = new Date().getFullYear();
+  const [year, setYear] = useState(new Date().getFullYear());
 
   const recordInitialValue: RecordType = {
     blogRecord: [{ blogId: 0, blogRecord: 0 }],
@@ -176,6 +176,7 @@ const Blogs = () => {
     };
   }, [blogData]);
 
+
   return (
     <BlogWrapper>
       <div className="Member_Information_Container">
@@ -196,6 +197,7 @@ const Blogs = () => {
             memberId={params.memberId}
             blogRecord={recordData.data.blogRecord}
             year={year}
+            setYear={setYear}
           />
         </BlogRecordWrapper>
       </div>
