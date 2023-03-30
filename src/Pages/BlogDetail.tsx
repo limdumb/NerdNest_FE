@@ -90,8 +90,8 @@ const BlogDetail = () => {
               <button onClick={() => navigate(`/edit/${blogId}`)}>수정</button>
               <button
                 onClick={() => {
-                  deleteBlogPost(Number(blogId));
-                  navigate("/");
+                  deleteBlogPost(blogId);
+                  navigate(-1);
                 }}
               >
                 삭제
@@ -109,7 +109,6 @@ const BlogDetail = () => {
           />
         </div>
       </div>
-      <div></div>
       <div className="Blog_Detail_Comment_Container">
         <h2>{blogData && blogData.commentCount} Comment</h2>
         <AddComment accessToken={accessToken} blogId={Number(blogId)} />

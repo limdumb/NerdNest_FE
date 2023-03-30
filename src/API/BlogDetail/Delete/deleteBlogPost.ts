@@ -1,6 +1,6 @@
 import { tokenInstance } from "../../Instance/Instance";
 
-export default function deleteBlogPost(blogId: number) {
+export default function deleteBlogPost(blogId: string | undefined) {
   if (window.confirm("정말 삭제하시겠습니까?")) {
     tokenInstance
       .delete(`/blogs/${blogId}`)
