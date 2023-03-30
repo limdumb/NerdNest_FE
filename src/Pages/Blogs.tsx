@@ -12,7 +12,6 @@ import getBlogData from "../API/Blogs/Get/getBlogData";
 import BlogRecord from "../Components/Blogs/BlogRecord";
 import "./Style/blogs.css";
 
-//추후 공용으로 뺄지는 상의예정
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -83,7 +82,7 @@ const Blogs = () => {
 
   const memberInitialValue = { profileImageUrl: "", nickName: "", about: "" };
   const blogInitialValue: BlogArrayType = {
-    nextPage: true,
+    nextPage: false,
     blogList: [],
   };
 

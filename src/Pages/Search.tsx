@@ -64,10 +64,11 @@ const Search = () => {
       <div className="Search_Wrapper">
         <div className="Search_Container">
           {<SearchInput />}
-          {searchData.blogList.length > 0 ? (
+          {searchData.blogList.length >= 0 ? (
             <div className="Search_Result_Container">
-              "{keyword}"에 대한 {searchData.blogList.length}개의 검색
-              결과입니다.
+              {keyword &&
+                `"${keyword}"에 대한 ${searchData.blogList.length}개의 검색
+              결과입니다.`}
             </div>
           ) : null}
           <BlogListContainer>
@@ -75,7 +76,7 @@ const Search = () => {
               searchData.blogList.map((post) => (
                 <BlogPost key={post.blogId} post={post} />
               ))}
-            {isLoading && searchData.blogList.length === 0 ? (
+            {keyword && searchData.blogList.length === 0 ? (
               <InvalidBlog />
             ) : null}
           </BlogListContainer>
