@@ -5,7 +5,7 @@ export default function getHomeData(
   tab: string | null,
   page: number
 ): Promise<GetBlogDataProps> {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve) => {
     let result: GetBlogDataProps = { blogList: [], nextPage: false };
     try {
       if (tab === null) {
@@ -27,7 +27,7 @@ export default function getHomeData(
         result = getHomeData.data;
       }
     } catch (err) {
-      reject(err);
+      result = { blogList: [], nextPage: false };
     }
     resolve(result);
   });

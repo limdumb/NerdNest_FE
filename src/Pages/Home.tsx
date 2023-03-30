@@ -97,54 +97,50 @@ const Home = () => {
 
   return (
     <>
-      {blogData.blogList.length === 0 ? (
-        <InvalidBlog />
-      ) : (
-        <>
-          <section className="Home_Wrapper">
-            <div className="Home_Container">
-              <ul className="Home_Sort_Container">
-                {sortArr.map((sort, idx) => (
-                  <Sort
-                    key={idx}
-                    borderBtm={idx === isSortActive}
-                    onClick={() => {
-                      setPage(1);
-                      if (idx === 2) {
-                        if (accessToken) {
-                          navigate(`?tab=${sort.e_name}`);
-                          setIsSortActive(idx);
-                        } else {
-                          alert("로그인 후 이용해주시길 바랍니다.");
-                        }
-                      } else {
-                        navigate(`?tab=${sort.e_name}`);
-                        setIsSortActive(idx);
-                      }
-                    }}
-                  >
-                    {sort.k_name}
-                  </Sort>
-                ))}
-              </ul>
-              <BlogListContainer>
-                {blogData && blogData.blogList.length !== 0
-                  ? blogData.blogList.map((post) => (
-                      <BlogPost key={post.blogId} post={post} />
-                    ))
-                  : null}
-              </BlogListContainer>
-            </div>
-          </section>
-          <div>
-            {blogData.nextPage ? (
-              <div className="Home_Loading_Container" ref={sectionRef}>
-                Loading...
-              </div>
-            ) : null}
+      <section className="Home_Wrapper">
+        <div className="Home_Container">
+          <ul className="Home_Sort_Container">
+            {sortArr.map((sort, idx) => (
+              <Sort
+                key={idx}
+                borderBtm={idx === isSortActive}
+                onClick={() => {
+                  setPage(1);
+                  if (idx === 2) {
+                    if (accessToken) {
+                      navigate(`?tab=${sort.e_name}`);
+                      setIsSortActive(idx);
+                    } else {
+                      alert("로그인 후 이용해주시길 바랍니다.");
+                    }
+                  } else {
+                    navigate(`?tab=${sort.e_name}`);
+                    setIsSortActive(idx);
+                  }
+                }}
+              >
+                {sort.k_name}
+              </Sort>
+            ))}
+          </ul>
+          <BlogListContainer>
+            {blogData && blogData.blogList.length !== 0 ? (
+              blogData.blogList.map((post) => (
+                <BlogPost key={post.blogId} post={post} />
+              ))
+            ) : (
+              <InvalidBlog />
+            )}
+          </BlogListContainer>
+        </div>
+      </section>
+      <div>
+        {blogData.nextPage ? (
+          <div className="Home_Loading_Container" ref={sectionRef}>
+            Loading...
           </div>
-        </>
-      )}
+        ) : null}
+      </div>
     </>
   );
 };
