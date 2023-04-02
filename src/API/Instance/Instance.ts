@@ -4,7 +4,7 @@ const accessToken = localStorage.getItem("accessToken");
 const refreshToken = localStorage.getItem("refreshToken");
 
 export const baseInstance = axios.create({
-  baseURL: "http://15.164.185.150:8080",
+  baseURL: "http://54.180.152.110:8080",
   timeout: 1000,
   headers: {
     "Content-Type": "application/json",
@@ -12,13 +12,26 @@ export const baseInstance = axios.create({
 });
 
 export const tokenInstance = axios.create({
-  baseURL: "http://15.164.185.150:8080",
+  baseURL: "http://54.180.152.110:8080",
   timeout: 1000,
   headers: {
     "Content-Type": "application/json",
     Authorization: accessToken,
   },
 });
+
+tokenInstance.interceptors.request.use(
+  (config) => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      config.headers.Authorization = accessToken;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 tokenInstance.interceptors.response.use(
   (response) => {
