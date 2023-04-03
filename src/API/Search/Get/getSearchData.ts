@@ -5,7 +5,7 @@ export default function getSearchData(
   keyword: string | null,
   page: number
 ): Promise<GetBlogDataProps> {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve) => {
     let result: GetBlogDataProps = { blogList: [], nextPage: false };
     try {
       const getSearchData = await baseInstance(
@@ -13,7 +13,7 @@ export default function getSearchData(
       );
       result = getSearchData.data;
     } catch (err) {
-      reject(err);
+      result = { blogList: [], nextPage: false };
     }
     resolve(result);
   });

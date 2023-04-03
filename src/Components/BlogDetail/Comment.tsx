@@ -76,7 +76,7 @@ const Comment = ({
                 {isCommentEdit && idx === commentIdx ? (
                   <>
                     <CommentInput
-                      width="100%"
+                      width="1000px"
                       height="120px"
                       marginLeft="1rem"
                       defaultValue={comment.commentContent}
