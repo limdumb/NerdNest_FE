@@ -4,7 +4,7 @@ const accessToken = localStorage.getItem("accessToken");
 const refreshToken = localStorage.getItem("refreshToken");
 
 export const baseInstance = axios.create({
-  baseURL: "http://54.180.152.110:8080",
+  baseURL: process.env.REACT_APP_DB_HOST,
   timeout: 1000,
   headers: {
     "Content-Type": "application/json",
@@ -12,7 +12,7 @@ export const baseInstance = axios.create({
 });
 
 export const tokenInstance = axios.create({
-  baseURL: "http://54.180.152.110:8080",
+  baseURL: process.env.REACT_APP_DB_HOST,
   timeout: 1000,
   headers: {
     "Content-Type": "application/json",
@@ -47,7 +47,7 @@ tokenInstance.interceptors.response.use(
       window.location.replace("/");
     }
     if (error.response.data.message === "Access Token Expiration") {
-      const res = await axios.post("http://15.164.185.150:8080/reissue", "", {
+      const res = await axios.post("/reissue", "", {
         headers: {
           Refresh: refreshToken,
         },

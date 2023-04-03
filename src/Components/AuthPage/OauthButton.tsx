@@ -2,10 +2,9 @@ import { useNavigate } from "react-router-dom";
 
 export const KakaoOauthButton = () => {
   const navigate = useNavigate();
+
   const handleKakaoLogin = async () => {
-    const kakaoLoginUrl =
-      "http://15.164.185.150:8080/oauth2/authorization/kakao";
-    window.location.href = kakaoLoginUrl;
+    window.location.href = process.env.REACT_APP_KAKAO_URL as string;
   };
 
   return (
@@ -26,9 +25,7 @@ export const KakaoOauthButton = () => {
 export const GoogleOauthButton = () => {
   const navigate = useNavigate();
   const handleGoogleLogin = async () => {
-    const googleLoginUrl =
-      "http://ec2-15-164-185-150.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google";
-    window.location.href = googleLoginUrl;
+    window.location.href = process.env.REACT_APP_GOOGLE_URL as string;
   };
   return (
     <>
