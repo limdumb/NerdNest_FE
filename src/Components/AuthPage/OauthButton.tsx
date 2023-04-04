@@ -4,7 +4,8 @@ export const KakaoOauthButton = () => {
   const navigate = useNavigate();
 
   const handleKakaoLogin = async () => {
-    const kakaoLoginUrl = `${process.env.REACT_APP_DB_HOST}/oauth2/authorization/kakao`;
+    const kakaoLoginUrl =
+      "http://15.164.185.150:8080/oauth2/authorization/kakao";
     window.location.href = kakaoLoginUrl;
   };
 
@@ -27,7 +28,7 @@ export const GoogleOauthButton = () => {
   const navigate = useNavigate();
   const handleGoogleLogin = async () => {
     const googleLoginUrl =
-      "http://ec2-54-180-152-110.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google";
+      "http://ec2-15-164-185-150.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google";
     window.location.href = googleLoginUrl;
   };
   return (
