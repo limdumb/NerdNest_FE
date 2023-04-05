@@ -1,5 +1,5 @@
 .Header_Wrapper {
-  width: 100%;
+  width: 1680px;
   height: 60px;
   border-bottom: 1px solid rgb(206, 206, 206);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09);
@@ -58,4 +58,38 @@
 
 .btn:hover {
   color: var(--fc-hv-500);
+}
+
+@media (max-width: 1024px) {
+  .Header_Wrapper {
+    width: 1024px;
+  }
+
+  .Header_Container {
+    width: 800px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .Header_Wrapper {
+    width: 1440px;
+  }
+}
+
+@media screen and (min-width: 1680px) {
+  .Header_Wrapper {
+    width: 1680px;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .Header_Wrapper {
+    width: 1920px;
+  }
+}
+
+@media screen and (min-width: 2560px) {
+  .Header_Wrapper {
+    width: 2560px;
+  }
 }

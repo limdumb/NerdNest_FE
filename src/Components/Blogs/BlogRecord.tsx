@@ -2,6 +2,9 @@ import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import styled from "styled-components";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
+import { getDayOfWeek } from "../../Function/getDayOfWeek";
+import { getTotalDaysInYear } from "../../Function/getTotalDaysInYear";
+import { calculateDateByIndex } from "../../Function/calculateDateByIndex";
 import "react-tooltip/dist/react-tooltip.css";
 import "./Style/blogRecord.css";
 
@@ -23,8 +26,11 @@ interface Props {
 
 const BlogRecord = (props: Props) => {
   const [hover, setHover] = useState(0);
-  const dateByIndex = useMemo(() => calculateDateByIndex(hover), [hover]);
-  const dayOfWeek = useMemo(() => getDayOfWeek(), [props.year]);
+  const dateByIndex = useMemo(
+    () => calculateDateByIndex(props.year, hover),
+    [hover]
+  );
+  const dayOfWeek = useMemo(() => getDayOfWeek(props.year), [props.year]);
   const TotalDays = useMemo(() => getTotalDaysInYear(props.year), [props.year]);
   const [records, setRecords] = useState(
     new Array(TotalDays).fill({ day: null }).map((_, index) => {
@@ -64,32 +70,6 @@ const BlogRecord = (props: Props) => {
     "11월",
     "12월",
   ];
-
-  function getTotalDaysInYear(year: number) {
-    if (year % 400 === 0) {
-      return 366;
-    } else if (year % 100 === 0) {
-      return 365;
-    } else if (year % 4 === 0) {
-      return 366;
-    } else {
-      return 365;
-    }
-  }
-
-  function calculateDateByIndex(index: number) {
-    const startedDate = new Date(props.year, 0, 1);
-    const delta = index * 24 * 60 * 60 * 1000;
-    const recordDate = new Date(startedDate.getTime() + delta);
-    return recordDate.toLocaleDateString();
-  }
-
-  function getDayOfWeek() {
-    const week = ["일", "월", "화", "수", "목", "금", "토"];
-    const startedDate = new Date(props.year, 0, 1);
-    const startedDay = new Date(startedDate).getDay();
-    return [...week.slice(startedDay), ...week.slice(0, startedDay)];
-  }
 
   return (
     <>
