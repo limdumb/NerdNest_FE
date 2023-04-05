@@ -1,16 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Poor+Story&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   background-color: var(--bc-300);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Poor Story", cursive;
   --blue-500: #365789;
   --blue-400: #2d7df5;
   --blue-300: #4489f1;
@@ -63,10 +59,21 @@ input {
   padding: 10px;
 }
 
-a {
+a,
+a:visited {
   text-decoration: none;
+  color: var(--fc-500);
 }
 
-a:visited {
-  color: var(--fc-500);
+textarea,
+input::placeholder {
+  font-family: "Poor Story", cursive;
+}
+
+button {
+  font-family: "Poor Story", cursive;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }

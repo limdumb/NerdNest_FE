@@ -19,6 +19,10 @@ const RootContainer = styled.div`
   width: 1200px;
   height: 100%;
   margin: 0 auto;
+
+  @media screen and (max-width: 1024px) {
+    width: 800px;
+  }
 `;
 
 function App() {
