@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { BlogArrayType } from "../../Pages/Blogs";
 import "./Style/blogPost.css";
+import { handleParams } from "../../Function/handleParams";
 
 const BlogContetnsContainer = styled.div`
   display: flex;
@@ -39,7 +40,9 @@ export default function BlogPost(props: BlogArrayType) {
               key={index}
               onClick={() =>
                 navigate(
-                  `/${params.nickName}/${params.memberId}/${post.blogTitle}/${post.blogId}`
+                  `/${params.nickName}/${params.memberId}/${handleParams(
+                    post.blogTitle
+                  )}/${post.blogId}`
                 )
               }
             >
