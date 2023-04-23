@@ -15,6 +15,7 @@ import {
   TitleWriteWrapper,
 } from "./BlogWrite";
 import "./Style/blogWrite.css";
+import { handleParams } from "../Function/handleParams";
 
 interface ExistingDataType {
   titleImageUrl: string;
@@ -143,7 +144,9 @@ const BlogWrite = () => {
                 titleImageUrl: imageResponse.imageFileUrl,
               });
               navigate(
-                `/${memberData.data.nickName}/${memberId}/${blogData.blogTitle}/${params.blogId}`
+                `/${memberData.data.nickName}/${memberId}/${handleParams(
+                  blogData.blogTitle
+                )}/${params.blogId}`
               );
             } else {
               editBlogPost({
@@ -154,7 +157,9 @@ const BlogWrite = () => {
                 titleImageUrl: blogData.titleImageUrl,
               });
               navigate(
-                `/${memberData.data.nickName}/${memberId}/${blogData.blogTitle}/${params.blogId}`
+                `/${memberData.data.nickName}/${memberId}/${handleParams(
+                  blogData.blogTitle
+                )}/${params.blogId}`
               );
             }
           }}

@@ -11,6 +11,7 @@ import postBlog from "../API/BlogWriteEdit/Post/postBlog";
 import { useNavigate } from "react-router-dom";
 import { titleImageUploader } from "../API/Blogs/Post/imageUploader";
 import "./Style/blogWrite.css";
+import { handleParams } from "../Function/handleParams";
 
 export const WriteWrapper = styled(Wrapper)`
   margin-top: 20px;
@@ -121,7 +122,9 @@ const BlogWrite = () => {
                 categoryId: categoryId,
               });
               navigate(
-                `/${memberData.data.nickName}/${memberId}/${blogData.blogTitle}/${blogResponse}`
+                `/${memberData.data.nickName}/${memberId}/${handleParams(
+                  blogData.blogTitle
+                )}/${blogResponse}`
               );
             }
             if (imageFile === null) {
@@ -132,7 +135,9 @@ const BlogWrite = () => {
                 categoryId: categoryId,
               });
               navigate(
-                `/${memberData.data.nickName}/${memberId}/${blogData.blogTitle}/${blogResponse}`
+                `/${memberData.data.nickName}/${memberId}/${handleParams(
+                  blogData.blogTitle
+                )}/${blogResponse}`
               );
             }
           }}
