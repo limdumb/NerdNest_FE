@@ -10,7 +10,7 @@
 |나혜리 (BE) |이동우 (BE)
 :-----------------------------:|:-----------------------------:|
 |<img src='https://user-images.githubusercontent.com/99936345/228133782-6025ac93-5abf-4657-a41d-17e881588242.png' width='150'>|<img src='https://user-images.githubusercontent.com/99936345/228133696-27a2dfd8-bb41-49b2-b777-330bbd6a5722.png' width='150'/>|>|                  
-|<a href="https://velog.io/@limdumb"><img src="https://img.shields.io/badge/Velog-3DDC84?style=flat-square&logo=Blogger&logoColor=white"/></a> <a href="https://github.com/limdumb"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/></a> |<a href="https://velog.io/@limdumb"><img src="https://img.shields.io/badge/Velog-3DDC84?style=flat-square&logo=Blogger&logoColor=white"/></a> <a href="https://github.com/limdumb"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/></a>  |
+|<a href="https://velog.io/@hiy7030"><img src="https://img.shields.io/badge/Velog-3DDC84?style=flat-square&logo=Blogger&logoColor=white"/></a> <a href="https://github.com/hiy7030"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/></a> |<a href="https://blog.naver.com/east_meet"><img src="https://img.shields.io/badge/Velog-3DDC84?style=flat-square&logo=Blogger&logoColor=white"/></a> <a href="https://github.com/eastmeet"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/></a>  |
 
 ## :crown: Roles & Responsibility
 
