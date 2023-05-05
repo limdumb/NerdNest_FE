@@ -4,6 +4,8 @@
 GitHub처럼 작성후 잔디를 심으면서 성취감을 생성할 수 있습니다<br>
 기본적인 블로그 기능들도 전부 가능!<br>
 프론트 2인 백앤드 2인이서 제작했습니다 :)<br>
+
+<a href="http://nerdnest.s3-website.ap-northeast-2.amazonaws.com/"><span>배포링크</span></a>
 <h2>🙆🏻 팀원소개 🙆🏻</h2>
 
 |임경인 (팀장, FE) |정세민(FE)
